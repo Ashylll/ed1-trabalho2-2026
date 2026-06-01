@@ -12,14 +12,14 @@
 typedef void* NO;
 typedef void* ITEM;
 typedef void* ARVORE;
-typedef int(*FCOMPARA)(NO n1, NO n2);
+typedef int(*FCOMPARA_NOS)(NO n1, NO n2);
 
 /// @brief cria uma árvore
 /// @param item informação contida no nó
 /// @param cmp função de comparação de dois nós
 /// @pre item e cmp não devem ser NULL
 /// @return nó criado
-ARVORE cria_arvore(ITEM item, FCOMPARA cmp);
+ARVORE cria_arvore(ITEM item, FCOMPARA_NOS cmp);
 
 /// @brief libera a memória de todos os nós da árvore
 /// @param a árvore contendo nó raiz
@@ -37,9 +37,4 @@ void insere_arvore(ARVORE a, ITEM item);
 /// @param item informação contida no nó
 /// @pre arvore e item não devem ser NULL
 /// @return nó removido
-NO remove_no(ARVORE a, ITEM item);
-
-
-
-
-
+NO remove_a(ARVORE a, ITEM item);
