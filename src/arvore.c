@@ -23,12 +23,9 @@ static No* cria_no(ITEM item){
 
     return no;
 }
-ARVORE cria_arvore(ITEM item, FCOMPARA_NOS cmp){
+ARVORE cria_arvore(FCOMPARA_NOS cmp){
     Arvore *arvore = malloc(sizeof(Arvore));
-    if (arvore){
-        arvore->raiz = cria_no(item);
-        arvore->cmp = cmp;
-    }
+    if (arvore) arvore->cmp = cmp;
 
     return arvore;
 }
@@ -41,12 +38,14 @@ static void libera_nos(No *no){
     }
 }
 
-void libera_arvore(ARVORE a){
+void libera_arvore(ARVORE *a){
     Arvore *arvore = (Arvore*)a;
     if (arvore){
         libera_nos(arvore->raiz);
         free(arvore);
     }
+
+    a = NULL;
 }
 
 static No* insere_no(No* no, ITEM item, FCOMPARA_NOS cmp){
