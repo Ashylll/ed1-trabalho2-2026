@@ -71,11 +71,25 @@ void teste_getters_forma(void){
     TEST_ASSERT_EQUAL_DOUBLE(area_linha, area_forma);
 
     libera_forma(&f);
-    CIRCULO c = cria_circulo(1, 2.2, 4.4, 0.8, "pink", "pink"); 
+    CIRCULO c = cria_circulo(1, 2.2, 4.4, 0.8, "yellow", "pink"); 
     double area_circulo = getArea_circulo(c);
     f = cria_forma('c', c);
     area_forma = getArea_forma(f);
     TEST_ASSERT_EQUAL_DOUBLE(area_circulo, area_forma);
+
+    // corb
+    char* cor_teste = getCORB_forma(f);
+    TEST_ASSERT_EQUAL_STRING("yellow", cor_teste);
+    // corp
+    cor_teste = getCORP_forma(f);
+    TEST_ASSERT_EQUAL_STRING("pink", cor_teste);
+
+    // altura
+    double altura_teste = getAltura_forma(f);
+    TEST_ASSERT_EQUAL_DOUBLE(1.6, altura_teste);    
+    // largura
+    double largura_teste = getLargura_forma(f);
+    TEST_ASSERT_EQUAL_DOUBLE(1.6, altura_teste);    
 
     libera_forma(&f);
 }
@@ -118,7 +132,7 @@ void teste_setters_forma(void){
 
     // corp
     c = cria_circulo(2, 2.2, 2.2, 2.2, "pink", "pink");
-    FORMA f = cria_forma('c', c);
+    f = cria_forma('c', c);
     
     setCORP_forma(f, "yellow");
     
