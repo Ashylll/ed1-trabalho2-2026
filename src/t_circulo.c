@@ -32,11 +32,11 @@ void teste_cria_circulo(void){
     libera_circulo(&c);
 }
 
-void teste_area_circulo(void){
+void teste_getArea_circulo(void){
     CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
 
     double area = PI * r * r; 
-    double area_retornada = area_circulo(c);
+    double area_retornada = getArea_circulo(c);
 
     TEST_ASSERT_EQUAL_DOUBLE(area, area_retornada);
 
@@ -229,7 +229,7 @@ void teste_setCORP_circulo(void){
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(teste_cria_circulo);
-    RUN_TEST(teste_area_circulo);
+    RUN_TEST(teste_getArea_circulo);
     RUN_TEST(teste_getId_circulo);
     RUN_TEST(teste_getX_circulo);
     RUN_TEST(teste_getY_circulo);

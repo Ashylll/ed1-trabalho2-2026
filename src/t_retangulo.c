@@ -37,11 +37,11 @@ void teste_cria_retangulo(void){
     libera_retangulo(&r);
 }
 
-void teste_area_retangulo(void){
+void teste_getArea_retangulo(void){
     RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
 
     double area = w * h;
-    double area_retornada = area_retangulo(r);
+    double area_retornada = getArea_retangulo(r);
 
     TEST_ASSERT_EQUAL_DOUBLE(area, area_retornada);
 
@@ -270,7 +270,7 @@ void teste_setCORP_retangulo(void){
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(teste_cria_retangulo);
-    RUN_TEST(teste_area_retangulo);
+    RUN_TEST(teste_getArea_retangulo);
     RUN_TEST(teste_getId_retangulo);
     RUN_TEST(teste_getX_retangulo);
     RUN_TEST(teste_getY_retangulo);

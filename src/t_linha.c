@@ -25,13 +25,13 @@ void teste_cria_linha(void){
     libera_linha(&l);
 }
 
-void teste_comprimento_linha(void){
+void teste_getComprimento_linha(void){
     LINHA l = cria_linha(id, x1, y1, x2, y2, cor);
     double deltaX = x2 - x1;
     double deltaY = y2 - y1;
     double comprimento = sqrt(deltaX*deltaX + deltaY*deltaY);
 
-    double comprimento_teste = comprimento_linha(l);
+    double comprimento_teste = getComprimento_linha(l);
     TEST_ASSERT_EQUAL_DOUBLE(comprimento, comprimento_teste);
     
     libera_linha(&l);
@@ -246,7 +246,7 @@ int main(void) {
     UNITY_BEGIN();
     RUN_TEST(teste_cria_linha);
     RUN_TEST(teste_getId_linha);
-    RUN_TEST(teste_comprimento_linha);
+    RUN_TEST(teste_getComprimento_linha);
     RUN_TEST(teste_getX1_linha);
     RUN_TEST(teste_getY1_linha);
     RUN_TEST(teste_getX2_linha);
