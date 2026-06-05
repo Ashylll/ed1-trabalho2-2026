@@ -32,7 +32,8 @@ void teste_cria_circulo(void){
     libera_circulo(&c);
 }
 
-void teste_getArea_circulo(void){
+void teste_getters_circulo(void){
+    // area
     CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
 
     double area = PI * r * r; 
@@ -40,12 +41,7 @@ void teste_getArea_circulo(void){
 
     TEST_ASSERT_EQUAL_DOUBLE(area, area_retornada);
 
-    libera_circulo(&c);
-}
-
-void teste_getId_circulo(void){
-    CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
-
+    // id
     int id_teste = getId_circulo(c);
 
     TEST_ASSERT_EQUAL_INT(id, id_teste);
@@ -55,12 +51,8 @@ void teste_getId_circulo(void){
     id_teste = getId_circulo(c);
 
     TEST_ASSERT_EQUAL_INT(-18, id_teste);
-    libera_circulo(&c);
-}
 
-void teste_getX_circulo(void){
-    CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
-
+    // x
     double x_teste = getX_circulo(c);
 
     TEST_ASSERT_EQUAL_DOUBLE(x, x_teste);
@@ -70,12 +62,8 @@ void teste_getX_circulo(void){
     x_teste = getX_circulo(c);
 
     TEST_ASSERT_EQUAL_DOUBLE(-8, x_teste);
-    libera_circulo(&c);
-}
 
-void teste_getY_circulo(void){
-    CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
-
+    // y
     double y_teste = getY_circulo(c);
 
     TEST_ASSERT_EQUAL_DOUBLE(y, y_teste);
@@ -85,11 +73,8 @@ void teste_getY_circulo(void){
     y_teste = getY_circulo(c);
 
     TEST_ASSERT_EQUAL_DOUBLE(-6, y_teste);
-    libera_circulo(&c);
-}
 
-void teste_getR_circulo(void){
-    CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
+    // raio
     double r_teste = getR_circulo(c);
     TEST_ASSERT_EQUAL_DOUBLE(r, r_teste);
     libera_circulo(&c);
@@ -97,11 +82,8 @@ void teste_getR_circulo(void){
     c = cria_circulo(id, x, y, 16.4, corb, corp);
     r_teste = getR_circulo(c);
     TEST_ASSERT_EQUAL_DOUBLE(16.4, r_teste);
-    libera_circulo(&c);
-}
 
-void teste_getCORB_circulo(void){
-    CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
+    // corb
     char* corb_teste = getCORB_circulo(c);
     TEST_ASSERT_EQUAL_STRING(corb, corb_teste);
     libera_circulo(&c);
@@ -109,11 +91,8 @@ void teste_getCORB_circulo(void){
     c = cria_circulo(id, x, y, r, "purple", corp);
     corb_teste = getCORB_circulo(c);
     TEST_ASSERT_EQUAL_STRING("purple", corb_teste);
-    libera_circulo(&c);
-}
 
-void teste_getCORP_circulo(void){
-    CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
+    // corp
     char* corp_teste = getCORP_circulo(c);
     TEST_ASSERT_EQUAL_STRING(corp, corp_teste);
     libera_circulo(&c);
@@ -124,7 +103,8 @@ void teste_getCORP_circulo(void){
     libera_circulo(&c);
 }
 
-void teste_setId_circulo(void){
+void teste_setters_circulo(void){
+    // id
     CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
 
     TEST_ASSERT_FALSE(setId_circulo(NULL, 2));
@@ -139,12 +119,7 @@ void teste_setId_circulo(void){
     TEST_ASSERT_TRUE(setId_circulo(c, 0));
     TEST_ASSERT_EQUAL_INT(0, getId_circulo(c));
 
-    libera_circulo(&c);
-}
-
-void teste_setX_circulo(void){
-    CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
-    
+    // x
     TEST_ASSERT_FALSE(setX_circulo(NULL, -10));
     TEST_ASSERT_EQUAL_DOUBLE(x, getX_circulo(c));
 
@@ -157,12 +132,7 @@ void teste_setX_circulo(void){
     TEST_ASSERT_TRUE(setX_circulo(c, 0));
     TEST_ASSERT_EQUAL_DOUBLE(0, getX_circulo(c));
 
-    libera_circulo(&c);
-}
-
-void teste_setY_circulo(void){
-    CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
-    
+    // y    
     TEST_ASSERT_FALSE(setY_circulo(NULL, -10));
     TEST_ASSERT_EQUAL_DOUBLE(y, getY_circulo(c));
 
@@ -175,12 +145,8 @@ void teste_setY_circulo(void){
     TEST_ASSERT_TRUE(setY_circulo(c, 0));
     TEST_ASSERT_EQUAL_DOUBLE(0, getY_circulo(c));
 
-    libera_circulo(&c);
-}
 
-void teste_setR_circulo(void){
-    CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
-    
+    // raio
     TEST_ASSERT_FALSE(setR_circulo(NULL, 2));
     TEST_ASSERT_EQUAL_DOUBLE(r, getR_circulo(c));
 
@@ -193,12 +159,7 @@ void teste_setR_circulo(void){
     TEST_ASSERT_TRUE(setR_circulo(c, 4.2));
     TEST_ASSERT_EQUAL_DOUBLE(4.2, getR_circulo(c));
 
-    libera_circulo(&c);
-}
-
-void teste_setCORB_circulo(void){
-    CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
-
+    // corb
     TEST_ASSERT_FALSE(setCORB_circulo(NULL, "blue"));
     TEST_ASSERT_EQUAL_STRING(corb, getCORB_circulo(c));
 
@@ -208,12 +169,7 @@ void teste_setCORB_circulo(void){
     TEST_ASSERT_TRUE(setCORB_circulo(c, "cyan"));
     TEST_ASSERT_EQUAL_STRING("cyan", getCORB_circulo(c));
 
-    libera_circulo(&c);
-}
-
-void teste_setCORP_circulo(void){
-    CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
-
+    // corp
     TEST_ASSERT_FALSE(setCORP_circulo(NULL, "white"));
     TEST_ASSERT_EQUAL_STRING(corp, getCORP_circulo(c));
 
@@ -229,18 +185,7 @@ void teste_setCORP_circulo(void){
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(teste_cria_circulo);
-    RUN_TEST(teste_getArea_circulo);
-    RUN_TEST(teste_getId_circulo);
-    RUN_TEST(teste_getX_circulo);
-    RUN_TEST(teste_getY_circulo);
-    RUN_TEST(teste_getR_circulo);
-    RUN_TEST(teste_getCORB_circulo);
-    RUN_TEST(teste_getCORP_circulo);
-    RUN_TEST(teste_setId_circulo);
-    RUN_TEST(teste_setX_circulo);
-    RUN_TEST(teste_setY_circulo);
-    RUN_TEST(teste_setR_circulo);
-    RUN_TEST(teste_setCORB_circulo);
-    RUN_TEST(teste_setCORP_circulo);
+    RUN_TEST(teste_getters_circulo);
+    RUN_TEST(teste_setters_circulo);
     return UNITY_END();
 }

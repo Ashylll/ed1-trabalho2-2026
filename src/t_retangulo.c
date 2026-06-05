@@ -37,7 +37,8 @@ void teste_cria_retangulo(void){
     libera_retangulo(&r);
 }
 
-void teste_getArea_retangulo(void){
+void teste_getters_retangulo(void){
+    // área
     RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
 
     double area = w * h;
@@ -45,12 +46,7 @@ void teste_getArea_retangulo(void){
 
     TEST_ASSERT_EQUAL_DOUBLE(area, area_retornada);
 
-    libera_retangulo(&r);
-}
-
-void teste_getId_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
-
+    // id
     int id_teste = getId_retangulo(r);
 
     TEST_ASSERT_EQUAL_INT(id, id_teste);
@@ -60,12 +56,8 @@ void teste_getId_retangulo(void){
     id_teste = getId_retangulo(r);
 
     TEST_ASSERT_EQUAL_INT(-18, id_teste);
-    libera_retangulo(&r);
-}
 
-void teste_getX_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
-
+    // x
     double x_teste = getX_retangulo(r);
 
     TEST_ASSERT_EQUAL_DOUBLE(x, x_teste);
@@ -75,12 +67,8 @@ void teste_getX_retangulo(void){
     x_teste = getX_retangulo(r);
 
     TEST_ASSERT_EQUAL_DOUBLE(-8, x_teste);
-    libera_retangulo(&r);
-}
 
-void teste_getY_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
-
+    // y
     double y_teste = getY_retangulo(r);
 
     TEST_ASSERT_EQUAL_DOUBLE(y, y_teste);
@@ -90,12 +78,8 @@ void teste_getY_retangulo(void){
     y_teste = getY_retangulo(r);
 
     TEST_ASSERT_EQUAL_DOUBLE(-6, y_teste);
-    libera_retangulo(&r);
-}
 
-void teste_getW_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
-
+    // largura
     double w_teste = getW_retangulo(r);
 
     TEST_ASSERT_EQUAL_DOUBLE(w, w_teste);
@@ -105,12 +89,8 @@ void teste_getW_retangulo(void){
     w_teste = getW_retangulo(r);
 
     TEST_ASSERT_EQUAL_DOUBLE(4, w_teste);
-    libera_retangulo(&r);
-}
 
-void teste_getH_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
-
+    // altura
     double h_teste = getH_retangulo(r);
 
     TEST_ASSERT_EQUAL_DOUBLE(h, h_teste);
@@ -120,11 +100,8 @@ void teste_getH_retangulo(void){
     h_teste = getH_retangulo(r);
 
     TEST_ASSERT_EQUAL_DOUBLE(6, h_teste);
-    libera_retangulo(&r);
-}
 
-void teste_getCORB_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
+    // corb
     char* corb_teste = getCORB_retangulo(r);
     TEST_ASSERT_EQUAL_STRING(corb, corb_teste);
     libera_retangulo(&r);
@@ -132,11 +109,8 @@ void teste_getCORB_retangulo(void){
     r = cria_retangulo(id, x, y, w, h, "purple", corp);
     corb_teste = getCORB_retangulo(r);
     TEST_ASSERT_EQUAL_STRING("purple", corb_teste);
-    libera_retangulo(&r);
-}
 
-void teste_getCORP_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
+    // corp
     char* corp_teste = getCORP_retangulo(r);
     TEST_ASSERT_EQUAL_STRING(corp, corp_teste);
     libera_retangulo(&r);
@@ -147,7 +121,8 @@ void teste_getCORP_retangulo(void){
     libera_retangulo(&r);
 }
 
-void teste_setId_retangulo(void){
+void teste_setters_retangulo(void){
+    // id
     RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
 
     TEST_ASSERT_FALSE(setId_retangulo(NULL, 2));
@@ -162,12 +137,7 @@ void teste_setId_retangulo(void){
     TEST_ASSERT_TRUE(setId_retangulo(r, 0));
     TEST_ASSERT_EQUAL_INT(0, getId_retangulo(r));
 
-    libera_retangulo(&r);
-}
-
-void teste_setX_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
-    
+    // x
     TEST_ASSERT_FALSE(setX_retangulo(NULL, -10));
     TEST_ASSERT_EQUAL_DOUBLE(x, getX_retangulo(r));
 
@@ -180,12 +150,7 @@ void teste_setX_retangulo(void){
     TEST_ASSERT_TRUE(setX_retangulo(r, 0));
     TEST_ASSERT_EQUAL_DOUBLE(0, getX_retangulo(r));
 
-    libera_retangulo(&r);
-}
-
-void teste_setY_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
-    
+    // y
     TEST_ASSERT_FALSE(setY_retangulo(NULL, -10));
     TEST_ASSERT_EQUAL_DOUBLE(y, getY_retangulo(r));
 
@@ -198,12 +163,7 @@ void teste_setY_retangulo(void){
     TEST_ASSERT_TRUE(setY_retangulo(r, 0));
     TEST_ASSERT_EQUAL_DOUBLE(0, getY_retangulo(r));
 
-    libera_retangulo(&r);
-}
-
-void teste_setW_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
-    
+    // largura
     TEST_ASSERT_FALSE(setW_retangulo(NULL, 2));
     TEST_ASSERT_EQUAL_DOUBLE(w, getW_retangulo(r));
 
@@ -216,12 +176,7 @@ void teste_setW_retangulo(void){
     TEST_ASSERT_TRUE(setW_retangulo(r, 4.2));
     TEST_ASSERT_EQUAL_DOUBLE(4.2, getW_retangulo(r));
 
-    libera_retangulo(&r);
-}
-
-void teste_setH_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
-    
+    // altura
     TEST_ASSERT_FALSE(setH_retangulo(NULL, 2));
     TEST_ASSERT_EQUAL_DOUBLE(h, getH_retangulo(r));
 
@@ -234,12 +189,7 @@ void teste_setH_retangulo(void){
     TEST_ASSERT_TRUE(setH_retangulo(r, 4.2));
     TEST_ASSERT_EQUAL_DOUBLE(4.2, getH_retangulo(r));
 
-    libera_retangulo(&r);
-}
-
-void teste_setCORB_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
-
+    // corb
     TEST_ASSERT_FALSE(setCORB_retangulo(NULL, "blue"));
     TEST_ASSERT_EQUAL_STRING(corb, getCORB_retangulo(r));
 
@@ -249,12 +199,7 @@ void teste_setCORB_retangulo(void){
     TEST_ASSERT_TRUE(setCORB_retangulo(r, "cyan"));
     TEST_ASSERT_EQUAL_STRING("cyan", getCORB_retangulo(r));
 
-    libera_retangulo(&r);
-}
-
-void teste_setCORP_retangulo(void){
-    RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
-
+    // corp
     TEST_ASSERT_FALSE(setCORP_retangulo(NULL, "white"));
     TEST_ASSERT_EQUAL_STRING(corp, getCORP_retangulo(r));
 
@@ -270,20 +215,7 @@ void teste_setCORP_retangulo(void){
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(teste_cria_retangulo);
-    RUN_TEST(teste_getArea_retangulo);
-    RUN_TEST(teste_getId_retangulo);
-    RUN_TEST(teste_getX_retangulo);
-    RUN_TEST(teste_getY_retangulo);
-    RUN_TEST(teste_getW_retangulo);
-    RUN_TEST(teste_getH_retangulo);
-    RUN_TEST(teste_getCORB_retangulo);
-    RUN_TEST(teste_getCORP_retangulo);
-    RUN_TEST(teste_setId_retangulo);
-    RUN_TEST(teste_setX_retangulo);
-    RUN_TEST(teste_setY_retangulo);
-    RUN_TEST(teste_setW_retangulo);
-    RUN_TEST(teste_setH_retangulo);
-    RUN_TEST(teste_setCORB_retangulo);
-    RUN_TEST(teste_setCORP_retangulo);
+    RUN_TEST(teste_getters_retangulo);
+    RUN_TEST(teste_setters_retangulo);
     return UNITY_END();
 }
