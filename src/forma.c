@@ -95,6 +95,62 @@ double getArea_forma(FORMA f){
     }
 }
 
+double getLargura_forma(FORMA f){
+    if (!f) return -1;
+    char tipo = getTipo_forma(f);
+    void* hand = getHandle_forma(f);
+
+    switch (tipo){
+        case 'c': return 2 * getR_circulo(hand);
+        case 'r': return getW_retangulo(hand);
+        case 't': return strlen(getTXTO_texto(hand));
+        case 'l': return getComprimento_linha(hand);
+        default : return -2;
+    }
+}
+
+double getAltura_forma(FORMA f){
+    if (!f) return -1;
+    char tipo = getTipo_forma(f);
+    void* hand = getHandle_forma(f);
+
+    switch (tipo){
+        case 'c': return 2 * getR_circulo(hand);
+        case 'r': return getH_retangulo(hand);
+        case 't': return 10.0;
+        case 'l': return 1.5;
+        default : return -2;
+    }
+}
+
+char* getCORB_forma(FORMA f){
+    if (!f) return -1;
+    char tipo = getTipo_forma(f);
+    void* hand = getHandle_forma(f);
+
+    switch (tipo){
+        case 'c': return getCORB_circulo(hand);
+        case 'r': return getCORB_retangulo(hand);
+        case 't': return getCORB_texto(hand);
+        case 'l': return getCOR_linha(hand);
+        default : return -2;
+    }
+}
+
+char* getCORP_forma(FORMA f){
+    if (!f) return -1;
+    char tipo = getTipo_forma(f);
+    void* hand = getHandle_forma(f);
+
+    switch (tipo){
+        case 'c': return getCORP_circulo(hand);
+        case 'r': return getCORP_retangulo(hand);
+        case 't': return getCORP_texto(hand);
+        case 'l': return getCOR_linha(hand);
+        default : return -2;
+    }
+}
+
 bool setAncora_forma(FORMA f, double x, double y){
     if (!f) return false;
 

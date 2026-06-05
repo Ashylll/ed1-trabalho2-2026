@@ -54,6 +54,30 @@ bool getAncora_forma(FORMA f, double* x, double* y);
 /// @return área
 double getArea_forma(FORMA f);
 
+/// @brief retorna a largura da forma
+/// @param f forma
+/// @pre f != NULL
+/// @return largura
+double getLargura_forma(FORMA f);
+
+/// @brief retorna a altura da forma
+/// @param f forma
+/// @pre f != NULL
+/// @return altura
+double getAltura_forma(FORMA f);
+
+/// @brief retorna a cor de borda da forma
+/// @param f forma
+/// @pre f != NULL
+/// @return cor de borda
+char* getCORB_forma(FORMA f);
+
+/// @brief retorna a cor de preenchimento da forma
+/// @param f forma
+/// @pre f != NULL
+/// @return cor de preenchimento
+char* getCORP_forma(FORMA f);
+
 /* ===================== */
 
 
