@@ -124,7 +124,7 @@ double getAltura_forma(FORMA f){
 }
 
 char* getCORB_forma(FORMA f){
-    if (!f) return -1;
+    if (!f) return NULL;
     char tipo = getTipo_forma(f);
     void* hand = getHandle_forma(f);
 
@@ -133,12 +133,12 @@ char* getCORB_forma(FORMA f){
         case 'r': return getCORB_retangulo(hand);
         case 't': return getCORB_texto(hand);
         case 'l': return getCOR_linha(hand);
-        default : return -2;
+        default : return NULL;
     }
 }
 
 char* getCORP_forma(FORMA f){
-    if (!f) return -1;
+    if (!f) return NULL;
     char tipo = getTipo_forma(f);
     void* hand = getHandle_forma(f);
 
@@ -147,7 +147,7 @@ char* getCORP_forma(FORMA f){
         case 'r': return getCORP_retangulo(hand);
         case 't': return getCORP_texto(hand);
         case 'l': return getCOR_linha(hand);
-        default : return -2;
+        default : return NULL;
     }
 }
 
