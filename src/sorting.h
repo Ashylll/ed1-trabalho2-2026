@@ -20,6 +20,7 @@ void bubble_sort(FORMA vetor_formas[], int n, int k, FCOMPARA_FORMAS cmp);
     Critério default: compara coordenadas y; se empatar compara x e para segundo desempate, a área
     Critérios cor de preenchimento: compara os valores RGB da cor. Primeiro RED, depois GREEN para desempate e BLUE para segundo desempate  
 */
+
 int compara_default(FORMA f1, FORMA f2);
 int compara_area(FORMA f1, FORMA f2);
 int compara_largura(FORMA f1, FORMA f2);

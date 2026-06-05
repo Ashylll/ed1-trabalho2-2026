@@ -70,10 +70,10 @@ typedef struct RGB{
 } RGB;
 
 // A implementar...
-RGB cor_para_RGB(char* cor);
-int compara_RGB(RGB cor1, RGB cor2);
+//RGB cor_para_RGB(char* cor);
+//int compara_RGB(RGB cor1, RGB cor2);
 
-int compara_cor_preenchimento(FORMA f1, FORMA f2){
+/*int compara_cor_preenchimento(FORMA f1, FORMA f2){
     char* corp1 = getCORP_forma(f1);
     char* corp2 = getCORP_forma(f2);
 
@@ -81,4 +81,4 @@ int compara_cor_preenchimento(FORMA f1, FORMA f2){
     RGB c2 = cor_para_RGB(corp2);
 
     return compara_RGB(c1, c2);
-}
+}*/
