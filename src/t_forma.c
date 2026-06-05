@@ -49,66 +49,41 @@ void teste_cria_forma(void){
 
 }
 
-void teste_getId_forma(void){
-    LINHA l = cria_linha(-2, 2.0, 2.0, 4.0, 4.0, "pink");
-    FORMA f = cria_forma('l', l);
-
-    TEST_ASSERT_EQUAL_INT(-2, getId_forma(f));
-
-    libera_forma(&f);
-}
-
-void teste_getTipo_forma(void){
-    LINHA l = cria_linha(-2, 2.0, 2.0, 4.0, 4.0, "pink");
-    FORMA f = cria_forma('l', l);
-
-    TEST_ASSERT_EQUAL_CHAR('l', getTipo_forma(f));
-
-    libera_forma(&f);
-}
-
-void teste_getHandle_forma(void){
-    LINHA l = cria_linha(-2, 2.0, 2.0, 4.0, 4.0, "pink");
-    FORMA f = cria_forma('l', l);
-
-    TEST_ASSERT_EQUAL_PTR(l, getHandle_forma(f));
-
-    libera_forma(&f);
-}
-    
-void teste_getAncora_forma(void){
+void teste_getters_forma(void){
     LINHA l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
     FORMA f = cria_forma('l', l);
-
+    
+    TEST_ASSERT_EQUAL_INT(-2, getId_forma(f)); // id
+    TEST_ASSERT_EQUAL_CHAR('l', getTipo_forma(f)); // tipo
+    TEST_ASSERT_EQUAL_PTR(l, getHandle_forma(f)); // handle
+    
+    // âncora
     double x, y;
     getAncora_forma(f, &x, &y);
-
+    
     TEST_ASSERT_EQUAL_DOUBLE(2, x);
     TEST_ASSERT_EQUAL_DOUBLE(8, y);
-
-    libera_forma(&f);
-}
-
-void teste_getArea_forma(void){
-    LINHA l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
-    FORMA f = cria_forma('l', l);
+    
+    // área
     double area_linha = getArea_linha(l);
-
+    
     double area_forma = getArea_forma(f);
     TEST_ASSERT_EQUAL_DOUBLE(area_linha, area_forma);
-    libera_forma(&f);
 
-    CIRCULO c = cria_circulo(1, 2.2, 4.4, 0.8, "pink", "pink");
+    libera_forma(&f);
+    CIRCULO c = cria_circulo(1, 2.2, 4.4, 0.8, "pink", "pink"); 
     double area_circulo = getArea_circulo(c);
     f = cria_forma('c', c);
     area_forma = getArea_forma(f);
     TEST_ASSERT_EQUAL_DOUBLE(area_circulo, area_forma);
 
-
     libera_forma(&f);
 }
 
-void teste_setAncora_forma(void){
+
+
+void teste_setters_forma(void){
+    // âncora
     LINHA l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
     FORMA f = cria_forma('l', l);
 
@@ -122,45 +97,41 @@ void teste_setAncora_forma(void){
     TEST_ASSERT_EQUAL_DOUBLE(10.4, y);
     TEST_ASSERT_EQUAL_DOUBLE(10.2 - 2 + 4, getX2_linha(l));
     TEST_ASSERT_EQUAL_DOUBLE(10.4 - 8 + 6, getY2_linha(l));
-    
     libera_forma(&f);
-}
 
-void teste_setCORB_forma(void){
+    // corb
     CIRCULO c = cria_circulo(2, 2.2, 2.2, 2.2, "pink", "pink");
-    FORMA f = cria_forma('c', c);
-
+    f = cria_forma('c', c);
+    
     setCORB_forma(f, "yellow");
-
+    
     TEST_ASSERT_EQUAL_STRING("yellow", getCORB_circulo(c));
     libera_forma(&f);
-
-    LINHA l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
+    
+    l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
     f = cria_forma('l', l);
-
+    
     setCORB_forma(f, "purple");
-
+    
     TEST_ASSERT_EQUAL_STRING("purple", getCOR_linha(l));
-
     libera_forma(&f);
-}
 
-void teste_setCORP_forma(void){
-    CIRCULO c = cria_circulo(2, 2.2, 2.2, 2.2, "pink", "pink");
+    // corp
+    c = cria_circulo(2, 2.2, 2.2, 2.2, "pink", "pink");
     FORMA f = cria_forma('c', c);
     
     setCORP_forma(f, "yellow");
-
+    
     TEST_ASSERT_EQUAL_STRING("yellow", getCORP_circulo(c));
     libera_forma(&f);
-
-    LINHA l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
+    
+    l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
     f = cria_forma('l', l);
-
+    
     setCORP_forma(f, "purple");
-
+    
     TEST_ASSERT_EQUAL_STRING("pink", getCOR_linha(l));
-
+    
     libera_forma(&f);
 }
 
@@ -230,14 +201,8 @@ void teste_sobrepoe_retangulo(void){
 int main(void){
     UNITY_BEGIN();
     RUN_TEST(teste_cria_forma);
-    RUN_TEST(teste_getId_forma);
-    RUN_TEST(teste_getTipo_forma);
-    RUN_TEST(teste_getHandle_forma);
-    RUN_TEST(teste_getAncora_forma);
-    RUN_TEST(teste_getArea_forma);
-    RUN_TEST(teste_setAncora_forma);
-    RUN_TEST(teste_setCORB_forma);
-    RUN_TEST(teste_setCORP_forma);
+    RUN_TEST(teste_getters_forma);
+    RUN_TEST(teste_setters_forma);
     RUN_TEST(teste_desloca_forma);
     RUN_TEST(teste_reporta_forma);
     RUN_TEST(teste_sobrepoe_retangulo);
