@@ -37,7 +37,7 @@ RETANGULO cria_retangulo(int id, double x, double y, double w, double h, const c
 /// @param r retângulo
 /// @pre r != NULL
 /// @return área
-double area_retangulo(RETANGULO r);
+double getArea_retangulo(RETANGULO r);
 
 /// @brief libera a memória do retângulo
 /// @param r ponteiro para handle do retângulo

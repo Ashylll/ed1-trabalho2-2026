@@ -81,6 +81,20 @@ bool getAncora_forma(FORMA f, double *x, double *y){
     return true;
 }
 
+double getArea_forma(FORMA f){
+    if (!f) return -1;
+    char tipo = getTipo_forma(f);
+    void* hand = getHandle_forma(f);
+
+    switch (tipo){
+        case 'c': return getArea_circulo(hand);
+        case 'r': return getArea_retangulo(hand);
+        case 't': return getArea_texto(hand);
+        case 'l': return getArea_linha(hand);
+        default: return -1;
+    }
+}
+
 bool setAncora_forma(FORMA f, double x, double y){
     if (!f) return false;
 
@@ -399,4 +413,19 @@ bool sobrepoe_retangulo(FORMA r, FORMA b){
     }
 
     return false;
+}
+
+int compara_formas(FORMA f1, FORMA f2){
+    double x1, y1, x2, y2;
+    getAncora_forma(f1, &x1, &y1);
+    getAncora_forma(f2, &x2, &y2);
+
+    if (y1 != y2) return (y1 > y2) ? 1 : -1;
+    if (x1 != x2) return (x1 > x2) ? 1 : -1;
+
+    double area1 = getArea_forma(f1);
+    double area2 = getArea_forma(f2);
+    if (area1 != area2) return (area1 > area2) ? 1 : -1;
+
+    return 0;
 }

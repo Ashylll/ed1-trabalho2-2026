@@ -40,7 +40,7 @@ CIRCULO cria_circulo(int id, double x, double y, double r, const char *corb, con
     return circulo;
 }
 
-double area_circulo(CIRCULO c){
+double getArea_circulo(CIRCULO c){
     assert (c != NULL);
     stCirculo *circulo = (stCirculo*)c;
 

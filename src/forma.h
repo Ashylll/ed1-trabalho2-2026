@@ -41,17 +41,24 @@ char getTipo_forma(FORMA f);
 /// @return handle
 void* getHandle_forma(FORMA f);
 
-/* ===================== */
-
-
-/* === Operações set === */
-
 /// @brief lê as coordenadas (x,y) da âncora da forma
 /// @param f forma
 /// @param x ponteiro para saída da coordenada x
 /// @param y ponteiro para saída da coordenada y
 /// @return true se a operação foi bem sucedida; false se f == NULL
 bool getAncora_forma(FORMA f, double* x, double* y);
+
+/// @brief retorna a área da forma
+/// @param f forma
+/// @pre f != NULL
+/// @return área
+double getArea_forma(FORMA f);
+
+/* ===================== */
+
+
+/* === Operações set === */
+
 
 /// @brief atribui coordenadas (x,y) da forma
 /// @param f forma
@@ -89,5 +96,7 @@ void reporta_forma(FORMA f, FILE *arquivoTxt);
 /// @param b forma (círculo, retângulo, linha, texto)
 /// @return true se há sobreposição; false se não 
 bool sobrepoe_retangulo(FORMA r, FORMA b);
+
+int compara_formas(FORMA f1, FORMA f2);
 
 #endif

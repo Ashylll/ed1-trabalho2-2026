@@ -148,6 +148,13 @@ char* getTXTO_texto(TEXTO t){
     return texto->txto;
 }
 
+double getArea_texto(TEXTO t){
+    char* texto = getTXTO_texto(t);
+    int comprimento = strlen(texto);
+
+    return 10 * comprimento;    
+}
+
 bool setId_texto(TEXTO t, int id){
     if (!t) return false;
 

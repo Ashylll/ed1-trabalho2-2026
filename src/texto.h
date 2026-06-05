@@ -89,6 +89,12 @@ char getA_texto(TEXTO t);
 /// @return ponteiro para string com txto (apenas leitura)
 char* getTXTO_texto(TEXTO t);
 
+/// @brief retorna a área do texto
+/// @param t texto
+/// @pre t != NULL
+/// @return área
+double getArea_texto(TEXTO t);
+
 /* ===================== */
 
 /* === Operações set === */

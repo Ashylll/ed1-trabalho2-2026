@@ -34,7 +34,7 @@ LINHA cria_linha(int id, double x1, double y1, double x2, double y2, const char*
     return linha;
 }
 
-double comprimento_linha(LINHA l){
+double getComprimento_linha(LINHA l){
     if (!l) return -1;
     stLinha *linha = (stLinha*)l;
 
@@ -94,6 +94,11 @@ char* getCOR_linha(LINHA l){
     return linha->cor;
 }
 
+double getArea_lnha(LINHA l){
+    double comprimento = getComprimento_linha(l);
+
+    return 1.5 * comprimento;
+}
 
 // Funções set
 

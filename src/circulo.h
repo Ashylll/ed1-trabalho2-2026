@@ -37,7 +37,7 @@ CIRCULO cria_circulo(int id, double x, double y, double r, const char* corb, con
 /// @param c círculo
 /// @pre c != NULL
 /// @return área
-double area_circulo(CIRCULO c);
+double getArea_circulo(CIRCULO c);
 
 /// @brief libera a memória do círculo
 /// @pre c != NULL

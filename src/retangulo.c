@@ -39,7 +39,7 @@ RETANGULO cria_retangulo(int id, double x, double y, double w, double h, const c
     return retangulo;
 }
 
-double area_retangulo(RETANGULO r){
+double getArea_retangulo(RETANGULO r){
     if(!r) return -1;
     stRetangulo *retangulo = (stRetangulo*)r;
 
