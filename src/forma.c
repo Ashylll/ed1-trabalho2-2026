@@ -91,7 +91,7 @@ double getArea_forma(FORMA f){
         case 'r': return getArea_retangulo(hand);
         case 't': return getArea_texto(hand);
         case 'l': return getArea_linha(hand);
-        default: return -1;
+        default: return -2;
     }
 }
 

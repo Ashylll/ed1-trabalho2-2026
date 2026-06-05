@@ -94,7 +94,7 @@ char* getCOR_linha(LINHA l){
     return linha->cor;
 }
 
-double getArea_lnha(LINHA l){
+double getArea_linha(LINHA l){
     double comprimento = getComprimento_linha(l);
 
     return 1.5 * comprimento;

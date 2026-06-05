@@ -124,6 +124,15 @@ void teste_getCOR_linha(void){
     libera_linha(&l);
 }
 
+void teste_getArea_linha(void){
+    LINHA l = cria_linha(id, x1, y1, x2, y2, cor);
+    double area = 1.5 * getComprimento_linha(l);
+    double area_teste = getArea_linha(l);
+
+    TEST_ASSERT_EQUAL_DOUBLE(area, area_teste);
+
+    libera_linha(&l);
+}
 void teste_setId_linha(void){
     LINHA l = cria_linha(id, x1, y1, x2, y2, cor);
 
@@ -252,6 +261,7 @@ int main(void) {
     RUN_TEST(teste_getX2_linha);
     RUN_TEST(teste_getY2_linha);
     RUN_TEST(teste_getCOR_linha);
+    RUN_TEST(teste_getArea_linha);
     RUN_TEST(teste_setId_linha);
     RUN_TEST(teste_setX1_linha);
     RUN_TEST(teste_setY1_linha);

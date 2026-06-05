@@ -142,6 +142,20 @@ void teste_getTXTO_texto(void){
     libera_texto(&t);
 }
 
+void teste_getArea_texto(void){
+    TEXTO t = cria_texto(id, x, y, corb, corp, a, txto);
+
+    double area_teste = getArea_texto(t);
+    TEST_ASSERT_EQUAL_DOUBLE(30.0, area_teste);
+    libera_texto(&t);
+    
+    t = cria_texto(id, x, y, corb, corp, a, "cinco");
+    area_teste = getArea_texto(t);
+    TEST_ASSERT_EQUAL_DOUBLE(50.0, area_teste);
+
+    libera_texto(&t);
+}
+
 void teste_setId_texto(void){
     TEXTO t = cria_texto(id, x, y, corb, corp, a, txto);
 
@@ -337,6 +351,7 @@ int main(void) {
     RUN_TEST(teste_getCORP_texto);
     RUN_TEST(teste_getA_texto);
     RUN_TEST(teste_getTXTO_texto);
+    RUN_TEST(teste_getArea_texto);
     RUN_TEST(teste_setId_texto);
     RUN_TEST(teste_setX_texto);
     RUN_TEST(teste_setY_texto);
