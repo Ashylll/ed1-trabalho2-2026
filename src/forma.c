@@ -470,18 +470,3 @@ bool sobrepoe_retangulo(FORMA r, FORMA b){
 
     return false;
 }
-
-int compara_formas(FORMA f1, FORMA f2){
-    double x1, y1, x2, y2;
-    getAncora_forma(f1, &x1, &y1);
-    getAncora_forma(f2, &x2, &y2);
-
-    if (y1 != y2) return (y1 > y2) ? 1 : -1;
-    if (x1 != x2) return (x1 > x2) ? 1 : -1;
-
-    double area1 = getArea_forma(f1);
-    double area2 = getArea_forma(f2);
-    if (area1 != area2) return (area1 > area2) ? 1 : -1;
-
-    return 0;
-}

@@ -121,12 +121,4 @@ void reporta_forma(FORMA f, FILE *arquivoTxt);
 /// @return true se há sobreposição; false se não 
 bool sobrepoe_retangulo(FORMA r, FORMA b);
 
-/// @brief checa se a primeira forma é maior, menor ou igual à segunda segundo o critério "default"
-/// @details compara coordenadas y; se necessário, utiliza x para primeiro desempate e área para segundo desempate
-/// @param f1 primeira forma
-/// @param f2 segunda forma
-/// @pre f1 != NULL && f2 != NULL
-/// @return -1 se menor, 0 se igual, 1 se maior
-int compara_formas(FORMA f1, FORMA f2);
-
 #endif

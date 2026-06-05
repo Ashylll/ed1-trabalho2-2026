@@ -227,26 +227,6 @@ void teste_sobrepoe_retangulo(void){
     libera_forma(&fT);
 }
 
-void  teste_compara_formas(void){
-    RETANGULO r = cria_retangulo(1, 4.0, 0.0, 10.0, 10.0, "black", "white");
-    LINHA l = cria_linha(3, 6.0, 2.0, 6.0, 6.0, "green");
-    FORMA f1 = cria_forma('r', r);
-    FORMA f2 = cria_forma('l', l);
-    int result = compara_formas(f1, f2);
-
-    TEST_ASSERT_EQUAL_INT(result, -1);
-    setY_retangulo(r, 5.0);
-
-    result = compara_formas(f1, f2);
-    TEST_ASSERT_EQUAL_INT(result, 1);
-    setY1_linha(l, 4.0);
-
-    result = compara_formas(f1, f2);
-    TEST_ASSERT_EQUAL_INT(result, 1);
-
-
-    libera_forma(&f1); libera_forma(&f2);
-}
 int main(void){
     UNITY_BEGIN();
     RUN_TEST(teste_cria_forma);
@@ -261,6 +241,5 @@ int main(void){
     RUN_TEST(teste_desloca_forma);
     RUN_TEST(teste_reporta_forma);
     RUN_TEST(teste_sobrepoe_retangulo);
-    RUN_TEST(teste_compara_formas);
     return UNITY_END();
 }
