@@ -59,6 +59,7 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
+    // A implementar leitura e escreve...
     leitura_geo(fp_geo, formas);
     escreve_svg(out_svg_geo, formas); // Gera SVG inicial
     fclose(fp_geo);
