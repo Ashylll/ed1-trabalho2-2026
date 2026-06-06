@@ -25,6 +25,7 @@ static No* cria_no(FORMA forma){
     return no;
 }
 ARVORE cria_arvore(FCOMPARA_NOS cmp){
+    if (!cmp) return NULL;
     Arvore *arvore = malloc(sizeof(Arvore));
     if (arvore) arvore->cmp = cmp;
 
@@ -66,18 +67,27 @@ void insere_arvore(ARVORE a, FORMA forma) {
     arvore->raiz = insere_no(arvore->raiz, forma, arvore->cmp);
 }
 
-static No* encontra_menor(No* raiz){
+NO encontra_menor(NO inicio){
+    No* raiz = (No*)inicio;
     while (raiz && raiz->esq){
         raiz = raiz->esq;
     }
     return raiz;
 }
 
-static No* encontra_maior(No* raiz){
+NO encontra_maior(NO inicio){
+    No* raiz = (No*)inicio;
+
     while (raiz && raiz->dir){
         raiz = raiz->dir;
     }
     return raiz;
+}
+
+NO getRaiz_arvore(ARVORE a){
+    if (!a) return NULL;
+    Arvore *arvore = (Arvore*)a;
+    return arvore->raiz;
 }
 
 static No* remove_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
