@@ -3,6 +3,7 @@
 #endif
 
 #include <stdlib.h>
+#include <stdio.h>
 
 /*
     arvore.h
@@ -43,3 +44,9 @@ void remove_arvore(ARVORE a, FORMA forma);
 /// @pre a != NULL
 /// @return quantidade de nós
 int getTamanho_arvore(ARVORE a);
+
+/// @brief escreve as formas contidas na árvore em um arquivo .svg
+/// @param fp arquivo .svg aberto em modo escrita
+/// @pre fp != NULL && a != NULL
+/// @param a árvore 
+void escreve_arvore_svg(FILE* fp, ARVORE a);

@@ -119,7 +119,6 @@ void remove_arvore(ARVORE a, FORMA forma){
     arvore->raiz = remove_no(arvore->raiz, forma, arvore->cmp);
 }
 
-
 static No* getRaiz_arvore(ARVORE a){
     if (!a) return NULL;
     Arvore *arvore = (Arvore*)a;
@@ -136,4 +135,16 @@ static int getTamanho(No* raiz){
 int getTamanho_arvore(ARVORE a){
     if (!a) return -1;
     return getTamanho(getRaiz_arvore(a));
+}
+
+static void escreve_no_svg(FILE* fp, No* raiz){
+    if (!raiz) return;
+
+    escreve_forma_svg(fp, raiz->forma);
+    escreve_no_svg(fp, raiz->esq);
+    escreve_no_svg(fp, raiz->dir);
+}
+
+void escreve_arvore_svg(FILE* fp, ARVORE a){
+    escreve_no_svg(fp, getRaiz_arvore(a));
 }

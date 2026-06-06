@@ -42,6 +42,99 @@ void libera_forma(FORMA *f){
     *f = NULL;
 }
 
+void escreve_forma_svg(FILE *fp, FORMA f){
+    if (!fp || !f) return;
+
+    char tipo = getTipo_forma(f);
+    void *hand = getHandle_forma(f);
+
+    switch (tipo){
+        case 'c': { 
+            double x = getX_circulo(hand);
+            double y = getY_circulo(hand);
+            double r = getR_circulo(hand);
+            const char *corb = getCORB_circulo(hand);
+            const char *corp = getCORP_circulo(hand);
+
+            double opacidade = 0.6;
+
+            fprintf(fp,
+            "<circle style=\"fill:%s;fill-opacity:%.1f;stroke:%s;stroke-width:1.0\" r=\"%.2f\" cy=\"%.2f\" cx=\"%.2f\" />\n", corp, opacidade, corb, r, y, x);
+
+            break;
+        }
+
+        case 'r': { 
+            double x = getX_retangulo(hand);
+            double y = getY_retangulo(hand);
+            double w = getW_retangulo(hand);
+            double h = getH_retangulo(hand);
+            const char *corb = getCORB_retangulo(hand);
+            const char *corp = getCORP_retangulo(hand);
+
+            double opacidade = 0.6;
+
+            if (getId_retangulo(hand) == -1){
+                fprintf(fp,
+            "<rect style=\"fill:%s;fill-opacity:%.1f;stroke:%s;stroke-dasharray:5;stroke-width:1.0\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" />\n"
+            , corp, opacidade, corb, x, y, w, h);
+            } else {
+                fprintf(fp,
+            "<rect style=\"fill:%s;fill-opacity:%.1f;stroke:%s;stroke-width:1.0\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" />\n"
+            , corp, opacidade, corb, x, y, w, h);
+            }
+
+            break;
+        }
+
+        case 'l': {
+            double x1 = getX1_linha(hand);
+            double y1 = getY1_linha(hand);
+            double x2 = getX2_linha(hand);
+            double y2 = getY2_linha(hand);
+            const char *cor = getCOR_linha(hand);
+
+            double opacidade = 0.8;
+
+            fprintf(fp,
+            "<line style=\"stroke:%s;stroke-width:2.0;stroke-opacity:%.1f\" x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" />\n", cor, opacidade, x1, y1, x2, y2);
+
+            break;
+        }
+
+        case 't': {
+            double x = getX_texto(hand);
+            double y = getY_texto(hand);
+            const char *corb = getCORB_texto(hand);  
+            const char *corp = getCORP_texto(hand);   
+            const char *txto = getTXTO_texto(hand);   
+            const char *family = getFFamily_texto(hand);
+            const char *weight = getFWeight_texto(hand);
+            const char a = getA_texto(hand);
+            const char *ancora;
+            switch (a){
+                case 'i': ancora = "start"; break;
+                case 'm': ancora = "middle"; break;
+                case 'f': ancora = "end"; break;
+            }
+            int size = getFSize_texto(hand);
+
+            double opacidade = 1.0;
+
+            fprintf(fp,
+                "<text style=\"text-anchor:%s;alignment-baseline:central;fill:%s;fill-opacity:%.1f;stroke:%s;stroke-width:0.7;"
+                "font-family:%s;font-weight:%s;font-size:%dpx;line-height:0%%\" "
+                "x=\"%.2f\" y=\"%.2f\">%s</text>\n", ancora, corp, opacidade, corb, family, weight, size, x, y, txto);
+                
+                break;
+        }
+
+        default:
+            fprintf(stderr, "[escreve_forma_svg] tipo desconhecido: %c\n", tipo);
+            break;
+    }
+}
+
 int getId_forma(FORMA f){
     stForma *forma = (stForma*)f;
 

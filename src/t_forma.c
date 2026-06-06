@@ -7,6 +7,7 @@
 #include "unity.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 void setUp(void) {}
 void tearDown(void) {}
@@ -31,7 +32,6 @@ void teste_cria_libera_forma(void){
     libera_forma(&f);
 
     LINHA l = cria_linha(2, 2.0, 2.0, 4.0, 4.0, "pink");
-    if(!l) printf("dfa\n");
     f = cria_forma('l', l);
     TEST_ASSERT_NOT_NULL(f);
     TEST_ASSERT_EQUAL_CHAR('l', getTipo_forma(f));
@@ -46,6 +46,53 @@ void teste_cria_libera_forma(void){
 
     libera_forma(&f);
     TEST_ASSERT_NULL(f);
+
+}
+
+void teste_escreve_forma_svg(void){
+    char* path_out_teste = "teste_escrita.svg";
+    FILE* fp_svg = fopen(path_out_teste, "w");
+    
+    TEXTO t = cria_texto(3, 4.2, 4.4, "pink", "pink", 'm', "rosa");
+    RETANGULO r = cria_retangulo(1, 2.2, 4.4, 2.2, 2.2, "pink", "pink");
+    LINHA l = cria_linha(2, 2.0, 2.0, 4.0, 4.0, "pink");
+    CIRCULO c = cria_circulo(0, 2.2, 4.4, 2, "pink", "pink");
+    FORMA f1 = cria_forma('t', t);
+    FORMA f2 = cria_forma('r', r);
+    FORMA f3 = cria_forma('l', l);
+    FORMA f4 = cria_forma('c', c);
+    escreve_forma_svg(fp_svg, f1);
+    escreve_forma_svg(fp_svg, f2);
+    escreve_forma_svg(fp_svg, f3);
+    escreve_forma_svg(fp_svg, f4);
+
+    fclose(fp_svg);
+
+    FILE *checa = fopen(path_out_teste, "r");
+    TEST_ASSERT_NOT_NULL(checa);
+
+    char linha[256];
+    bool tem_circulo = false;
+    bool tem_retangulo = false;
+    bool tem_texto = false;
+    bool tem_linha = false;
+    while (fgets(linha, sizeof(linha), checa)) {
+        if (strstr(linha, "<circle")) tem_circulo = true;
+        if (strstr(linha, "<rect")) tem_retangulo = true;
+        if (strstr(linha, "<text")) tem_texto = true;
+        if (strstr(linha, "<line")) tem_linha = true;
+    }
+
+    TEST_ASSERT_TRUE(tem_circulo);
+    TEST_ASSERT_TRUE(tem_retangulo);
+    TEST_ASSERT_TRUE(tem_texto);
+    TEST_ASSERT_TRUE(tem_linha);
+
+    fclose(checa);
+    libera_forma(&f1);
+    libera_forma(&f2);
+    libera_forma(&f3);
+    libera_forma(&f4);
 
 }
 
@@ -215,6 +262,7 @@ void teste_sobrepoe_retangulo(void){
 int main(void){
     UNITY_BEGIN();
     RUN_TEST(teste_cria_libera_forma);
+    RUN_TEST(teste_escreve_forma_svg);
     RUN_TEST(teste_getters_forma);
     RUN_TEST(teste_setters_forma);
     RUN_TEST(teste_desloca_forma);

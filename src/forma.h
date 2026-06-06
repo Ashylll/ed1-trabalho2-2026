@@ -22,6 +22,8 @@ FORMA cria_forma(char tipo, void* handle);
 /// @param f ponteiro para handle FORMA
 void libera_forma(FORMA *f);
 
+void escreve_forma_svg(FILE *fp, FORMA f);
+
 /* === Operações get === */
 
 /// @brief retorna o identificador da forma
