@@ -4,8 +4,8 @@
 
 typedef struct No {
     FORMA forma;
-    No *esq;
-    No *dir;
+    struct No *esq;
+    struct No *dir;
 } No;
 
 typedef struct Arvore {
@@ -67,6 +67,19 @@ void insere_arvore(ARVORE a, FORMA forma) {
     arvore->raiz = insere_no(arvore->raiz, forma, arvore->cmp);
 }
 
+static No* encontra_menor(No* raiz){ 
+    while (raiz && raiz->esq){
+        raiz = raiz->esq;
+    }
+    return raiz;
+}
+
+static No* encontra_maior(No* raiz){
+    while (raiz && raiz->dir){
+        raiz = raiz->dir;
+    }
+    return raiz;
+}
 
 static No* remove_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
     if (!no){
@@ -102,19 +115,6 @@ void remove_arvore(ARVORE a, FORMA forma){
     remove_no(arvore->raiz, forma, arvore->cmp);
 }
 
-static No* encontra_menor(No* raiz){ 
-    while (raiz && raiz->esq){
-        raiz = raiz->esq;
-    }
-    return raiz;
-}
-
-static No* encontra_maior(No* raiz){
-    while (raiz && raiz->dir){
-        raiz = raiz->dir;
-    }
-    return raiz;
-}
 
 static No* getRaiz_arvore(ARVORE a){
     if (!a) return NULL;
