@@ -26,3 +26,9 @@ int compara_area(FORMA f1, FORMA f2);
 int compara_largura(FORMA f1, FORMA f2);
 int compara_altura(FORMA f1, FORMA f2);
 int compara_cor_preenchimento(FORMA f1, FORMA f2);
+
+/// @brief 
+/// @param f1 
+/// @param retangulo_selecao 
+/// @return 
+int dentro_selecao(FORMA f, FORMA retangulo_selecao);

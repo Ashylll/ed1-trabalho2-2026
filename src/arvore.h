@@ -10,10 +10,9 @@
 
 */
 
-typedef void* NO;
-typedef void* FORMA;
-typedef void* ARVORE;
+typedef void *NO, *FORMA, *ARVORE;
 typedef int(*FCOMPARA_NOS)(NO n1, NO n2);
+
 
 /// @brief cria uma árvore
 /// @param cmp função de comparação de dois nós
@@ -50,3 +49,5 @@ int getTamanho_arvore(ARVORE a);
 /// @pre fp != NULL && a != NULL
 /// @param a árvore 
 void escreve_arvore_svg(FILE* fp, ARVORE a);
+
+void formas_selecionadas_para_vetor(NO raiz, FORMA retangulo_selecao, FORMA vet[], int *n);

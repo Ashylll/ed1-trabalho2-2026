@@ -82,3 +82,49 @@ typedef struct RGB{
 
     return compara_RGB(c1, c2);
 }*/
+
+static inline bool ponto_no_retangulo(double x, double y, double xR, double yR, double w, double h){
+    const double eps = 1e-9;
+    return (xR - eps <= x && x <= xR + w + eps) && (yR - eps <= y && y <= yR + h + eps);
+}
+
+int dentro_selecao(FORMA f, FORMA retangulo_selecao){\
+    double xf, yf, hf, wf;
+    getAncora_forma(f, &xf, &yf);
+    hf = getAltura_forma(f);
+    wf = getLargura_forma(f);
+
+    double xs, ys, hs, ws;
+    getAncora_forma(retangulo_selecao, &xs, &ys);
+    hs = getAltura_forma(retangulo_selecao);
+    ws = getLargura_forma(retangulo_selecao);
+
+    switch (getTipo_forma(f)){
+        case 'c':
+            if (
+            ponto_no_retangulo(xf + wf/2, yf, xs, ys, ws, hs) &&
+            ponto_no_retangulo(xf - wf/2, yf, xs, ys, ws, hs) && 
+            ponto_no_retangulo(xf, yf + hf/2, xs, ys, ws, hs) &&
+            ponto_no_retangulo(xf, yf - hf/2, xs, ys, ws, hs)
+            )
+            return 1;
+            else return 0;
+
+        case 'r':
+            if (ponto_no_retangulo(xf, yf, xs, ys, ws, hs) && ponto_no_retangulo(xf + wf, yf + hf, xs, ys, ws, hs))  
+            return 1;
+            else return 0;
+
+        case 'l':
+            if (ponto_no_retangulo(xf, yf, xs, ys, ws, hs) && ponto_no_retangulo(xf + wf, yf + wf, xs, ys, ws, hs))  
+            return 1;
+            else return 0;
+
+        case 't':
+            if (ponto_no_retangulo(xf, yf, xs, ys, ws, hs) && ponto_no_retangulo(xf + wf, yf + wf, xs, ys, ws, hs))  
+            return 1;
+            else return 0;
+
+        default: return -1;
+    }
+}

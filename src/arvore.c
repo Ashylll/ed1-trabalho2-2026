@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "arvore.h"
 #include "forma.h"
+#include "sorting.h"
 
 typedef struct No {
     FORMA forma;
@@ -148,3 +149,26 @@ static void escreve_no_svg(FILE* fp, No* raiz){
 void escreve_arvore_svg(FILE* fp, ARVORE a){
     escreve_no_svg(fp, getRaiz_arvore(a));
 }
+
+static void formas_para_vetor(No* no, FORMA retangulo_selecao, FORMA vet[], int *n) {
+    if (!no) return;
+
+    formas_para_vetor(no->esq, retangulo_selecao, vet, n);
+    formas_para_vetor(no->dir, retangulo_selecao, vet, n);
+
+    if (dentro_selecao(no->forma, retangulo_selecao)) {
+        vet[*n] = no->forma;
+        (*n)++;
+    }
+}
+
+void formas_selecionadas_para_vetor(ARVORE a, FORMA retangulo_selecao, FORMA vet[], int *n) {
+    Arvore* arvore = (Arvore*)a;
+    if (arvore && arvore->raiz) {
+        formas_para_vetor(arvore->raiz, retangulo_selecao, vet, n);
+    }
+}
+
+
+
+
