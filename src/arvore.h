@@ -55,3 +55,9 @@ NO encontra_maior(NO inicio);
 /// @pre a != NULL
 /// @return nó raiz
 NO getRaiz_arvore(ARVORE a);
+
+/// @brief retorna o tamanho da árvore
+/// @param a árvore
+/// @pre a != NULL
+/// @return quantidade de nós
+int getTamanho_arvore(ARVORE a);

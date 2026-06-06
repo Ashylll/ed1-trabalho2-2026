@@ -67,28 +67,6 @@ void insere_arvore(ARVORE a, FORMA forma) {
     arvore->raiz = insere_no(arvore->raiz, forma, arvore->cmp);
 }
 
-NO encontra_menor(NO inicio){
-    No* raiz = (No*)inicio;
-    while (raiz && raiz->esq){
-        raiz = raiz->esq;
-    }
-    return raiz;
-}
-
-NO encontra_maior(NO inicio){
-    No* raiz = (No*)inicio;
-
-    while (raiz && raiz->dir){
-        raiz = raiz->dir;
-    }
-    return raiz;
-}
-
-NO getRaiz_arvore(ARVORE a){
-    if (!a) return NULL;
-    Arvore *arvore = (Arvore*)a;
-    return arvore->raiz;
-}
 
 static No* remove_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
     if (!no){
@@ -119,7 +97,41 @@ static No* remove_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
     return no;
 }
 
+NO encontra_menor(NO inicio){
+    No* raiz = (No*)inicio;
+    while (raiz && raiz->esq){
+        raiz = raiz->esq;
+    }
+    return raiz;
+}
+
+NO encontra_maior(NO inicio){
+    No* raiz = (No*)inicio;
+
+    while (raiz && raiz->dir){
+        raiz = raiz->dir;
+    }
+    return raiz;
+}
+
+NO getRaiz_arvore(ARVORE a){
+    if (!a) return NULL;
+    Arvore *arvore = (Arvore*)a;
+    return arvore->raiz;
+}
+
 void remove_arvore(ARVORE a, FORMA forma){
     Arvore* arvore = (Arvore*)a;
     remove_no(arvore->raiz, forma, arvore->cmp);
+}
+
+static int getTamanho(No* raiz){
+    if (!raiz) return 0;
+
+    return 1 + getTamanho(raiz->esq) + getTamanho(raiz->dir);
+}
+
+int getTamanho_arvore(ARVORE a){
+    if (!a) return -1;
+    return getTamanho(getRaiz_arvore(a));
 }
