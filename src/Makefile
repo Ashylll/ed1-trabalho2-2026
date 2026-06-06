@@ -1,7 +1,7 @@
 PROJ_NAME= ted
 ALUNO= Ashley
 LIBS= -lm
-OBJETOS= main.o circulo.o retangulo.o linha.o texto.o forma.o sorting.o animacao.o
+OBJETOS= main.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o animacao.o
 
 CC=gcc
 CFLAGS= -std=c99 -fstack-protector-all -ggdb -O0 -Werror=implicit-function-declaration -I. -I./unity -DUNITY_INCLUDE_DOUBLE
@@ -27,7 +27,7 @@ sorting.o: sorting.c sorting.h forma.h
 animacao.o: animacao.c animacao.h
 
 
-TESTES = teste_circulo teste_retangulo teste_linha teste_texto teste_forma teste_sorting teste_animacao
+TESTES = teste_circulo teste_retangulo teste_linha teste_texto teste_forma teste_arvore teste_sorting teste_leitura_geo teste_animacao
 
 # Regra para compilar e rodar todos os testes 
 tstall: $(TESTES)
@@ -49,8 +49,14 @@ teste_texto: texto.o unity.o t_texto.o
 teste_forma: forma.o circulo.o retangulo.o linha.o texto.o unity.o t_forma.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
+teste_arvore: arvore.o circulo.o retangulo.o linha.o texto.o forma.o sorting.o unity.o t_arvore.o
+	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
+
 teste_sorting: sorting.o forma.o unity.o t_sorting.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS) 	
+
+teste_leitura_geo: leitura_geo.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o unity.o t_leitura_geo.o
+	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
 teste_animacao: animacao.o unity.o t_animacao.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
@@ -64,5 +70,8 @@ clean:
 run: $(PROJ_NAME)
 	./$(PROJ_NAME)
 
+memtest:
+	$(VG) ./$(T)
+	
 memcheck: $(PROJ_NAME)
 	$(VG) ./$(PROJ_NAME)
