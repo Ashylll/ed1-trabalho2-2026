@@ -24,11 +24,14 @@ static No* cria_no(FORMA forma){
 
     return no;
 }
+
 ARVORE cria_arvore(FCOMPARA_NOS cmp){
     if (!cmp) return NULL;
     Arvore *arvore = malloc(sizeof(Arvore));
-    if (arvore) arvore->cmp = cmp;
-
+    if (arvore){
+        arvore->raiz = NULL;
+        arvore->cmp = cmp;
+    }
     return arvore;
 }
 
@@ -36,18 +39,19 @@ static void libera_nos(No *no){
     if (no){
         libera_nos(no->esq);
         libera_nos(no->dir);
+        libera_forma(&no->forma);
         free(no);
     }
 }
 
 void libera_arvore(ARVORE *a){
-    Arvore *arvore = (Arvore*)a;
-    if (arvore){
-        libera_nos(arvore->raiz);
-        free(arvore);
-    }
+    if (!a || !*a) return;
+    Arvore *arvore = (Arvore*)*a;
 
-    a = NULL;
+    libera_nos(arvore->raiz);
+    free(arvore);
+
+    *a = NULL;
 }
 
 static No* insere_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
@@ -112,7 +116,7 @@ static No* remove_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
 
 void remove_arvore(ARVORE a, FORMA forma){
     Arvore* arvore = (Arvore*)a;
-    remove_no(arvore->raiz, forma, arvore->cmp);
+    arvore->raiz = remove_no(arvore->raiz, forma, arvore->cmp);
 }
 
 

@@ -30,6 +30,7 @@ void libera_forma(FORMA *f){
     stForma *forma = (stForma*)*f;
 
     void *h = forma->handle;
+    if (!h) return;
     switch (forma->tipo){
         case 'c': libera_circulo((CIRCULO*)&h); break;
         case 'r': libera_retangulo((RETANGULO*)&h); break;
