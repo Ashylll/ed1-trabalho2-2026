@@ -15,26 +15,26 @@ void teste_cria_libera_arvore(void){
     TEST_ASSERT_NOT_NULL(arvore);
 
     LINHA l1 = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
-    LINHA l2 = cria_linha(-4, 2.0, 8.0, 4.0, 6.0, "pink");
+    LINHA l2 = cria_linha(-4, 2.0, 9.0, 4.0, 6.0, "pink");
     FORMA f1 = cria_forma('l', l1);
     FORMA f2 = cria_forma('l', l2);
     insere_arvore(arvore, f1);
     insere_arvore(arvore, f2);    
 
     libera_arvore(&arvore);
-    TEST_ASSERT_NULL(l1);
-    TEST_ASSERT_NULL(l2);
     TEST_ASSERT_NULL(arvore);
 }
 
 void teste_insere_remove_tamanho_arvore(void){
     ARVORE arvore = cria_arvore(compara_default);
     
-    LINHA l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
+    LINHA l1 = cria_linha(-2, 2.0, 9.0, 4.0, 6.0, "pink");
+    LINHA l2 = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
+    LINHA l3 = cria_linha(-2, 2.0, 7.0, 4.0, 6.0, "pink");
 
-    FORMA f1 = cria_forma('l', l);
-    FORMA f2 = cria_forma('l', l);
-    FORMA f3 = cria_forma('l', l);
+    FORMA f1 = cria_forma('l', l1);
+    FORMA f2 = cria_forma('l', l2);
+    FORMA f3 = cria_forma('l', l3);
     insere_arvore(arvore, f1);
     insere_arvore(arvore, f2);
     insere_arvore(arvore, f3);
@@ -47,16 +47,12 @@ void teste_insere_remove_tamanho_arvore(void){
     remove_arvore(arvore, f3);
     TEST_ASSERT_EQUAL_INT(0, getTamanho_arvore(arvore));
     
-    libera(&arvore);
+    libera_arvore(&arvore);
 }
 
 int main(void){
     UNITY_BEGIN();
-    UNITY_RUN(teste_cria_libera_arvore);    
-    UNITY_RUN(teste_insere_remove_tamanho_arvore);
-    UNITY_RUN();
-    UNITY_RUN();
-    UNITY_RUN();
-    UNITY_RUN();
+    RUN_TEST(teste_cria_libera_arvore);    
+    RUN_TEST(teste_insere_remove_tamanho_arvore);
     return UNITY_END();
 }
