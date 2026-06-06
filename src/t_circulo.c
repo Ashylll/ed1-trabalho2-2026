@@ -13,7 +13,7 @@ void tearDown(void) {}
     char* corb = "pink";
     char* corp = "yellow";
 
-void teste_cria_circulo(void){
+void teste_cria_libera_circulo(void){
 
     CIRCULO c = cria_circulo(id, x, y, r, corb, corp);
     TEST_ASSERT_NOT_NULL(c);
@@ -184,7 +184,7 @@ void teste_setters_circulo(void){
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(teste_cria_circulo);
+    RUN_TEST(teste_cria_libera_circulo);
     RUN_TEST(teste_getters_circulo);
     RUN_TEST(teste_setters_circulo);
     return UNITY_END();

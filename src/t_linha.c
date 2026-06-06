@@ -15,7 +15,7 @@ void tearDown(void) {}
     double y2 = 2.2;
     char* cor = "pink";
 
-void teste_cria_linha(void){
+void teste_cria_libera_linha(void){
     LINHA l = cria_linha(id, x1, y1, x2, y2, cor);
     TEST_ASSERT_NOT_NULL(l);
     libera_linha(&l);
@@ -194,7 +194,7 @@ void teste_setters_linha(void){
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(teste_cria_linha);
+    RUN_TEST(teste_cria_libera_linha);
     RUN_TEST(teste_getters_linha);
     RUN_TEST(teste_setters_linha);
     return UNITY_END();

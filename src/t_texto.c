@@ -14,7 +14,7 @@ void tearDown(void) {}
     char a = 'm';
     char* txto = "Oii";
 
-void teste_cria_texto(void){
+void teste_cria_libera_texto(void){
 
     TEXTO t = cria_texto(id, x, y, corb, corp, a, txto);
     TEST_ASSERT_NOT_NULL(t);
@@ -277,7 +277,7 @@ void teste_muda_estilo(void){
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(teste_cria_texto);
+    RUN_TEST(teste_cria_libera_texto);
     RUN_TEST(teste_getters_texto);
     RUN_TEST(teste_setters_texto);
     RUN_TEST(teste_muda_estilo);

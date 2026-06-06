@@ -11,7 +11,7 @@
 void setUp(void) {}
 void tearDown(void) {}
 
-void teste_cria_forma(void){
+void teste_cria_libera_forma(void){
     CIRCULO c = cria_circulo(0, 2.2, 4.4, 2, "pink", "pink");
     FORMA f = cria_forma('a', c);
     TEST_ASSERT_NULL(f);
@@ -214,7 +214,7 @@ void teste_sobrepoe_retangulo(void){
 
 int main(void){
     UNITY_BEGIN();
-    RUN_TEST(teste_cria_forma);
+    RUN_TEST(teste_cria_libera_forma);
     RUN_TEST(teste_getters_forma);
     RUN_TEST(teste_setters_forma);
     RUN_TEST(teste_desloca_forma);

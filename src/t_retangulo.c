@@ -15,7 +15,7 @@ void tearDown(void) {}
     char* corb = "pink";
     char* corp = "yellow";
 
-void teste_cria_retangulo(void){
+void teste_cria_libera_retangulo(void){
     RETANGULO r = cria_retangulo(id, x, y, w, h, corb, corp);
     TEST_ASSERT_NOT_NULL(r);
     libera_retangulo(&r);
@@ -214,7 +214,7 @@ void teste_setters_retangulo(void){
 
 int main(void) {
     UNITY_BEGIN();
-    RUN_TEST(teste_cria_retangulo);
+    RUN_TEST(teste_cria_libera_retangulo);
     RUN_TEST(teste_getters_retangulo);
     RUN_TEST(teste_setters_retangulo);
     return UNITY_END();
