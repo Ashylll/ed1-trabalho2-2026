@@ -105,9 +105,9 @@ static bool comando_ts(const char *linha){
     double novo_size;
 
     if (sscanf(linha, "%*s %31s %7s %lf", novo_family, novo_weight, &novo_size) != 3) return false;
-
-    family = novo_family;
-    weight = converte_weight(novo_weight);
+    
+    strcpy(family, novo_family);
+    strcpy(weight, converte_weight(novo_weight));
     size = novo_size;
 
     return true;
@@ -121,17 +121,17 @@ bool leitura_geo(FILE *fp_geo, ARVORE a){
     while (fgets(linha, sizeof linha, fp_geo)){
         if(sscanf(linha, "%7s", comando) != 1) continue;
         if(comando[0] == '#') continue;
-
+    
         switch (comando[0]){
             case 'c': comando_c(linha, a); break;
             case 'r': comando_r(linha, a); break;
-            case 'l': comando_t(linha, a); break;
+            case 'l': comando_l(linha, a); break;
             case 't':
                 if (comando[1] == 's') comando_ts(linha);
                 else comando_t(linha, a); break;
             default: return false;
         }
+    }
 
     return true;
-    }
 }
