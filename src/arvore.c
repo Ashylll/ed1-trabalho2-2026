@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include "arvore.h"
+#include "forma.h"
 
 typedef struct No {
-    ITEM item;
+    FORMA forma;
     No *esq;
     No *dir;
 } No;
@@ -12,13 +13,13 @@ typedef struct Arvore {
     FCOMPARA_NOS cmp;
 } Arvore;
 
-static No* cria_no(ITEM item){
+static No* cria_no(FORMA forma){
     No *no = malloc(sizeof(No));
 
     if (no){
         no->esq = NULL;
         no->dir = NULL;
-        no->item = item;
+        no->forma = forma;
     }
 
     return no;
@@ -48,33 +49,67 @@ void libera_arvore(ARVORE *a){
     a = NULL;
 }
 
-static No* insere_no(No* no, ITEM item, FCOMPARA_NOS cmp){
+static No* insere_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
     if (!no){
-        return cria_no(item);
+        return cria_no(forma);
     }
 
-    switch (cmp(item, no->item)){
-        case -1: no->esq = insere_no(no->esq, item, cmp); break;
-        case 1: no->dir = insere_no(no->dir, item, cmp);
+    switch (cmp(forma, no->forma)){
+        case -1: no->esq = insere_no(no->esq, forma, cmp); break;
+        case 1: no->dir = insere_no(no->dir, forma, cmp);
     }
     return no;
 }
 
-void insere_arvore(ARVORE a, ITEM item) {
+void insere_arvore(ARVORE a, FORMA forma) {
     Arvore *arvore = (Arvore*)a;
-    arvore->raiz = insere_no(arvore->raiz, item, arvore->cmp);
+    arvore->raiz = insere_no(arvore->raiz, forma, arvore->cmp);
 }
 
-static No* remove_no(No* no, ITEM item, FCOMPARA_NOS cmp){
-    if (no){
-        switch (cmp(item, no->item)){
-        case -1: remove_no(no->esq, item, cmp); break;
-        case 1: remove_no(no->dir, item, cmp);
-        default:
-            if (!no->esq && !no->dir){
-                
-            }
-            break;
-        }
+static No* encontra_menor(No* raiz){
+    while (raiz && raiz->esq){
+        raiz = raiz->esq;
     }
+    return raiz;
+}
+
+static No* encontra_maior(No* raiz){
+    while (raiz && raiz->dir){
+        raiz = raiz->dir;
+    }
+    return raiz;
+}
+
+static No* remove_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
+    if (!no){
+        return no;
+    }
+    switch (cmp(forma, no->forma)){
+    case -1: no->esq = remove_no(no->esq, forma, cmp); break;
+    case 1: no-> dir = remove_no(no->dir, forma, cmp); break;
+    default:
+        if (!no->esq && !no->dir){ // folha
+            libera_forma(&no->forma);
+            free(no);
+            return NULL;
+        }
+        else if (no->esq || no->dir){ // um filho
+            No* aux = no->esq ? no->esq : no->dir;
+            libera_forma(&no->forma);   
+            free(no);
+            return aux; 
+        }
+        else { // dois filhos
+            No* aux = encontra_maior(no->esq);
+            no->forma = aux->forma;
+            no->esq = remove_no(no->esq, no->forma, cmp);
+        }
+        break;
+    }
+    return no;
+}
+
+void remove_arvore(ARVORE a, FORMA forma){
+    Arvore* arvore = (Arvore*)a;
+    remove_no(arvore->raiz, forma, arvore->cmp);
 }

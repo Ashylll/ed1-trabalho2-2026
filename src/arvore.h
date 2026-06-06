@@ -10,7 +10,7 @@
 */
 
 typedef void* NO;
-typedef void* ITEM;
+typedef void* FORMA;
 typedef void* ARVORE;
 typedef int(*FCOMPARA_NOS)(NO n1, NO n2);
 
@@ -27,14 +27,13 @@ void libera_arvore(ARVORE *a);
 
 /// @brief insere um nó na árvore
 /// @param a árvore contendo nó raiz
-/// @param item informação contida no nó
-/// @pre arvore e item não devem ser NULL
-void insere_arvore(ARVORE a, ITEM item);
+/// @param forma informação contida no nó
+/// @pre arvore e forma não devem ser NULL
+void insere_arvore(ARVORE a, FORMA forma);
 
 /// @brief remove um nó da árvore
 /// @param a árvore contendo nó raiz
-/// @param item informação contida no nó
-/// @pre arvore e item não devem ser NULL
+/// @param forma informação contida no nó
+/// @pre arvore e forma não devem ser NULL
 /// @return nó removido
-NO remove_a(ARVORE a, ITEM item);
-
+void remove_arvore(ARVORE a, FORMA forma);
