@@ -1,0 +1,138 @@
+#include "leitura_geo.h"
+#include "forma.h"
+#include "circulo.h"
+#include "retangulo.h"
+#include "linha.h"
+#include "texto.h"
+#include "arvore.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+// estilo do texto
+static char* family = "sans-serif";
+static char* weight = "normal";
+static double size = 12.0; 
+
+/* Comandos .geo */
+
+static bool comando_c(const char *linha, ARVORE a){
+    int i; 
+    double x, y, r;
+    char corb[32], corp[32];
+
+    if(sscanf(linha, "%*s %d %lf %lf %lf %31s %31s", &i, &x, &y, &r, corb, corp) != 6) return false;
+
+    CIRCULO c = cria_circulo(i, x, y, r, corb, corp);
+    if (!c) return false;
+
+    FORMA f = cria_forma('c', c);
+    insere_arvore(a, f);
+
+    return true;    
+}
+
+static bool comando_r(const char *linha, ARVORE a){
+    int i;
+    double x, y, w, h;
+    char corb[32], corp[32];
+
+    if(sscanf(linha, "%*s %d %lf %lf %lf %lf %31s %31s", &i, &x, &y, &w, &h, corb, corp) != 7) return false;
+    
+    RETANGULO r = cria_retangulo(i, x, y, w, h, corb, corp);
+    if (!r) return false;
+
+    FORMA f = cria_forma('r', r);
+    insere_arvore(a, f);
+
+    return true;
+}
+
+static bool comando_l(const char *linha, ARVORE a){
+    int i;
+    double x1, y1, x2, y2;
+    char cor[32];
+
+    if(sscanf(linha, "%*s %d %lf %lf %lf %lf %31s", &i, &x1, &y1, &x2, &y2, cor) != 6) return false;
+
+    LINHA l = NULL;
+    if (x1 != x2) l = (x1 < x2) ? cria_linha(i, x1, y1, x2, y2, cor) : cria_linha(i, x2, y2, x1, y1, cor);
+    else l = (y1 < y2) ? cria_linha(i, x1, y1, x2, y2, cor) : cria_linha(i, x2, y2, x1, y1, cor);
+
+    if (!l) return false;
+
+    FORMA f = cria_forma('l', l);
+    insere_arvore(a, f);
+
+    return true;
+
+}
+
+static bool comando_t(const char *linha, ARVORE a){
+    int i;
+    double x, y;
+    char corb[32], corp[32], ancora, txto[512];
+
+    char family[32], weight[32];
+    double size;
+
+    if(sscanf(linha, "%*s %d %lf %lf %31s %31s %c %[^\n]", &i, &x, &y, corb, corp, &ancora, txto) < 7) return false;
+    
+    TEXTO t = cria_texto(i, x, y, corb, corp, ancora, txto);
+    if (!t) return false;
+    
+    muda_estilo(t, family, weight, size);
+    FORMA f = cria_forma('t', t);
+    insere_arvore(a, f);
+    
+    return true;
+}
+
+static const char* converte_weight(const char *weight){
+    if (!weight) return "normal";
+    if (strcmp(weight, "b+") == 0) return "bolder";
+    if (strcmp(weight, "b")  == 0) return "bold";
+    if (strcmp(weight, "n")  == 0) return "normal";
+    if (strcmp(weight, "l")  == 0) return "lighter";
+    
+    return weight;
+}
+
+static bool comando_ts(const char *linha){
+    char novo_family[32], novo_weight[8];
+    double novo_size;
+
+    if (sscanf(linha, "%*s %31s %7s %lf", novo_family, novo_weight, &novo_size) != 3) return false;
+
+    const char *wt  = converte_weight(novo_weight);
+
+    family = novo_family;
+    weight = wt;
+    size = novo_size;
+
+    return true;
+}
+
+bool leitura_geo(FILE *fp_geo, ARVORE a){
+    if(!fp_geo) return false;
+
+    char linha[1024], comando[8];
+
+    while (fgets(linha, sizeof linha, fp_geo)){
+        if(sscanf(linha, "%7s", comando) != 1) continue;
+        if(comando[0] == '#') continue;
+
+        switch (comando[0]){
+            case 'c': comando_c(linha, a); break;
+            case 'r': comando_r(linha, a); break;
+            case 'l': comando_t(linha, a); break;
+            case 't':
+                if (comando[1] == 's') comando_ts(linha);
+                else comando_t(linha, a); break;
+            default: return false;
+        }
+
+    return true;
+}
