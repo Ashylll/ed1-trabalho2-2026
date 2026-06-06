@@ -90,7 +90,7 @@ static bool comando_t(const char *linha, ARVORE a){
     return true;
 }
 
-static const char* converte_weight(const char *weight){
+static char* converte_weight(char *weight){
     if (!weight) return "normal";
     if (strcmp(weight, "b+") == 0) return "bolder";
     if (strcmp(weight, "b")  == 0) return "bold";
@@ -106,10 +106,8 @@ static bool comando_ts(const char *linha){
 
     if (sscanf(linha, "%*s %31s %7s %lf", novo_family, novo_weight, &novo_size) != 3) return false;
 
-    const char *wt  = converte_weight(novo_weight);
-
     family = novo_family;
-    weight = wt;
+    weight = converte_weight(novo_weight);
     size = novo_size;
 
     return true;
@@ -135,4 +133,5 @@ bool leitura_geo(FILE *fp_geo, ARVORE a){
         }
 
     return true;
+    }
 }
