@@ -12,8 +12,8 @@
 #include <string.h>
 
 // estilo do texto
-static char* family = "sans-serif";
-static char* weight = "normal";
+static char family[32] = "sans-serif";
+static char weight[32] = "normal";
 static double size = 12.0; 
 
 /* Comandos .geo */
@@ -74,9 +74,6 @@ static bool comando_t(const char *linha, ARVORE a){
     int i;
     double x, y;
     char corb[32], corp[32], ancora, txto[512];
-
-    char family[32], weight[32];
-    double size;
 
     if(sscanf(linha, "%*s %d %lf %lf %31s %31s %c %[^\n]", &i, &x, &y, corb, corp, &ancora, txto) < 7) return false;
     
