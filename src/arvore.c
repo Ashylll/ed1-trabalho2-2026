@@ -97,33 +97,31 @@ static No* remove_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
     return no;
 }
 
-NO encontra_menor(NO inicio){
-    No* raiz = (No*)inicio;
+void remove_arvore(ARVORE a, FORMA forma){
+    Arvore* arvore = (Arvore*)a;
+    remove_no(arvore->raiz, forma, arvore->cmp);
+}
+
+static No* encontra_menor(No* raiz){ 
     while (raiz && raiz->esq){
         raiz = raiz->esq;
     }
     return raiz;
 }
 
-NO encontra_maior(NO inicio){
-    No* raiz = (No*)inicio;
-
+static No* encontra_maior(No* raiz){
     while (raiz && raiz->dir){
         raiz = raiz->dir;
     }
     return raiz;
 }
 
-NO getRaiz_arvore(ARVORE a){
+static No* getRaiz_arvore(ARVORE a){
     if (!a) return NULL;
     Arvore *arvore = (Arvore*)a;
     return arvore->raiz;
 }
 
-void remove_arvore(ARVORE a, FORMA forma){
-    Arvore* arvore = (Arvore*)a;
-    remove_no(arvore->raiz, forma, arvore->cmp);
-}
 
 static int getTamanho(No* raiz){
     if (!raiz) return 0;
