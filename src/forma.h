@@ -23,9 +23,29 @@ FORMA cria_forma(char tipo, void* handle);
 /// @param f ponteiro para handle FORMA
 void libera_forma(FORMA *f);
 
+/// @brief escreve a forma em um arquivo SVG aberto em modo escrita
+/// @param fp arquivo SVG
+/// @param f forma
+/// @pre fp != NULL && f != NULL
 void escreve_forma_svg(FILE *fp, FORMA f);
 
+/// @brief troca a posição espacial de duas formas na coordenada x
+/// @param f1 forma 1
+/// @param f2 forma 2
+/// @param distancia menor distância entre as formas
+/// @pre f1 != NULL && f2 != NULL && distancia >= 0
 void troca_posicaoX_formas(FORMA f1, FORMA f2, double distancia);
+
+/// @brief clona a forma (copia valores) com id específico para clone
+/// @param f forma original
+/// @pre f != NULL
+/// @return clone criado
+FORMA clona_forma(FORMA f);
+
+/// @brief troca as cores de borda e de preenchimento da forma
+/// @pre f != NULL
+/// @param f forma
+void troca_cores(FORMA f);
 
 /* === Operações get === */
 

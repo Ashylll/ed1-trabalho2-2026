@@ -160,7 +160,7 @@ static double getLarguraX(FORMA f){
 
 
 void troca_posicaoX_formas(FORMA f1, FORMA f2, double distancia){
-    if (!f1 || !f2) return;
+    if (!f1 || !f2 || distancia < 0) return;
 
     double x1 = getX_forma(f1);
     double x2 = getX_forma(f2);
@@ -176,6 +176,68 @@ void troca_posicaoX_formas(FORMA f1, FORMA f2, double distancia){
         setX_forma(f2, x1 - distancia - w2);
         setX_forma(f1, x2 + distancia + w1);   
     }
+}
+
+FORMA clona_forma(FORMA f){
+    if (!f) return NULL;
+    stForma *forma = (stForma*)f;
+    
+    void *hand = forma->handle;
+    int id_clone = -10;
+
+    switch (forma->tipo){
+        case 'c': {
+            double x = getX_circulo(hand);
+            double y = getY_circulo(hand);
+            double r = getR_circulo(hand);
+            const char *corb = getCORB_circulo(hand);
+            const char *corp = getCORP_circulo(hand);
+
+            return cria_forma('c',  cria_circulo(id_clone, x, y, r, corb, corp));
+        }
+
+        case 'r': {
+            double x = getX_retangulo(hand);
+            double y = getY_retangulo(hand);
+            double w = getW_retangulo(hand);
+            double h = getH_retangulo(hand);
+            const char *corb = getCORB_retangulo(hand);
+            const char *corp = getCORP_retangulo(hand);
+
+            return cria_forma('r', cria_retangulo(id_clone, x, y, w, h, corb, corp));
+        }
+
+        case 'l': {
+            double x1 = getX1_linha(hand);
+            double y1 = getY1_linha(hand);
+            double x2 = getX2_linha(hand);
+            double y2 = getY2_linha(hand);
+            const char *cor = getCOR_linha(hand);
+
+            return cria_forma('l', cria_linha(id_clone, x1, y1, x2, y2, cor));
+        }
+
+        case 't': {
+            double x = getX_texto(hand);
+            double y = getY_texto(hand);
+            const char *corb = getCORB_texto(hand);
+            const char *corp = getCORP_texto(hand);
+            char a = getA_texto(hand);
+            const char *txt = getTXTO_texto(hand);
+
+            return cria_forma('t', cria_texto(id_clone, x, y, corb, corp, a, txt));
+        }
+
+        default:
+            return NULL;
+    }
+}
+
+void troca_cores(FORMA f){
+    if (!f) return;
+
+    setCORB_forma(f, getCORP_forma(f));
+    setCORP_forma(f, getCORB_forma(f));
 }
 
 int getId_forma(FORMA f){
@@ -411,6 +473,8 @@ void setCORP_forma(FORMA f, char* corp){
             setCORP_texto(figura, corp);
             break;
         }
+        default:
+            break;
     }
     return;
 }
