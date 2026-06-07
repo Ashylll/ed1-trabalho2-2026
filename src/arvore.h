@@ -50,4 +50,4 @@ int getTamanho_arvore(ARVORE a);
 /// @param a árvore 
 void escreve_arvore_svg(FILE* fp, ARVORE a);
 
-void formas_selecionadas_para_vetor(NO raiz, FORMA retangulo_selecao, FORMA vet[], int *n);
+void formas_selecionadas_para_vetor(ARVORE a, FORMA retangulo_selecao, FORMA vet[], int *n);

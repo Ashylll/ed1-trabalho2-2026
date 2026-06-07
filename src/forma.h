@@ -45,7 +45,7 @@ FORMA clona_forma(FORMA f);
 /// @brief troca as cores de borda e de preenchimento da forma
 /// @pre f != NULL
 /// @param f forma
-void troca_cores(FORMA f);
+void troca_cores_forma(FORMA f);
 
 /* === Operações get === */
 

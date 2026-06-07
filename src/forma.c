@@ -233,7 +233,7 @@ FORMA clona_forma(FORMA f){
     }
 }
 
-void troca_cores(FORMA f){
+void troca_cores_forma(FORMA f){
     if (!f) return;
 
     setCORB_forma(f, getCORP_forma(f));

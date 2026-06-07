@@ -168,7 +168,3 @@ void formas_selecionadas_para_vetor(ARVORE a, FORMA retangulo_selecao, FORMA vet
         formas_para_vetor(arvore->raiz, retangulo_selecao, vet, n);
     }
 }
-
-
-
-
