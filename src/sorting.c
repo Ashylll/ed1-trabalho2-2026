@@ -1,11 +1,46 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "sorting.h"
 #include "forma.h"
+#include "arvore.h"
 
-void bubble_sort(FORMA vetor[], int n, int k, FCOMPARA_FORMAS cmp) {
+static void transforma_numero(int n, char* n_final){
+    char n_string[8];
+    snprintf(n_string, sizeof(n_string), "%d", n);
+
+    strcpy(n_final, "000000");
+    int i = 5;
+    int j = strlen(n_string) - 1;
+
+    while (i >= 0 && j >= 0){
+        n_final[i] = n_string[j];
+        i--; j--;
+    }
+}
+
+static FILE* cria_file_frame(int numeracao_frame, const char* comb_out){
+    char nome_svg[256];
+    char n_final[8];
+    transforma_numero(numeracao_frame, n_final);
+    snprintf(nome_svg, sizeof(nome_svg), "%s%s.svg", comb_out, n_final);    
+    
+    FILE* fp = fopen(nome_svg, "w");
+    return fp;
+}
+
+static void desenha_frame(int numeracao_frame, const char* comb_out, ARVORE a){
+    FILE* frame_svg = cria_file_frame(numeracao_frame, comb_out);
+    if (!frame_svg) return;
+
+    escreve_arvore_svg(frame_svg, a);
+    fclose(frame_svg);
+}
+
+void bubble_sort_animado(const char* comb_out, ARVORE a, FORMA vetor[], int n, int k, FCOMPARA_FORMAS cmp) {
     int i, j;
     FORMA aux;
     int cont_ordenados = 0;
+    int numeracao_frame = 0;
 
     for (i = 0; i < n - 1; i++) {
         if (cont_ordenados == k) return;
@@ -16,6 +51,11 @@ void bubble_sort(FORMA vetor[], int n, int k, FCOMPARA_FORMAS cmp) {
                 aux = vetor[j];
                 vetor[j] = vetor[j - 1];
                 vetor[j - 1] = aux;
+                
+                numeracao_frame += 1;
+                troca_posicaoX_formas(vetor[j], vetor[j - 1], 20);
+
+                desenha_frame(numeracao_frame, comb_out, a);
             }
         }
         cont_ordenados++;

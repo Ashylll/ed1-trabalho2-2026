@@ -7,11 +7,11 @@
 
 */
 
-typedef void* FORMA;
+typedef void *FORMA, *ARVORE;
 typedef int(*FCOMPARA_FORMAS)(FORMA f1, FORMA f2);
 
 
-void bubble_sort(FORMA vetor_formas[], int n, int k, FCOMPARA_FORMAS cmp);
+void bubble_sort_animado(const char* comb_out, ARVORE a, FORMA vetor[], int n, int k, FCOMPARA_FORMAS cmp);
 
 
 /*
