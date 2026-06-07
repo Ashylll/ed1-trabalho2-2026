@@ -1,5 +1,6 @@
 #ifndef FORMA_H
 #define FORMA_H
+#endif
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -23,6 +24,8 @@ FORMA cria_forma(char tipo, void* handle);
 void libera_forma(FORMA *f);
 
 void escreve_forma_svg(FILE *fp, FORMA f);
+
+void troca_posicaoX_formas(FORMA f1, FORMA f2, double distancia);
 
 /* === Operações get === */
 
@@ -49,6 +52,18 @@ void* getHandle_forma(FORMA f);
 /// @param y ponteiro para saída da coordenada y
 /// @return true se a operação foi bem sucedida; false se f == NULL
 bool getAncora_forma(FORMA f, double* x, double* y);
+
+/// @brief retorna a coordenada x da âncora da forma
+/// @param f forma
+/// @pre f != NULL
+/// @return coordenada x
+double getX_forma(FORMA f);
+
+/// @brief retorna a coordenada y da âncora da forma
+/// @param f forma
+/// @pre f != NULL
+/// @return coordenada y
+double getY_forma(FORMA f);
 
 /// @brief retorna a área da forma
 /// @param f forma
@@ -93,6 +108,18 @@ char* getCORP_forma(FORMA f);
 /// @return true se a operação foi bem sucedida; false se f == NULL
 bool setAncora_forma(FORMA f, double x, double y);
 
+/// @brief seta um valor à coordenada x da âncora da forma
+/// @param f forma
+/// @pre f != NULL
+/// @param x coordenada x
+void setX_forma(FORMA f, double x);
+
+/// @brief seta um valor à coordenada y da âncora da forma
+/// @param f forma
+/// @pre f != NULL
+/// @param x coordenada y
+void setY_forma(FORMA f, double y);
+
 /// @brief atribui uma cor de borda à forma (atribui cor se for tipo linha)
 /// @param f forma
 /// @param corb cor de borda
@@ -112,15 +139,3 @@ void setCORP_forma(FORMA f, char* corp);
 /// @return true se a operação foi bem sucedida; false se f == NULL
 bool desloca_forma(FORMA f, double dx, double dy);
 
-/// @brief escreve em um arquivo .txt os dados da forma
-/// @param f forma
-/// @param arquivoTxt arquivo .txt aberto em modo de escrita 
-void reporta_forma(FORMA f, FILE *arquivoTxt);
-
-/// @brief checa se há sobreposição entre uma forma e um retângulo
-/// @param r retângulo
-/// @param b forma (círculo, retângulo, linha, texto)
-/// @return true se há sobreposição; false se não 
-bool sobrepoe_retangulo(FORMA r, FORMA b);
-
-#endif
