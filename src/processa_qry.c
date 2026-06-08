@@ -131,7 +131,7 @@ bool processa_qry(const char* path_qry, const char* path_log, const char* comb_o
     FILE* fp_log = fopen(path_log, "w");
     if(!fp_qry || !fp_log) return false;
     
-    FORMA vet_sel;
+    FORMA vet_sel = malloc(200 * sizeof(FORMA));
     
     char linha[1024], comando[8];
 
@@ -160,6 +160,7 @@ bool processa_qry(const char* path_qry, const char* path_log, const char* comb_o
         }
     }
 
+    free(vet_sel);
     fclose(fp_qry);
     fclose(fp_log);
     return true;
