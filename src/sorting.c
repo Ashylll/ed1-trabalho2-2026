@@ -17,28 +17,12 @@ static void remove_extensao(const char *path, char *dest) {
     }
 }
 
-static void transforma_numero(int n, char* n_final){
-    char n_string[8];
-    snprintf(n_string, sizeof(n_string), "%d", n);
-
-    strcpy(n_final, "000000");
-    int i = 5;
-    int j = strlen(n_string) - 1;
-
-    while (i >= 0 && j >= 0){
-        n_final[i] = n_string[j];
-        i--; j--;
-    }
-}
-
 static FILE* cria_file_frame(int numeracao_frame,   const char* comb_out){
     char nome_svg[280];
     char base_comb_svg[256];
-    char n_final[8];
-    transforma_numero(numeracao_frame, n_final);
 
     remove_extensao(comb_out, base_comb_svg);
-    snprintf(nome_svg, sizeof(nome_svg), "%s%s.svg", base_comb_svg, n_final);    
+    snprintf(nome_svg, sizeof(nome_svg), "%s%06d.svg", base_comb_svg, numeracao_frame);    
     
     FILE* fp = fopen(nome_svg, "w");
     return fp;
@@ -61,6 +45,7 @@ void bubble_sort_animado(const char* comb_out, ARVORE a, FORMA vetor[], int n, i
     int numeracao_frame = 0;
     
     for (i = 0; i < n - 1; i++) {
+        // desenha_pos_inicial();
         if (cont_ordenados == k) return;
 
         for (j = n - 1; j > i; j--) {
@@ -70,10 +55,12 @@ void bubble_sort_animado(const char* comb_out, ARVORE a, FORMA vetor[], int n, i
                 vetor[j] = vetor[j - 1];
                 vetor[j - 1] = aux;
                 
-                numeracao_frame += 1;
+                // corrigir: troca_posicao apenas no SVG
+                // desenha_frame recebe x, y e dw (minha escolha) e percorre o vetor de formas seleciondasd e sendo ordenadas (não desenha a árvore toda)
                 troca_posicaoX_formas(vetor[j], vetor[j - 1], 20);
-
+                
                 desenha_frame(numeracao_frame, comb_out, a);
+                numeracao_frame += 1;
             }
         }
         cont_ordenados++;
