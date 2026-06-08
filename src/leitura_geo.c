@@ -110,7 +110,8 @@ static bool comando_ts(const char *linha){
     return true;
 }
 
-bool leitura_geo(FILE *fp_geo, ARVORE a){
+bool leitura_geo(const char* path_geo, ARVORE a){
+    FILE* fp_geo = fopen(path_geo, "r");
     if(!fp_geo) return false;
 
     char linha[1024], comando[8];
@@ -130,5 +131,6 @@ bool leitura_geo(FILE *fp_geo, ARVORE a){
         }
     }
 
+    fclose(fp_geo);
     return true;
 }
