@@ -2,13 +2,19 @@
 #include <stdio.h>
 #include <string.h>
 #include "sorting.h"
+#include "svg.h"
 #include "forma.h"
 #include "arvore.h"
 
 static void remove_extensao(const char *path, char *dest) {
     strcpy(dest, path);
+    
+    char *barra = strrchr(dest, '/'); 
     char *ponto = strrchr(dest, '.'); 
-    if (ponto) *ponto = '\0';
+    
+    if (ponto && (!barra || ponto > barra)) {
+        *ponto = '\0';
+    }
 }
 
 static void transforma_numero(int n, char* n_final){
@@ -25,7 +31,7 @@ static void transforma_numero(int n, char* n_final){
     }
 }
 
-static FILE* cria_file_frame(int numeracao_frame, const char* comb_out){
+static FILE* cria_file_frame(int numeracao_frame,   const char* comb_out){
     char nome_svg[280];
     char base_comb_svg[256];
     char n_final[8];
@@ -42,7 +48,9 @@ static void desenha_frame(int numeracao_frame, const char* comb_out, ARVORE a){
     FILE* frame_svg = cria_file_frame(numeracao_frame, comb_out);
     if (!frame_svg) return;
 
+    svg_begin(frame_svg);
     escreve_arvore_svg(frame_svg, a);
+    svg_end(frame_svg);
     fclose(frame_svg);
 }
 
@@ -51,7 +59,7 @@ void bubble_sort_animado(const char* comb_out, ARVORE a, FORMA vetor[], int n, i
     FORMA aux;
     int cont_ordenados = 0;
     int numeracao_frame = 0;
-
+    
     for (i = 0; i < n - 1; i++) {
         if (cont_ordenados == k) return;
 
