@@ -57,7 +57,7 @@ teste_arvore: arvore.o circulo.o retangulo.o linha.o texto.o forma.o sorting.o l
 teste_svg: svg.o unity.o t_svg.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
-teste_sorting: sorting.o forma.o unity.o t_sorting.o
+teste_sorting: sorting.o retangulo.o circulo.o texto.o linha.o forma.o svg.o arvore.o leitura_geo.o unity.o t_sorting.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS) 	
 
 teste_leitura_geo: leitura_geo.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o unity.o t_leitura_geo.o

@@ -1,0 +1,59 @@
+[*] sel 0.000000 0.000000 400.000000 380.000000
+Formas selecionadas:
+
+Id: 7
+Tipo: círculo
+
+Id: 6
+Tipo: retângulo
+
+Id: 4
+Tipo: retângulo
+
+Id: 2
+Tipo: retângulo
+
+Id: 4
+Tipo: texto
+
+Id: 5
+Tipo: círculo
+
+Id: 3
+Tipo: círculo
+
+Id: 1
+Tipo: círculo
+
+Id: 0
+Tipo: linha
+
+[*] find 3 bs a 200.000000 200.000000 40.000000
+Formas selecionadas segundo o critério:
+== Círculo ==
+Id: 7
+Área: 78.54
+== Retângulo ==
+Id: 6
+Área: 900.00
+== Retângulo ==
+Id: 4
+Área: 1000.00
+== Retângulo ==
+Id: 2
+Área: 675.00
+== Texto ==
+Id: 4
+Área: 90.00
+== Círculo ==
+Id: 5
+Área: 3848.45
+== Círculo ==
+Id: 3
+Área: 1256.64
+== Círculo ==
+Id: 1
+Área: 314.16
+== Linha ==
+Id: 0
+Área: 63.64

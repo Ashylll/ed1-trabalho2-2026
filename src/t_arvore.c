@@ -1,14 +1,21 @@
 #include "arvore.h"
 #include "linha.h"
 #include "forma.h"
+#include "retangulo.h"
+#include "circulo.h"
 #include "sorting.h"
 #include "leitura_geo.h"
 #include "unity.h"
 #include <stdlib.h>
 #include <string.h>
 
-void setUp(void) {}
-void tearDown(void) {}
+ARVORE arvore_teste;
+void setUp(void) {
+    arvore_teste = cria_arvore(compara_default);
+}
+void tearDown(void) {
+    libera_arvore(&arvore_teste);
+}
 
 void teste_cria_libera_arvore(void){
     ARVORE arvore = cria_arvore(NULL);
@@ -28,8 +35,6 @@ void teste_cria_libera_arvore(void){
 }
 
 void teste_insere_remove_tamanho_arvore(void){
-    ARVORE arvore = cria_arvore(compara_default);
-    
     LINHA l1 = cria_linha(-2, 2.0, 9.0, 4.0, 6.0, "pink");
     LINHA l2 = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
     LINHA l3 = cria_linha(-2, 2.0, 7.0, 4.0, 6.0, "pink");
@@ -37,19 +42,18 @@ void teste_insere_remove_tamanho_arvore(void){
     FORMA f1 = cria_forma('l', l1);
     FORMA f2 = cria_forma('l', l2);
     FORMA f3 = cria_forma('l', l3);
-    insere_arvore(arvore, f1);
-    insere_arvore(arvore, f2);
-    insere_arvore(arvore, f3);
-    TEST_ASSERT_EQUAL_INT(3, getTamanho_arvore(arvore));
+    insere_arvore(arvore_teste, f1);
+    insere_arvore(arvore_teste, f2);
+    insere_arvore(arvore_teste, f3);
+    TEST_ASSERT_EQUAL_INT(3, getTamanho_arvore(arvore_teste));
     
-    remove_arvore(arvore, f2);
-    TEST_ASSERT_EQUAL_INT(2, getTamanho_arvore(arvore));
-    remove_arvore(arvore, f1);
-    TEST_ASSERT_EQUAL_INT(1, getTamanho_arvore(arvore));
-    remove_arvore(arvore, f3);
-    TEST_ASSERT_EQUAL_INT(0, getTamanho_arvore(arvore));
+    remove_arvore(arvore_teste, f2);
+    TEST_ASSERT_EQUAL_INT(2, getTamanho_arvore(arvore_teste));
+    remove_arvore(arvore_teste, f1);
+    TEST_ASSERT_EQUAL_INT(1, getTamanho_arvore(arvore_teste));
+    remove_arvore(arvore_teste, f3);
+    TEST_ASSERT_EQUAL_INT(0, getTamanho_arvore(arvore_teste));
     
-    libera_arvore(&arvore);
 }
 
 void teste_escreve_arvore_svg(void){
@@ -60,14 +64,11 @@ void teste_escreve_arvore_svg(void){
     fprintf(fp_geo, "ts sans-serif bold 14.0\n");
     fprintf(fp_geo, "t 30 0.0 0.0 black black i Texto de Teste\n");
     fclose(fp_geo);
-    fp_geo = fopen(path_in, "r");
-    ARVORE arvore = cria_arvore(compara_default);
-    leitura_geo(fp_geo, arvore);
-    fclose(fp_geo);
+    leitura_geo(path_in, arvore_teste);
 
     char* path_out_teste = "teste_escrita.svg";
     FILE* fp_svg = fopen(path_out_teste, "w");
-    escreve_arvore_svg(fp_svg, arvore);
+    escreve_arvore_svg(fp_svg, arvore_teste);
     fclose(fp_svg);
 
     FILE *checa = fopen(path_out_teste, "r");
@@ -93,11 +94,24 @@ void teste_escreve_arvore_svg(void){
     fclose(checa);
     remove(path_in);
     remove(path_out_teste);
-    libera_arvore(&arvore);
 }
 
 void teste_formas_selecionadas_para_vetor(void){
+    FORMA ret_sel = cria_forma('r', cria_retangulo(-1, 0.0, 0.0, 100.0, 100.0, "red", "none"));
+    FORMA f_dentro1 = cria_forma('r', cria_retangulo(1, 10.0, 10.0, 10.0, 10.0, "blue", "blue"));
+    FORMA f_dentro2 = cria_forma('c', cria_circulo(2, 20.0, 20.0, 5.0, "blue", "blue"));
+    FORMA f_fora = cria_forma('r', cria_retangulo(3, 500.0, 500.0, 10.0, 10.0, "blue", "blue"));
 
+    insere_arvore(arvore_teste, f_dentro1);
+    insere_arvore(arvore_teste, f_dentro2);
+    insere_arvore(arvore_teste, f_fora);
+
+    FORMA vetor[10];
+    int n = 0;
+
+    formas_selecionadas_para_vetor(arvore_teste, ret_sel, vetor, &n);
+
+    TEST_ASSERT_EQUAL_INT(2, n);
 }
 
 int main(void){
@@ -105,6 +119,6 @@ int main(void){
     RUN_TEST(teste_cria_libera_arvore);    
     RUN_TEST(teste_insere_remove_tamanho_arvore);
     RUN_TEST(teste_escreve_arvore_svg);
-    RUN_TEST(formas_selecionadas_para_vetor);
+    RUN_TEST(teste_formas_selecionadas_para_vetor);
     return UNITY_END();
 }
