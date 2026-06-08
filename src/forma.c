@@ -405,12 +405,12 @@ void setX_forma(FORMA f, double x){
     if (!f) return false;
 
     stForma* forma = (stForma*)f;
-
+    void* hand = getHandle_forma(f);
     switch (forma->tipo){
-        case 'c': return setX_circulo(forma->handle, x);
-        case 'r': return setX_retangulo(forma->handle, x);
-        case 't': return setX_texto(forma->handle, x);
-        case 'l': return setX1_linha(forma->handle, x);
+        case 'c': setX_circulo(hand, x);
+        case 'r': setX_retangulo(hand, x);
+        case 't': setX_texto(hand, x);
+        case 'l': setAncora_linha(hand, x, getY1_linha(hand));
         
         default: return false;
     }
@@ -420,12 +420,12 @@ void setY_forma(FORMA f, double y){
     if (!f) return false;
 
     stForma* forma = (stForma*)f;
-
+    void* hand = getHandle_forma(f);
     switch (forma->tipo){
-        case 'c': return setY_circulo(forma->handle, y);
-        case 'r': return setY_retangulo(forma->handle, y);
-        case 't': return setY_texto(forma->handle, y);
-        case 'l': return setY1_linha(forma->handle, y);
+        case 'c': setY_circulo(hand, y);
+        case 'r': setY_retangulo(hand, y);
+        case 't': setY_texto(hand, y);
+        case 'l': setAncora_linha(hand, getX1_linha(hand), y);
         
         default: return false;
     }
