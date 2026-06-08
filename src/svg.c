@@ -28,7 +28,7 @@ void gera_svg_inicial(const char* path_geo_svg, ARVORE formas){
     fclose(fp_svg);
 }
 
-gera_svg_final(const char* path_comb_svg, ARVORE formas, ARVORE formas_marcadores){
+void gera_svg_final(const char* path_comb_svg, ARVORE formas, ARVORE formas_marcadores){
     FILE* fp_svg = fopen(path_comb_svg, "w");
 
     svg_begin(fp_svg);

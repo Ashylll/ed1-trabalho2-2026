@@ -25,4 +25,4 @@ void svg_end(FILE *fp);
 
 void gera_svg_inicial(const char* path_geo_svg, ARVORE formas);
 
-gera_svg_final(const char* path_comb_svg, ARVORE formas, ARVORE formas_marcadores);
+void gera_svg_final(const char* path_comb_svg, ARVORE formas, ARVORE formas_marcadores);
