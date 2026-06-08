@@ -47,6 +47,11 @@ FORMA clona_forma(FORMA f);
 /// @param f forma
 void troca_cores_forma(FORMA f);
 
+char* traduz_tipo_forma(const char tipo, bool maiusculo);
+void reporta_forma(FILE* fp_txt, FORMA f, char criterio_ordenacao);
+void posiciona_formas(FORMA vet[], int n, double x, double y_teto, double dw);
+
+
 /* === Operações get === */
 
 /// @brief retorna o identificador da forma
@@ -109,7 +114,7 @@ double getAltura_forma(FORMA f);
 /// @return cor de borda
 char* getCORB_forma(FORMA f);
 
-/// @brief retorna a cor de preenchimento da forma
+/// @brief retorna a cor de preenchimento da forma. Se for linha, retorna a cor de borda
 /// @param f forma
 /// @pre f != NULL
 /// @return cor de preenchimento

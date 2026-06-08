@@ -240,6 +240,117 @@ void troca_cores_forma(FORMA f){
     setCORP_forma(f, getCORB_forma(f));
 }
 
+char* traduz_tipo_forma(const char tipo, bool maiusculo) {
+    if (maiusculo){
+        switch(tipo) {
+            case 'r': return "Retângulo";
+            case 'c': return "Círculo";
+            case 'l': return "Linha";
+            case 't': return "Texto";
+            default:  return "Desconhecido";
+        }
+    }
+    else {
+        switch(tipo) {
+            case 'r': return "retângulo";
+            case 'c': return "círculo";
+            case 'l': return "linha";
+            case 't': return "texto";
+            default:  return "desconhecido";
+        }
+    }
+}
+
+void reporta_forma(FILE* fp_txt, FORMA f, const char criterio_ordenacao){
+    if (!f || !fp_txt) return;
+
+    char t = getTipo_forma(f);
+    char* tipo = traduz_tipo_forma(t, true); 
+
+    switch (criterio_ordenacao){
+        case 'd':
+            fprintf(fp_txt, "== %s ==\nId: %d\nÂncora: y = %.2lf || x = %.2lf\nÁrea: %.2lf\n",
+            tipo, getId_forma(f), getY_forma(f), getX_forma(f), getArea_forma(f));
+
+            break;
+        case 'a':
+            fprintf(fp_txt, "== %s ==\nId: %d\nÁrea: %.2lf\n",
+            tipo, getId_forma(f), getArea_forma(f));
+            
+            break;
+        case 'w': 
+            fprintf(fp_txt, "== %s ==\nId: %d\nLargura: %.2lf\n",
+            tipo, getId_forma(f), getLargura_forma(f));
+
+            break;
+        case 'h':
+            fprintf(fp_txt, "== %s ==\nId: %d\nAltura: %.2lf\n",
+            tipo, getId_forma(f), getAltura_forma(f)); 
+
+            break;
+        case 'c': 
+            if (t == 'l'){
+                fprintf(fp_txt, "== Linha ==\nId: %d\nCor: %.2lf\n",
+                getId_forma(f), getCORP_forma(f));
+            }
+            else {
+                fprintf(fp_txt, "== %s ==\nId: %d\nCor de preenchimento: %.2lf\n",
+                tipo, getId_forma(f), getCORP_forma(f));
+            }
+
+            break;
+        default:
+            fprintf(fp_txt, "Critério desconhecido\n");
+    }
+}
+
+static void get_correcao_ancora(FORMA f, double *dx, double *dy) {
+    *dx = 0;
+    *dy = 0;
+
+    switch (getTipo_forma(f)) {
+        case 'c': { 
+            CIRCULO c = getHandle_forma(f);
+            double raio = getR_circulo(c);
+            *dx = raio;
+            *dy = raio; 
+            break;
+        }
+        case 't': { 
+            char ancora = getA_texto(getHandle_forma(f));
+            if (ancora == 'm') *dx = getLargura_forma(f) / 2.0;
+            else if (ancora == 'f') *dx = getLargura_forma(f);
+            break;
+        }
+        case 'l': {
+            LINHA l = getHandle_forma(f);
+            double y1 = getY1_linha(l);
+            double y2 = getY2_linha(l);
+            double min_y = (y1 < y2) ? y1 : y2; 
+
+            *dx = 0;
+            *dy = y1 - min_y; 
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+void posiciona_formas(FORMA vet[], int n, double x_inicial, double y_teto, double dw) {
+    double x_atual = x_inicial;
+    double dx, dy;
+
+    for (int i = 0; i < n; i++) {
+        get_correcao_ancora(vet[i], &dx, &dy);
+        
+        setX_forma(vet[i], x_atual + dx);
+        setY_forma(vet[i], y_teto + dy);
+        
+        x_atual += getLarguraX(vet[i]) + dw;
+    }
+}
+
 int getId_forma(FORMA f){
     stForma *forma = (stForma*)f;
 
@@ -412,7 +523,7 @@ void setX_forma(FORMA f, double x){
         case 't': setX_texto(hand, x);
         case 'l': setAncora_linha(hand, x, getY1_linha(hand));
         
-        default: return false;
+        default: return;
     }
 }
 
@@ -427,7 +538,7 @@ void setY_forma(FORMA f, double y){
         case 't': setY_texto(hand, y);
         case 'l': setAncora_linha(hand, getX1_linha(hand), y);
         
-        default: return false;
+        default: return;
     }
 }
 
