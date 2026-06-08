@@ -3,8 +3,6 @@
 #include <string.h>
 #include "processa_qry.h"
 #include "arvore.h"
-#include "retangulo.h"
-#include "forma.h"
 #include "sorting.h"
 
 static int n_selecionadas = 0; 

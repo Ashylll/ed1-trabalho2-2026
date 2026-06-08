@@ -39,8 +39,18 @@ void teste_compara_formas(void){
     libera_forma(&f1); libera_forma(&f2);
 }
 
+void teste_dentro_selecao(void){
+
+}
+
+void teste_bubble_sort_animado(void){
+
+}
+
 int main(void){
     UNITY_BEGIN();
     RUN_TEST(teste_compara_formas);
+    RUN_TEST(dentro_selecao);
+    RUN_TEST(teste_bubble_sort_animado);
     return UNITY_END();
 }

@@ -91,12 +91,20 @@ void teste_escreve_arvore_svg(void){
     TEST_ASSERT_TRUE(tem_txto);
 
     fclose(checa);
+    remove(path_in);
+    remove(path_out_teste);
     libera_arvore(&arvore);
 }
+
+void teste_formas_selecionadas_para_vetor(void){
+
+}
+
 int main(void){
     UNITY_BEGIN();
     RUN_TEST(teste_cria_libera_arvore);    
     RUN_TEST(teste_insere_remove_tamanho_arvore);
     RUN_TEST(teste_escreve_arvore_svg);
+    RUN_TEST(formas_selecionadas_para_vetor);
     return UNITY_END();
 }

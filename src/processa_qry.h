@@ -8,7 +8,8 @@
 /*
     processa_qry.h
     Módulo responsável pela leitura e pelo processamento do arquivo de entrada .qry
-    Gera uma "animação" dos algoritmos de ordenação criando arquivos .svg numerados em sequência 
+    Gera uma "animação" dos algoritmos de ordenação criando arquivos .svg numerados em sequência e escrevendo no log
+    O estado final das formas do programa é armazenado nas ávores
 */
 
 typedef void* ARVORE;
