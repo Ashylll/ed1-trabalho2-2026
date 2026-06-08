@@ -290,11 +290,11 @@ void reporta_forma(FILE* fp_txt, FORMA f, const char criterio_ordenacao){
             break;
         case 'c': 
             if (t == 'l'){
-                fprintf(fp_txt, "== Linha ==\nId: %d\nCor: %.2lf\n",
+                fprintf(fp_txt, "== Linha ==\nId: %d\nCor: %s\n",
                 getId_forma(f), getCORP_forma(f));
             }
             else {
-                fprintf(fp_txt, "== %s ==\nId: %d\nCor de preenchimento: %.2lf\n",
+                fprintf(fp_txt, "== %s ==\nId: %d\nCor de preenchimento: %.s\n",
                 tipo, getId_forma(f), getCORP_forma(f));
             }
 
@@ -392,7 +392,7 @@ bool getAncora_forma(FORMA f, double *x, double *y){
 }
 
 double getX_forma(FORMA f){
-    if (!f) return;
+    if (!f) return -1;
     stForma* forma = (stForma*)f;
 
     switch(getTipo_forma(f)){
@@ -410,7 +410,7 @@ double getX_forma(FORMA f){
 }
 
 double getY_forma(FORMA f){
-    if (!f) return;
+    if (!f) return -1;
     stForma* forma = (stForma*)f;
 
     switch(getTipo_forma(f)){
@@ -513,7 +513,7 @@ bool setAncora_forma(FORMA f, double x, double y){
 }
 
 void setX_forma(FORMA f, double x){
-    if (!f) return false;
+    if (!f) return;
 
     stForma* forma = (stForma*)f;
     void* hand = getHandle_forma(f);
@@ -528,7 +528,7 @@ void setX_forma(FORMA f, double x){
 }
 
 void setY_forma(FORMA f, double y){
-    if (!f) return false;
+    if (!f) return;
 
     stForma* forma = (stForma*)f;
     void* hand = getHandle_forma(f);
