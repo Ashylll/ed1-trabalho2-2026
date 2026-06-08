@@ -26,7 +26,7 @@ static void transforma_numero(int n, char* n_final){
 }
 
 static FILE* cria_file_frame(int numeracao_frame, const char* comb_out){
-    char nome_svg[256];
+    char nome_svg[280];
     char base_comb_svg[256];
     char n_final[8];
     transforma_numero(numeracao_frame, n_final);
@@ -132,7 +132,9 @@ typedef struct RGB{
 
     return compara_RGB(c1, c2);
 }*/
-
+int compara_cor_preenchimento(FORMA f1, FORMA f2){
+    return 1;       
+}
 static inline bool ponto_no_retangulo(double x, double y, double xR, double yR, double w, double h){
     const double eps = 1e-9;
     return (xR - eps <= x && x <= xR + w + eps) && (yR - eps <= y && y <= yR + h + eps);
