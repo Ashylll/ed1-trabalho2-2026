@@ -4,6 +4,8 @@
 #include "processa_qry.h"
 #include "arvore.h"
 #include "sorting.h"
+#include "forma.h"
+#include "retangulo.h"
 
 static int n_selecionadas = 0; 
 
@@ -52,7 +54,7 @@ static void comando_sel(const char* linha, FILE* fp_qry, FILE* fp_log, ARVORE fo
 
 static void cria_quadrados_marcadores(FORMA vet_sel[], ARVORE formas_marcadores, int k){
     for(int i = 0; i < k; i++){
-        int x, y;
+        double x, y;
 
         getAncora_forma(vet_sel[i], &x, &y);
         FORMA quadrado_ancora = cria_forma('r', cria_retangulo(-2, x, y, 10, 10, "red", "none"));
@@ -68,13 +70,12 @@ static void remove_formas_maiores(ARVORE formas, FORMA vet_sel[], int k){
     }
 }
 
-static void comando_find(const char* linha, const char* comb_out, FILE* fp_qry, FILE* fp_log, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[], bool rm){
-    
+static void comando_find(const char* linha, const char* comb_out, FILE* fp_qry, FILE* fp_log, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[], bool rm){ 
     int k;
-    char* alg[8];
+    char alg[8];
     char crit;
     double x, y, dw;
-    if(sscanf(linha, "%*s %d %s %c %lf %lf %lf", &k, &alg, &crit, &x, &y, &dw) != 6) return false;
+    if(sscanf(linha, "%*s %d %s %c %lf %lf %lf", &k, alg, &crit, &x, &y, &dw) != 6) return;
     
     if (rm) fprintf(fp_log, "[*] findrm %d %s %c %lf %lf %lf\n", k, alg, crit, x, y, dw);
     else fprintf(fp_log, "[*] find %d %s %c %lf %lf %lf\n", k, alg, crit, x, y, dw);
@@ -106,7 +107,7 @@ static void comando_find(const char* linha, const char* comb_out, FILE* fp_qry, 
         reporta_forma(fp_log, vet_sel[i], crit);
     }
     
-    if (alg == "bs") bubble_sort_animado(comb_out, formas, vet_sel, &n_selecionadas, k, criterio_ordenacao);
+    if (alg == "bs") bubble_sort_animado(comb_out, formas, vet_sel, n_selecionadas, k, criterio_ordenacao);
     /*
     else if (alg == "ss") selection_sort_animado();
     else if (alg == "is") insertion_sort_animado();
@@ -125,8 +126,10 @@ static void comando_mc(FORMA vet_sel[]){
     }
 }
 
-bool processa_qry(FILE* fp_qry, FILE* fp_log, const char* comb_out, ARVORE formas, ARVORE formas_marcadores){
-    if(!fp_qry) return false;
+bool processa_qry(const char* path_qry, const char* path_log, const char* comb_out, ARVORE formas, ARVORE formas_marcadores){
+    FILE* fp_qry = fopen(path_qry, "r");
+    FILE* fp_log = fopen(path_log, "w");
+    if(!fp_qry || !fp_log) return false;
     
     FORMA vet_sel;
     
@@ -138,7 +141,7 @@ bool processa_qry(FILE* fp_qry, FILE* fp_log, const char* comb_out, ARVORE forma
         if(comando[0] == '#') continue;
     
         if (strcmp(comando, "sel") == 0) {
-            comandos_sel(linha, fp_qry, fp_log, formas, formas_marcadores, vet_sel, false);
+            comando_sel(linha, fp_qry, fp_log, formas, formas_marcadores, vet_sel, false);
         } 
         else if (strcmp(comando, "find") == 0) {
             comando_find(linha, comb_out, fp_qry, fp_log, formas, formas_marcadores, vet_sel, false);
@@ -156,5 +159,8 @@ bool processa_qry(FILE* fp_qry, FILE* fp_log, const char* comb_out, ARVORE forma
             return false; 
         }
     }
+
+    fclose(fp_qry);
+    fclose(fp_log);
     return true;
 }
