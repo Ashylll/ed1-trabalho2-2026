@@ -122,27 +122,13 @@ int compara_altura(FORMA f1, FORMA f2){
     return 0;
 }
 
-
-typedef struct RGB{
-    unsigned char r, g, b;
-} RGB;
-
-// A implementar...
-//RGB cor_para_RGB(char* cor);
-//int compara_RGB(RGB cor1, RGB cor2);
-
-/*int compara_cor_preenchimento(FORMA f1, FORMA f2){
-    char* corp1 = getCORP_forma(f1);
-    char* corp2 = getCORP_forma(f2);
-
-    RGB c1 = cor_para_RGB(corp1);
-    RGB c2 = cor_para_RGB(corp2);
-
-    return compara_RGB(c1, c2);
-}*/
 int compara_cor_preenchimento(FORMA f1, FORMA f2){
-    return 1;       
+    char* cor1 = getCORP_forma(f1);       
+    char* cor2 = getCORP_forma(f2);       
+
+    return strcmp(cor1, cor2);
 }
+
 static inline bool ponto_no_retangulo(double x, double y, double xR, double yR, double w, double h){
     const double eps = 1e-9;
     return (xR - eps <= x && x <= xR + w + eps) && (yR - eps <= y && y <= yR + h + eps);
