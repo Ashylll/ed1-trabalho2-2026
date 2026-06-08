@@ -3,7 +3,10 @@
 #include <string.h>
 
 #include "arvore.h"
+#include "svg.h"
 #include "sorting.h"
+#include "leitura_geo.h"
+#include "processa_qry.h"
 
 void nome_base(const char *path, char *dest) {
     const char *p = strrchr(path, '/');
@@ -52,33 +55,20 @@ int main(int argc, char *argv[]){
     }
 
     ARVORE formas = cria_arvore(compara_default);
-
-    FILE *fp_geo = fopen(path_geo, "r");
-    if (!fp_geo){
-        fprintf(stderr, "Erro ao abrir %s", path_geo);
-        return 1;
-    }
-
-    // A implementar leitura e escreve...
-    leitura_geo(fp_geo, formas);
-    escreve_svg(out_svg_geo, formas); // Gera SVG inicial
-    fclose(fp_geo);
+    ARVORE formas_marcadores = cria_arvore(compara_default);
+    leitura_geo(path_geo, formas);
+    gera_svg_inicial(out_svg_geo, formas); // Gera SVG do .geo
 
      if (nome_arq_qry) {
         char path_qry[1024];
         sprintf(path_qry, "%s/%s", dir_entrada, nome_arq_qry);
 
-        FILE *fp_qry = fopen(path_qry, "r");
-        if (!fp_qry){
-            fprintf(stderr, "Erro ao abrir %s", path_qry);
-            return 1;
-        }
-
-        gera_animacao(fp_qry, out_txt_comb, out_svg_comb); // Gera SVGs da animação
-        fclose(fp_qry);
+        processa_qry(path_qry, out_txt_comb, out_svg_comb, formas, formas_marcadores);
+        gera_svg_final(out_svg_comb, formas, formas_marcadores);
     }
 
     libera_arvore(&formas);
+    libera_arvore(&formas_marcadores);
     
     printf("Arquivos salvos em: %s\n", dir_saida);
     return 0;
