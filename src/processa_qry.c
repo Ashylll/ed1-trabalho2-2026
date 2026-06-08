@@ -107,13 +107,13 @@ static void comando_find(const char* linha, const char* comb_out, FILE* fp_qry, 
         reporta_forma(fp_log, vet_sel[i], crit);
     }
     
-    if (alg == "bs") bubble_sort_animado(comb_out, formas, vet_sel, n_selecionadas, k, criterio_ordenacao);
+    if (strcmp(alg, "bs") == 0) bubble_sort_animado(comb_out, formas, vet_sel, n_selecionadas, k, criterio_ordenacao);
     /*
-    else if (alg == "ss") selection_sort_animado();
-    else if (alg == "is") insertion_sort_animado();
-    else if (alg == "shs") shell_sort_animado();
-    else if (alg == "qs") quick_sort_animado();
-    else if (alg == "ms") merge_sort_animado();
+    else if (strcmp(alg, "ss") == 0) selection_sort_animado();
+    else if (strcmp(alg, "is") == 0) insertion_sort_animado();
+    else if (strcmp(alg, "shs") == 0) shell_sort_animado();
+    else if (strcmp(alg, "qs") == 0) quick_sort_animado();
+    else if (strcmp(alg, "ms") == 0) merge_sort_animado();
     */
     cria_quadrados_marcadores(vet_sel, formas_marcadores, k);
     
