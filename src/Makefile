@@ -1,7 +1,7 @@
 PROJ_NAME= ted
 ALUNO= Ashley
 LIBS= -lm
-OBJETOS= main.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o animacao.o
+OBJETOS= main.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o svg.o sorting.o leitura_geo.o processa_qry.o
 
 CC=gcc
 CFLAGS= -std=c99 -fstack-protector-all -ggdb -O0 -Werror=implicit-function-declaration -I. -I./unity -DUNITY_INCLUDE_DOUBLE
@@ -17,17 +17,19 @@ $(PROJ_NAME): $(OBJETOS)
 	$(CC) -c $(CFLAGS) $< -o $@
 
 # Dependências dos objetos
-main.o: main.c leitura.h sistema.h svg.h
+main.o: main.c arvore.h svg.h sorting.h leitura_geo.h processa_qry.h
 circulo.o: circulo.c circulo.h
 retangulo.o: retangulo.c retangulo.h
 linha.o: linha.c linha.h
 texto.o: texto.c texto.h
 forma.o: forma.c forma.h circulo.h retangulo.h linha.h texto.h
-sorting.o: sorting.c sorting.h forma.h
-animacao.o: animacao.c animacao.h
+svg.o: svg.c svg.h arvore.h
+sorting.o: sorting.c sorting.h forma.h arvore.h
+leitura_geo: leitura_geo.c leitura_geo.h forma.h circulo.h retangulo.h linha.h texto.h arvore.h
+processa_qry.o: processa_qry.c processa_qry.h forma.h retangulo.h arvore.h sorting.h processa_qry.h
 
 
-TESTES = teste_circulo teste_retangulo teste_linha teste_texto teste_forma teste_arvore teste_sorting teste_leitura_geo teste_animacao
+TESTES = teste_circulo teste_retangulo teste_linha teste_texto teste_forma teste_arvore teste_sorting teste_leitura_geo teste_processa_qry
 
 # Regra para compilar e rodar todos os testes 
 tstall: $(TESTES)
@@ -49,7 +51,10 @@ teste_texto: texto.o unity.o t_texto.o
 teste_forma: forma.o circulo.o retangulo.o linha.o texto.o unity.o t_forma.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
-teste_arvore: arvore.o circulo.o retangulo.o linha.o texto.o forma.o sorting.o unity.o t_arvore.o
+teste_arvore: arvore.o circulo.o retangulo.o linha.o texto.o forma.o sorting.o leitura_geo.o unity.o t_arvore.o
+	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
+
+teste_svg: svg.o unity.o t_svg.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
 teste_sorting: sorting.o forma.o unity.o t_sorting.o
@@ -58,7 +63,7 @@ teste_sorting: sorting.o forma.o unity.o t_sorting.o
 teste_leitura_geo: leitura_geo.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o unity.o t_leitura_geo.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
-teste_animacao: animacao.o unity.o t_animacao.o
+teste_processa_qry: processa_qry.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o unity.o t_processa_qry.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
 
@@ -75,3 +80,6 @@ memtest:
 	
 memcheck: $(PROJ_NAME)
 	$(VG) ./$(PROJ_NAME)
+
+teste1: $(PROJ_NAME)
+	$(VG) ./$(PROJ_NAME) -e ../entrada_teste -f t1.geo -o ../saida_teste -q t1/bs.qry
