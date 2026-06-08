@@ -154,12 +154,13 @@ static void formas_para_vetor(No* no, FORMA retangulo_selecao, FORMA vet[], int 
     if (!no) return;
 
     formas_para_vetor(no->esq, retangulo_selecao, vet, n);
-    formas_para_vetor(no->dir, retangulo_selecao, vet, n);
     
     if (dentro_selecao(no->forma, retangulo_selecao)) {
         vet[*n] = no->forma;
         (*n)++;
     }
+    
+    formas_para_vetor(no->dir, retangulo_selecao, vet, n);
 }
 
 void formas_selecionadas_para_vetor(ARVORE a, FORMA retangulo_selecao, FORMA vet[], int *n) {
