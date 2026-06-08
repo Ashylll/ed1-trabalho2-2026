@@ -1,8 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "sorting.h"
 #include "forma.h"
 #include "arvore.h"
+
+static void remove_extensao(const char *path, char *dest) {
+    strcpy(dest, path);
+    char *ponto = strrchr(dest, '.'); 
+    if (ponto) *ponto = '\0';
+}
 
 static void transforma_numero(int n, char* n_final){
     char n_string[8];
@@ -20,9 +27,12 @@ static void transforma_numero(int n, char* n_final){
 
 static FILE* cria_file_frame(int numeracao_frame, const char* comb_out){
     char nome_svg[256];
+    char base_comb_svg[256];
     char n_final[8];
     transforma_numero(numeracao_frame, n_final);
-    snprintf(nome_svg, sizeof(nome_svg), "%s%s.svg", comb_out, n_final);    
+
+    remove_extensao(comb_out, base_comb_svg);
+    snprintf(nome_svg, sizeof(nome_svg), "%s%s.svg", base_comb_svg, n_final);    
     
     FILE* fp = fopen(nome_svg, "w");
     return fp;
