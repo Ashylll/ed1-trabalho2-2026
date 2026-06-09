@@ -6,46 +6,15 @@
 #include "forma.h"
 #include "arvore.h"
 
-static void remove_extensao(const char *path, char *dest) {
-    strcpy(dest, path);
-    
-    char *barra = strrchr(dest, '/'); 
-    char *ponto = strrchr(dest, '.'); 
-    
-    if (ponto && (!barra || ponto > barra)) {
-        *ponto = '\0';
-    }
-}
-
-static FILE* cria_file_frame(int numeracao_frame,   const char* comb_out){
-    char nome_svg[280];
-    char base_comb_svg[256];
-
-    remove_extensao(comb_out, base_comb_svg);
-    snprintf(nome_svg, sizeof(nome_svg), "%s%06d.svg", base_comb_svg, numeracao_frame);    
-    
-    FILE* fp = fopen(nome_svg, "w");
-    return fp;
-}
-
-static void desenha_frame(int numeracao_frame, const char* comb_out, ARVORE a){
-    FILE* frame_svg = cria_file_frame(numeracao_frame, comb_out);
-    if (!frame_svg) return;
-
-    svg_begin(frame_svg);
-    escreve_arvore_svg(frame_svg, a);
-    svg_end(frame_svg);
-    fclose(frame_svg);
-}
-
-void bubble_sort_animado(const char* comb_out, ARVORE a, FORMA vetor[], int n, int k, FCOMPARA_FORMAS cmp) {
+void bubble_sort_animado(const char* comb_out, FORMA vetor[], int n, int k, FCOMPARA_FORMAS cmp) {
     int i, j;
     FORMA aux;
     int cont_ordenados = 0;
     int numeracao_frame = 0;
     
+    escreve_frame(comb_out, numeracao_frame, 100, 100, 10, vetor, n); // frame inicial antes da ordenação
+
     for (i = 0; i < n - 1; i++) {
-        // desenha_pos_inicial();
         if (cont_ordenados == k) return;
 
         for (j = n - 1; j > i; j--) {
@@ -55,14 +24,11 @@ void bubble_sort_animado(const char* comb_out, ARVORE a, FORMA vetor[], int n, i
                 vetor[j] = vetor[j - 1];
                 vetor[j - 1] = aux;
                 
-                // corrigir: troca_posicao apenas no SVG
-                // desenha_frame recebe x, y e dw (minha escolha) e percorre o vetor de formas seleciondasd e sendo ordenadas (não desenha a árvore toda)
-                troca_posicaoX_formas(vetor[j], vetor[j - 1], 20);
-                
-                desenha_frame(numeracao_frame, comb_out, a);
+                escreve_frame(comb_out, numeracao_frame, 100, 100, 10, vetor, n);                
                 numeracao_frame += 1;
             }
         }
+  
         cont_ordenados++;
     }
 }

@@ -135,7 +135,7 @@ void escreve_forma_svg(FILE *fp, FORMA f){
     }
 }
 
-static double getLarguraX(FORMA f){
+double getLarguraX_forma(FORMA f){
     if (!f) return -1;
     void* hand = getHandle_forma(f);
 
@@ -155,26 +155,6 @@ static double getLarguraX(FORMA f){
             return strlen(getTXTO_texto(hand));
             
         default: return -1;
-    }
-}
-
-
-void troca_posicaoX_formas(FORMA f1, FORMA f2, double distancia){
-    if (!f1 || !f2 || distancia < 0) return;
-
-    double x1 = getX_forma(f1);
-    double x2 = getX_forma(f2);
-
-    double w1 = getLarguraX(f1);
-    double w2 = getLarguraX(f2);
-    
-    if(x1 > x2){
-        setX_forma(f1, x1 - distancia - w2);
-        setX_forma(f2, x2 + distancia + w1);
-    }
-    else {
-        setX_forma(f2, x1 - distancia - w2);
-        setX_forma(f1, x2 + distancia + w1);   
     }
 }
 
@@ -304,7 +284,7 @@ void reporta_forma(FILE* fp_txt, FORMA f, const char criterio_ordenacao){
     }
 }
 
-static void get_correcao_ancora(FORMA f, double *dx, double *dy) {
+void get_correcao_ancora(FORMA f, double *dx, double *dy) {
     *dx = 0;
     *dy = 0;
 
@@ -318,8 +298,8 @@ static void get_correcao_ancora(FORMA f, double *dx, double *dy) {
         }
         case 't': { 
             char ancora = getA_texto(getHandle_forma(f));
-            if (ancora == 'm') *dx = getLargura_forma(f) / 2.0;
-            else if (ancora == 'f') *dx = getLargura_forma(f);
+            if (ancora == 'm') *dx = getLarguraX_forma(f) / 2.0;
+            else if (ancora == 'f') *dx = getLarguraX_forma(f);
             break;
         }
         case 'l': {
@@ -347,7 +327,7 @@ void posiciona_formas(FORMA vet[], int n, double x_inicial, double y_teto, doubl
         setX_forma(vet[i], x_atual + dx);
         setY_forma(vet[i], y_teto + dy);
         
-        x_atual += getLarguraX(vet[i]) + dw;
+        x_atual += getLarguraX_forma(vet[i]) + dw;
     }
 }
 

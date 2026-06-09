@@ -29,13 +29,6 @@ void libera_forma(FORMA *f);
 /// @pre fp != NULL && f != NULL
 void escreve_forma_svg(FILE *fp, FORMA f);
 
-/// @brief troca a posição espacial de duas formas na coordenada x
-/// @param f1 forma 1
-/// @param f2 forma 2
-/// @param distancia menor distância entre as formas
-/// @pre f1 != NULL && f2 != NULL && distancia >= 0
-void troca_posicaoX_formas(FORMA f1, FORMA f2, double distancia);
-
 /// @brief clona a forma (copia valores) com id específico para clone
 /// @param f forma original
 /// @pre f != NULL
@@ -47,9 +40,9 @@ FORMA clona_forma(FORMA f);
 /// @param f forma
 void troca_cores_forma(FORMA f);
 
+void get_correcao_ancora(FORMA f, double *dx, double *dy);
 char* traduz_tipo_forma(const char tipo, bool maiusculo);
 void reporta_forma(FILE* fp_txt, FORMA f, char criterio_ordenacao);
-void posiciona_formas(FORMA vet[], int n, double x, double y_teto, double dw);
 
 
 /* === Operações get === */
@@ -101,6 +94,8 @@ double getArea_forma(FORMA f);
 /// @pre f != NULL
 /// @return largura
 double getLargura_forma(FORMA f);
+
+double getLarguraX_forma(FORMA f);
 
 /// @brief retorna a altura da forma
 /// @param f forma

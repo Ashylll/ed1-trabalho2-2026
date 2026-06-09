@@ -20,7 +20,7 @@ static void clona_move_forma(ARVORE formas, FORMA vet_sel[], double dx, double d
 }
 
 
-static void cm(double x, double y, double w, double h, double dx, double dy, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[], int* n_selecionadas){
+static void cm(double x, double y, double w, double h, double dx, double dy, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[]){
     FORMA retangulo_sel = cria_forma('r', cria_retangulo(-1, x, y, w, h, "red", "none"));
     insere_arvore(formas_marcadores, retangulo_sel);
     
@@ -37,13 +37,13 @@ static void cm(double x, double y, double w, double h, double dx, double dy, ARV
 static void comando_cm(const char* linha, FILE* fp_qry, FILE* fp_log, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[]){
     double x, y, w, h, dx, dy;
     
-    sscanf(linha, "%*s %lf %lf %lf %lf %lf %lf", &x, &y, &w, &h, &dx, &dy) != 6) return;
+    if (sscanf(linha, "%*s %lf %lf %lf %lf %lf %lf", &x, &y, &w, &h, &dx, &dy) != 6) return;
     fprintf(fp_log, "[*] cm %lf %lf %lf %lf %lf %lf\n", x, y, w, h, dx, dy);
     
-    cm(x, y, w, h, dx, dy, formas, formas_marcadores, vet_sel, n_selecionadas);
+    cm(x, y, w, h, dx, dy, formas, formas_marcadores, vet_sel);
 }
 
-static void sel(double x, double y, double w, double h, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[], int* n_selecionadas){
+static void sel(double x, double y, double w, double h, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[]){
     FORMA retangulo_sel = cria_forma('r', cria_retangulo(-1, x, y, w, h, "red", "none"));
     insere_arvore(formas_marcadores, retangulo_sel);
     
@@ -54,10 +54,10 @@ static void sel(double x, double y, double w, double h, ARVORE formas, ARVORE fo
 static void comando_sel(const char* linha, FILE* fp_qry, FILE* fp_log, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[]){
     double x, y, w, h;
     
-    sscanf(linha, "%*s %lf %lf %lf %lf", &x, &y, &w, &h) != 4) return;
+    if (sscanf(linha, "%*s %lf %lf %lf %lf", &x, &y, &w, &h) != 4) return;
     fprintf(fp_log, "[*] sel %lf %lf %lf %lf\n", x, y, w, h);    
 
-    sel(x, y, w, h, formas, formas_marcadores, vet_sel, &n_selecionadas);
+    sel(x, y, w, h, formas, formas_marcadores, vet_sel);
 
     if (n_selecionadas > 0) fprintf(fp_log, "Formas selecionadas:\n\n");
     else fprintf(fp_log, "Nenhuma forma selecionada\n\n");
@@ -88,10 +88,7 @@ static void remove_formas_maiores(ARVORE formas, FORMA vet_sel[], int k){
     }
 }
 
-static void find(int k, char* alg, char crit, double x, double y, double dw, char* comb_out, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel, bool rm){
-    
-    posiciona_formas(vet_sel, n_selecionadas, x, y, dw);
-    
+static void find(FILE* fp_log, int k, char* alg, char crit, double x, double y, double dw, const char* comb_out, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel, bool rm){
     FCOMPARA_FORMAS criterio_ordenacao;
     
     switch (crit){
@@ -108,7 +105,7 @@ static void find(int k, char* alg, char crit, double x, double y, double dw, cha
         default:  criterio_ordenacao = NULL; break;
     }
 
-    if (strcmp(alg, "bs") == 0) bubble_sort_animado(comb_out, formas, vet_sel, n_selecionadas, k, criterio_ordenacao);
+    if (strcmp(alg, "bs") == 0) bubble_sort_animado(comb_out, vet_sel, n_selecionadas, k, criterio_ordenacao);
     /*
     else if (strcmp(alg, "ss") == 0) selection_sort_animado();
     else if (strcmp(alg, "is") == 0) insertion_sort_animado();
@@ -136,8 +133,8 @@ static void comando_find(const char* linha, const char* comb_out, FILE* fp_qry, 
         return;
     }
 
-    find(k, alg, crit, x, y, dw, comb_out, formas, formas_marcadores, vet_sel, rm);
-
+    find(fp_log, k, alg, crit, x, y, dw, comb_out, formas, formas_marcadores, vet_sel, rm);
+    
     fprintf(fp_log, "Formas selecionadas segundo o critério:\n");
     for(int i = 0; i < n_selecionadas; i++){
         reporta_forma(fp_log, vet_sel[i], crit);
@@ -165,13 +162,13 @@ bool processa_qry(const char* path_qry, const char* path_log, const char* comb_o
         if(comando[0] == '#') continue;
     
         if (strcmp(comando, "sel") == 0) {
-            comando_sel(linha, fp_qry, fp_log, formas, formas_marcadores, vet_sel, false);
+            comando_sel(linha, fp_qry, fp_log, formas, formas_marcadores, vet_sel);
         } 
         else if (strcmp(comando, "find") == 0) {
             comando_find(linha, comb_out, fp_qry, fp_log, formas, formas_marcadores, vet_sel, false);
         } 
         else if (strcmp(comando, "cm") == 0) {
-            comando_sel(linha, fp_qry, fp_log, formas, formas_marcadores, vet_sel, true);
+            comando_sel(linha, fp_qry, fp_log, formas, formas_marcadores, vet_sel);
         } 
         else if (strcmp(comando, "findrm") == 0) {
             comando_find(linha, comb_out, fp_qry, fp_log, formas, formas_marcadores, vet_sel, true);
