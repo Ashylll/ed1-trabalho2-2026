@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-ARVORE arvore_teste;
+Arvore arvore_teste;
 void setUp(void) {
     arvore_teste = cria_arvore(compara_default);
 }
@@ -18,15 +18,15 @@ void tearDown(void) {
 }
 
 void teste_cria_libera_arvore(void){
-    ARVORE arvore = cria_arvore(NULL);
+    Arvore arvore = cria_arvore(NULL);
     TEST_ASSERT_NULL(arvore);
     arvore = cria_arvore(compara_default);
     TEST_ASSERT_NOT_NULL(arvore);
 
-    LINHA l1 = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
-    LINHA l2 = cria_linha(-4, 2.0, 9.0, 4.0, 6.0, "pink");
-    FORMA f1 = cria_forma('l', l1);
-    FORMA f2 = cria_forma('l', l2);
+    Linha l1 = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
+    Linha l2 = cria_linha(-4, 2.0, 9.0, 4.0, 6.0, "pink");
+    Forma f1 = cria_forma('l', l1);
+    Forma f2 = cria_forma('l', l2);
     insere_arvore(arvore, f1);
     insere_arvore(arvore, f2);    
 
@@ -35,24 +35,24 @@ void teste_cria_libera_arvore(void){
 }
 
 void teste_insere_remove_tamanho_arvore(void){
-    LINHA l1 = cria_linha(-2, 2.0, 9.0, 4.0, 6.0, "pink");
-    LINHA l2 = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
-    LINHA l3 = cria_linha(-2, 2.0, 7.0, 4.0, 6.0, "pink");
+    Linha l1 = cria_linha(-2, 2.0, 9.0, 4.0, 6.0, "pink");
+    Linha l2 = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
+    Linha l3 = cria_linha(-2, 2.0, 7.0, 4.0, 6.0, "pink");
 
-    FORMA f1 = cria_forma('l', l1);
-    FORMA f2 = cria_forma('l', l2);
-    FORMA f3 = cria_forma('l', l3);
+    Forma f1 = cria_forma('l', l1);
+    Forma f2 = cria_forma('l', l2);
+    Forma f3 = cria_forma('l', l3);
     insere_arvore(arvore_teste, f1);
     insere_arvore(arvore_teste, f2);
     insere_arvore(arvore_teste, f3);
-    TEST_ASSERT_EQUAL_INT(3, getTamanho_arvore(arvore_teste));
+    TEST_ASSERT_EQUAL_INT(3, get_tamanho_arvore(arvore_teste));
     
     remove_arvore(arvore_teste, f2);
-    TEST_ASSERT_EQUAL_INT(2, getTamanho_arvore(arvore_teste));
+    TEST_ASSERT_EQUAL_INT(2, get_tamanho_arvore(arvore_teste));
     remove_arvore(arvore_teste, f1);
-    TEST_ASSERT_EQUAL_INT(1, getTamanho_arvore(arvore_teste));
+    TEST_ASSERT_EQUAL_INT(1, get_tamanho_arvore(arvore_teste));
     remove_arvore(arvore_teste, f3);
-    TEST_ASSERT_EQUAL_INT(0, getTamanho_arvore(arvore_teste));
+    TEST_ASSERT_EQUAL_INT(0, get_tamanho_arvore(arvore_teste));
     
 }
 
@@ -97,16 +97,16 @@ void teste_escreve_arvore_svg(void){
 }
 
 void teste_formas_selecionadas_para_vetor(void){
-    FORMA ret_sel = cria_forma('r', cria_retangulo(-1, 0.0, 0.0, 100.0, 100.0, "red", "none"));
-    FORMA f_dentro1 = cria_forma('r', cria_retangulo(1, 10.0, 10.0, 10.0, 10.0, "blue", "blue"));
-    FORMA f_dentro2 = cria_forma('c', cria_circulo(2, 20.0, 20.0, 5.0, "blue", "blue"));
-    FORMA f_fora = cria_forma('r', cria_retangulo(3, 500.0, 500.0, 10.0, 10.0, "blue", "blue"));
+    Forma ret_sel = cria_forma('r', cria_retangulo(-1, 0.0, 0.0, 100.0, 100.0, "red", "none"));
+    Forma f_dentro1 = cria_forma('r', cria_retangulo(1, 10.0, 10.0, 10.0, 10.0, "blue", "blue"));
+    Forma f_dentro2 = cria_forma('c', cria_circulo(2, 20.0, 20.0, 5.0, "blue", "blue"));
+    Forma f_fora = cria_forma('r', cria_retangulo(3, 500.0, 500.0, 10.0, 10.0, "blue", "blue"));
 
     insere_arvore(arvore_teste, f_dentro1);
     insere_arvore(arvore_teste, f_dentro2);
     insere_arvore(arvore_teste, f_fora);
 
-    FORMA vetor[10];
+    Forma vetor[10];
     int n = 0;
 
     formas_selecionadas_para_vetor(arvore_teste, ret_sel, vetor, &n);

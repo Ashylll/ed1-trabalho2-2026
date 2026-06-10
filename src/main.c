@@ -54,8 +54,8 @@ int main(int argc, char *argv[]){
         sprintf(out_txt_comb, "%s/%s-%s.txt", dir_saida, base_geo, base_qry);
     }
 
-    ARVORE formas = cria_arvore(compara_default);
-    ARVORE formas_marcadores = cria_arvore(compara_default);
+    Arvore formas = cria_arvore(compara_default);
+    Arvore formas_marcadores = cria_arvore(compara_default);
     leitura_geo(path_geo, formas);
     gera_svg_inicial(out_svg_geo, formas); // Gera SVG do .geo
 

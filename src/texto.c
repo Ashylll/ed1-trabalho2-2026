@@ -6,24 +6,24 @@
 #include <stdbool.h>
 #include <assert.h>
 
-typedef struct stEstilo{
+typedef struct StEstilo{
     char *fFamily;
     char *fWeight;
     double fSize;
-} stEstilo;
+} StEstilo;
 
-typedef struct stTexto{
+typedef struct StTexto{
     int id;
     double x, y;
     char *corb, *corp, a, *txto;
 
-    stEstilo estilo;
-} stTexto;
+    StEstilo estilo;
+} StTexto;
 
-TEXTO cria_texto(int id, double x, double y, const char* corb, const char* corp, char a, const char* txto){
+Texto cria_texto(int id, double x, double y, const char* corb, const char* corp, char a, const char* txto){
     if (!corb || !corp || !txto || a != 'i' && a != 'm' && a != 'f') return NULL;
 
-    stTexto *texto = malloc(sizeof(*texto));
+    StTexto *texto = malloc(sizeof(*texto));
     if (!texto) return NULL;
     
     texto->id = id;
@@ -82,9 +82,9 @@ TEXTO cria_texto(int id, double x, double y, const char* corb, const char* corp,
 
 }
 
-void libera_texto(TEXTO *t){
+void libera_texto(Texto *t){
     if (!t || !*t) return;
-    stTexto *texto = (stTexto*)*t;
+    StTexto *texto = (StTexto*)*t;
 
     free(texto->estilo.fFamily);
     free(texto->estilo.fWeight);
@@ -97,95 +97,95 @@ void libera_texto(TEXTO *t){
     *t = NULL;
 }
 
-int getId_texto(TEXTO t){
-    stTexto *texto = (stTexto*)t;
+int get_id_texto(Texto t){
+    StTexto *texto = (StTexto*)t;
 
     return texto->id;
 }
 
-double getX_texto(TEXTO t){
-    stTexto *texto = (stTexto*)t;
+double get_x_texto(Texto t){
+    StTexto *texto = (StTexto*)t;
 
     return texto->x;
 
 }
 
 
-double getY_texto(TEXTO t){
-    stTexto *texto = (stTexto*)t;
+double get_y_texto(Texto t){
+    StTexto *texto = (StTexto*)t;
 
     return texto->y;
 
 }
 
 
-char* getCORB_texto(TEXTO t){
+char* get_corb_texto(Texto t){
     if (!t) return NULL;
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
 
     return texto->corb;
 }
 
 
-char* getCORP_texto(TEXTO t){
+char* get_corp_texto(Texto t){
     if (!t) return NULL;
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
 
     return texto->corp;
 }
 
 
-char getA_texto(TEXTO t){
-    stTexto *texto = (stTexto*)t;
+char get_posicao_ancora_texto(Texto t){
+    StTexto *texto = (StTexto*)t;
 
     return texto->a;
 }
 
-char* getTXTO_texto(TEXTO t){
+char* get_palavra_texto(Texto t){
     if (!t) return NULL;
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
 
     return texto->txto;
 }
 
-double getArea_texto(TEXTO t){
-    char* texto = getTXTO_texto(t);
+double get_area_texto(Texto t){
+    char* texto = get_palavra_texto(t);
     int comprimento = strlen(texto);
 
     return 10 * comprimento;    
 }
 
-bool setId_texto(TEXTO t, int id){
+bool set_id_texto(Texto t, int id){
     if (!t) return false;
 
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
     texto->id = id;
 
     return true;
 }
 
-bool setX_texto(TEXTO t, double x){
+bool set_x_texto(Texto t, double x){
     if (!t) return false;
 
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
     texto->x = x;
 
     return true;
 }
 
-bool setY_texto(TEXTO t, double y){
+bool set_y_texto(Texto t, double y){
     if (!t) return false;
 
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
     texto->y = y;
 
     return true;
 }
 
-bool setCORB_texto(TEXTO t, const char *corb){
+bool set_corb_texto(Texto t, const char *corb){
     if (!t || !corb) return false;
 
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
 
     if (texto->corb && strcmp(texto->corb, corb) == 0) return true;
 
@@ -199,10 +199,10 @@ bool setCORB_texto(TEXTO t, const char *corb){
     return true;
 }
 
-bool setCORP_texto(TEXTO t, const char *corp){
+bool set_corp_texto(Texto t, const char *corp){
     if (!t || !corp) return false;
 
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
     
     if (texto->corp && strcmp(texto->corp, corp) == 0) return true;
 
@@ -216,20 +216,20 @@ bool setCORP_texto(TEXTO t, const char *corp){
     return true;
 }
 
-bool setA_texto(TEXTO t, char a){
+bool set_posicao_ancora_texto(Texto t, char a){
     if (!t) return false;
     if (a != 'i' && a != 'm' && a != 'f') return false;
 
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
     texto->a = a;
 
     return true;
 }
 
-bool setTXTO_texto(TEXTO t, const char *txto){
+bool set_palavra_texto(Texto t, const char *txto){
     if (!t || !txto) return false;
 
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
 
     if (texto->txto && strcmp(texto->txto, txto) == 0) return true;
 
@@ -243,10 +243,10 @@ bool setTXTO_texto(TEXTO t, const char *txto){
     return true;
 }
 
-bool muda_estilo(TEXTO t, const char *fFamily, const char *fWeight, double fSize){
+bool muda_estilo(Texto t, const char *fFamily, const char *fWeight, double fSize){
     if (!t || !fFamily || !fWeight || fSize <= 0) return false;
 
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
 
     if (texto->estilo.fFamily && texto->estilo.fWeight &&
         strcmp(texto->estilo.fFamily, fFamily) == 0 &&
@@ -278,23 +278,23 @@ bool muda_estilo(TEXTO t, const char *fFamily, const char *fWeight, double fSize
     return true;
 }
 
-char* getFFamily_texto(TEXTO t){
+char* get_family_texto(Texto t){
     if (!t) return NULL;
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
 
     return texto->estilo.fFamily; 
 }
 
-char* getFWeight_texto(TEXTO t){
+char* get_weight_texto(Texto t){
     if (!t) return NULL;
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
 
     return texto->estilo.fWeight;
 }
 
-double getFSize_texto(TEXTO t){
+double get_size_texto(Texto t){
     if (!t) return -1;
-    stTexto *texto = (stTexto*)t;
+    StTexto *texto = (StTexto*)t;
 
     return texto->estilo.fSize;
 }

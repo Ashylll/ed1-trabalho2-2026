@@ -11,38 +11,38 @@
 
 */
 
-typedef void* FORMA;
+typedef void* Forma;
 
 /// @brief cria uma forma
 /// @param tipo tipo da forma (círculo, retângulo, texto, linha)
 /// @param handle handle para a forma (ponteiro para a forma)
 /// @return ponteiro para a forma
-FORMA cria_forma(char tipo, void* handle);
+Forma cria_forma(char tipo, void* handle);
 
 /// @brief libera a forma
-/// @param f ponteiro para handle FORMA
-void libera_forma(FORMA *f);
+/// @param f ponteiro para handle Forma
+void libera_forma(Forma *f);
 
 /// @brief escreve a forma em um arquivo SVG aberto em modo escrita
 /// @param fp arquivo SVG
 /// @param f forma
 /// @pre fp != NULL && f != NULL
-void escreve_forma_svg(FILE *fp, FORMA f);
+void escreve_forma_svg(FILE *fp, Forma f);
 
 /// @brief clona a forma (copia valores) com id específico para clone
 /// @param f forma original
 /// @pre f != NULL
 /// @return clone criado
-FORMA clona_forma(FORMA f);
+Forma clona_forma(Forma f);
 
 /// @brief troca as cores de borda e de preenchimento da forma
 /// @pre f != NULL
 /// @param f forma
-void troca_cores_forma(FORMA f);
+void troca_cores_forma(Forma f);
 
-void get_correcao_ancora(FORMA f, double *dx, double *dy);
+void get_correcao_ancora(Forma f, double *dx, double *dy);
 char* traduz_tipo_forma(const char tipo, bool maiusculo);
-void reporta_forma(FILE* fp_txt, FORMA f, char criterio_ordenacao);
+void reporta_forma(FILE* fp_txt, Forma f, char criterio_ordenacao);
 
 
 /* === Operações get === */
@@ -51,69 +51,69 @@ void reporta_forma(FILE* fp_txt, FORMA f, char criterio_ordenacao);
 /// @param f forma
 /// @pre f != NULL
 /// @return identificador
-int getId_forma(FORMA f);
+int get_id_forma(Forma f);
 
 /// @brief retorna o tipo da forma
 /// @param f forma
 /// @pre f != NULL
 /// @return caractere para o tipo ('c', 'r', 't', 'l')
-char getTipo_forma(FORMA f);
+char get_tipo_forma(Forma f);
 
 /// @brief retorna o handle da forma
 /// @param f forma
 /// @return handle
-void* getHandle_forma(FORMA f);
+void* get_handle_forma(Forma f);
 
 /// @brief lê as coordenadas (x,y) da âncora da forma
 /// @param f forma
 /// @param x ponteiro para saída da coordenada x
 /// @param y ponteiro para saída da coordenada y
 /// @return true se a operação foi bem sucedida; false se f == NULL
-bool getAncora_forma(FORMA f, double* x, double* y);
+bool get_ancora_forma(Forma f, double* x, double* y);
 
 /// @brief retorna a coordenada x da âncora da forma
 /// @param f forma
 /// @pre f != NULL
 /// @return coordenada x
-double getX_forma(FORMA f);
+double get_x_forma(Forma f);
 
 /// @brief retorna a coordenada y da âncora da forma
 /// @param f forma
 /// @pre f != NULL
 /// @return coordenada y
-double getY_forma(FORMA f);
+double get_y_forma(Forma f);
 
 /// @brief retorna a área da forma
 /// @param f forma
 /// @pre f != NULL
 /// @return área
-double getArea_forma(FORMA f);
+double get_area_forma(Forma f);
 
 /// @brief retorna a largura da forma
 /// @param f forma
 /// @pre f != NULL
 /// @return largura
-double getLargura_forma(FORMA f);
+double get_largura_forma(Forma f);
 
-double getLarguraX_forma(FORMA f);
+double get_largura_x_forma(Forma f);
 
 /// @brief retorna a altura da forma
 /// @param f forma
 /// @pre f != NULL
 /// @return altura
-double getAltura_forma(FORMA f);
+double get_altura_forma(Forma f);
 
 /// @brief retorna a cor de borda da forma
 /// @param f forma
 /// @pre f != NULL
 /// @return cor de borda
-char* getCORB_forma(FORMA f);
+char* get_corb_forma(Forma f);
 
 /// @brief retorna a cor de preenchimento da forma. Se for linha, retorna a cor de borda
 /// @param f forma
 /// @pre f != NULL
 /// @return cor de preenchimento
-char* getCORP_forma(FORMA f);
+char* get_corp_forma(Forma f);
 
 /* ===================== */
 
@@ -126,36 +126,36 @@ char* getCORP_forma(FORMA f);
 /// @param x coordenada x
 /// @param y coordenada y
 /// @return true se a operação foi bem sucedida; false se f == NULL
-bool setAncora_forma(FORMA f, double x, double y);
+bool set_ancora_forma(Forma f, double x, double y);
 
 /// @brief seta um valor à coordenada x da âncora da forma
 /// @param f forma
 /// @pre f != NULL
 /// @param x coordenada x
-void setX_forma(FORMA f, double x);
+void set_x_forma(Forma f, double x);
 
 /// @brief seta um valor à coordenada y da âncora da forma
 /// @param f forma
 /// @pre f != NULL
 /// @param x coordenada y
-void setY_forma(FORMA f, double y);
+void set_y_forma(Forma f, double y);
 
 /// @brief atribui uma cor de borda à forma (atribui cor se for tipo linha)
 /// @param f forma
 /// @param corb cor de borda
 /// @pre f != NULL && corp != NULL
-void setCORB_forma(FORMA f, char* corb);
+void set_corb_forma(Forma f, char* corb);
 
 /// @brief atribui uma cor de preenchimento à forma (não muda se for tipo linha)
 /// @param f forma
 /// @param corp cor de preenchimento
 /// @pre f != NULL && corp != NULL
-void setCORP_forma(FORMA f, char* corp);
+void set_corp_forma(Forma f, char* corp);
 
 /// @brief desloca a forma nas coordenadas (x,y)
 /// @param f forma
 /// @param dx deslocamento no eixo x
 /// @param dy deslocamento no eixo y
 /// @return true se a operação foi bem sucedida; false se f == NULL
-bool desloca_forma(FORMA f, double dx, double dy);
+bool desloca_forma(Forma f, double dx, double dy);
 

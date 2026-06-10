@@ -4,17 +4,17 @@
 #include "sorting.h"
 
 typedef struct No {
-    FORMA forma;
+    Forma forma;
     struct No *esq;
     struct No *dir;
 } No;
 
-typedef struct Arvore {
+typedef struct StArvore {
     No *raiz;
-    FCOMPARA_NOS cmp;
-} Arvore;
+    ComparaFormas cmp;
+} StArvore;
 
-static No* cria_no(FORMA forma){
+static No* cria_no(Forma forma){
     No *no = malloc(sizeof(No));
 
     if (no){
@@ -26,9 +26,9 @@ static No* cria_no(FORMA forma){
     return no;
 }
 
-ARVORE cria_arvore(FCOMPARA_NOS cmp){
+Arvore cria_arvore(ComparaFormas cmp){
     if (!cmp) return NULL;
-    Arvore *arvore = malloc(sizeof(Arvore));
+    StArvore *arvore = malloc(sizeof(StArvore));
     if (arvore){
         arvore->raiz = NULL;
         arvore->cmp = cmp;
@@ -45,9 +45,9 @@ static void libera_nos(No *no){
     }
 }
 
-void libera_arvore(ARVORE *a){
+void libera_arvore(Arvore *a){
     if (!a || !*a) return;
-    Arvore *arvore = (Arvore*)*a;
+    StArvore *arvore = (StArvore*)*a;
 
     libera_nos(arvore->raiz);
     free(arvore);
@@ -55,7 +55,7 @@ void libera_arvore(ARVORE *a){
     *a = NULL;
 }
 
-static No* insere_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
+static No* insere_no(No* no, Forma forma, ComparaFormas cmp){
     if (!no){
         return cria_no(forma);
     }
@@ -67,8 +67,8 @@ static No* insere_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
     return no;
 }
 
-void insere_arvore(ARVORE a, FORMA forma) {
-    Arvore *arvore = (Arvore*)a;
+void insere_arvore(Arvore a, Forma forma) {
+    StArvore *arvore = (StArvore*)a;
     arvore->raiz = insere_no(arvore->raiz, forma, arvore->cmp);
 }
 
@@ -86,7 +86,7 @@ static No* encontra_maior(No* raiz){
     return raiz;
 }
 
-static No* remove_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
+static No* remove_no(No* no, Forma forma, ComparaFormas cmp){
     if (!no){
         return no;
     }
@@ -115,27 +115,27 @@ static No* remove_no(No* no, FORMA forma, FCOMPARA_NOS cmp){
     return no;
 }
 
-void remove_arvore(ARVORE a, FORMA forma){
-    Arvore* arvore = (Arvore*)a;
+void remove_arvore(Arvore a, Forma forma){
+    StArvore* arvore = (StArvore*)a;
     arvore->raiz = remove_no(arvore->raiz, forma, arvore->cmp);
 }
 
-static No* getRaiz_arvore(ARVORE a){
+static No* get_raiz_arvore(Arvore a){
     if (!a) return NULL;
-    Arvore *arvore = (Arvore*)a;
+    StArvore *arvore = (StArvore*)a;
     return arvore->raiz;
 }
 
 
-static int getTamanho(No* raiz){
+static int get_tamanho(No* raiz){
     if (!raiz) return 0;
 
-    return 1 + getTamanho(raiz->esq) + getTamanho(raiz->dir);
+    return 1 + get_tamanho(raiz->esq) + get_tamanho(raiz->dir);
 }
 
-int getTamanho_arvore(ARVORE a){
+int get_tamanho_arvore(Arvore a){
     if (!a) return -1;
-    return getTamanho(getRaiz_arvore(a));
+    return get_tamanho(get_raiz_arvore(a));
 }
 
 static void escreve_no_svg(FILE* fp, No* raiz){
@@ -146,11 +146,11 @@ static void escreve_no_svg(FILE* fp, No* raiz){
     escreve_no_svg(fp, raiz->dir);
 }
 
-void escreve_arvore_svg(FILE* fp, ARVORE a){
-    escreve_no_svg(fp, getRaiz_arvore(a));
+void escreve_arvore_svg(FILE* fp, Arvore a){
+    escreve_no_svg(fp, get_raiz_arvore(a));
 }
 
-static void formas_para_vetor(No* no, FORMA retangulo_selecao, FORMA vet[], int *n) {
+static void formas_para_vetor(No* no, Forma retangulo_selecao, Forma vet[], int *n) {
     if (!no) return;
 
     formas_para_vetor(no->esq, retangulo_selecao, vet, n);
@@ -163,8 +163,8 @@ static void formas_para_vetor(No* no, FORMA retangulo_selecao, FORMA vet[], int 
     formas_para_vetor(no->dir, retangulo_selecao, vet, n);
 }
 
-void formas_selecionadas_para_vetor(ARVORE a, FORMA retangulo_selecao, FORMA vet[], int *n) {
-    Arvore* arvore = (Arvore*)a;
+void formas_selecionadas_para_vetor(Arvore a, Forma retangulo_selecao, Forma vet[], int *n) {
+    StArvore* arvore = (StArvore*)a;
     if (arvore && arvore->raiz) {
         formas_para_vetor(arvore->raiz, retangulo_selecao, vet, n);
     }

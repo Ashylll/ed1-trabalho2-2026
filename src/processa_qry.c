@@ -9,9 +9,9 @@
 
 static int n_selecionadas = 0; 
 
-static void clona_move_forma(ARVORE formas, FORMA vet_sel[], double dx, double dy){
+static void clona_move_forma(Arvore formas, Forma vet_sel[], double dx, double dy){
     for (int i = 0; i < n_selecionadas; i++){
-        FORMA clone = clona_forma(vet_sel[i]);
+        Forma clone = clona_forma(vet_sel[i]);
         insere_arvore(formas, clone);
 
         desloca_forma(clone, dx, dy);
@@ -20,8 +20,8 @@ static void clona_move_forma(ARVORE formas, FORMA vet_sel[], double dx, double d
 }
 
 
-static void cm(double x, double y, double w, double h, double dx, double dy, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[]){
-    FORMA retangulo_sel = cria_forma('r', cria_retangulo(-1, x, y, w, h, "red", "none"));
+static void cm(double x, double y, double w, double h, double dx, double dy, Arvore formas, Arvore formas_marcadores, Forma vet_sel[]){
+    Forma retangulo_sel = cria_forma('r', cria_retangulo(-1, x, y, w, h, "red", "none"));
     insere_arvore(formas_marcadores, retangulo_sel);
     
     n_selecionadas = 0;
@@ -34,7 +34,7 @@ static void cm(double x, double y, double w, double h, double dx, double dy, ARV
     }
 }
 
-static void comando_cm(const char* linha, FILE* fp_qry, FILE* fp_log, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[]){
+static void comando_cm(const char* linha, FILE* fp_qry, FILE* fp_log, Arvore formas, Arvore formas_marcadores, Forma vet_sel[]){
     double x, y, w, h, dx, dy;
     
     if (sscanf(linha, "%*s %lf %lf %lf %lf %lf %lf", &x, &y, &w, &h, &dx, &dy) != 6) return;
@@ -43,15 +43,15 @@ static void comando_cm(const char* linha, FILE* fp_qry, FILE* fp_log, ARVORE for
     cm(x, y, w, h, dx, dy, formas, formas_marcadores, vet_sel);
 }
 
-static void sel(double x, double y, double w, double h, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[]){
-    FORMA retangulo_sel = cria_forma('r', cria_retangulo(-1, x, y, w, h, "red", "none"));
+static void sel(double x, double y, double w, double h, Arvore formas, Arvore formas_marcadores, Forma vet_sel[]){
+    Forma retangulo_sel = cria_forma('r', cria_retangulo(-1, x, y, w, h, "red", "none"));
     insere_arvore(formas_marcadores, retangulo_sel);
     
     n_selecionadas = 0;
     formas_selecionadas_para_vetor(formas, retangulo_sel, vet_sel, &n_selecionadas);
 }
 
-static void comando_sel(const char* linha, FILE* fp_qry, FILE* fp_log, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[]){
+static void comando_sel(const char* linha, FILE* fp_qry, FILE* fp_log, Arvore formas, Arvore formas_marcadores, Forma vet_sel[]){
     double x, y, w, h;
     
     if (sscanf(linha, "%*s %lf %lf %lf %lf", &x, &y, &w, &h) != 4) return;
@@ -63,33 +63,33 @@ static void comando_sel(const char* linha, FILE* fp_qry, FILE* fp_log, ARVORE fo
     else fprintf(fp_log, "Nenhuma forma selecionada\n\n");
 
     for(int i = 0; i < n_selecionadas; i++){
-        int id = getId_forma(vet_sel[i]);
-        char tipo = getTipo_forma(vet_sel[i]);
+        int id = get_id_forma(vet_sel[i]);
+        char tipo = get_tipo_forma(vet_sel[i]);
 
         fprintf(fp_log, "Id: %d\nTipo: %s\n\n", id, traduz_tipo_forma(tipo, false));
     }
 }
 
-static void cria_quadrados_marcadores(FORMA vet_sel[], ARVORE formas_marcadores, int k){
+static void cria_quadrados_marcadores(Forma vet_sel[], Arvore formas_marcadores, int k){
     for(int i = 0; i < k; i++){
         double x, y;
 
-        getAncora_forma(vet_sel[i], &x, &y);
-        FORMA quadrado_ancora = cria_forma('r', cria_retangulo(-2, x, y, 10, 10, "red", "none"));
+        get_ancora_forma(vet_sel[i], &x, &y);
+        Forma quadrado_ancora = cria_forma('r', cria_retangulo(-2, x, y, 10, 10, "red", "none"));
 
         insere_arvore(formas_marcadores, quadrado_ancora);
     }
 }
 
-static void remove_formas_maiores(ARVORE formas, FORMA vet_sel[], int k){
+static void remove_formas_maiores(Arvore formas, Forma vet_sel[], int k){
     for (int i = k; i < n_selecionadas; i++){
         remove_arvore(formas, vet_sel[i]);
         vet_sel[i] = NULL;
     }
 }
 
-static void find(FILE* fp_log, int k, char* alg, char crit, double x, double y, double dw, const char* comb_out, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel, bool rm){
-    FCOMPARA_FORMAS criterio_ordenacao;
+static void find(FILE* fp_log, int k, char* alg, char crit, double x, double y, double dw, const char* comb_out, Arvore formas, Arvore formas_marcadores, Forma vet_sel[], bool rm){
+    ComparaFormas criterio_ordenacao;
     
     switch (crit){
         case 'd': 
@@ -118,7 +118,7 @@ static void find(FILE* fp_log, int k, char* alg, char crit, double x, double y, 
     if (rm) remove_formas_maiores(formas, vet_sel, k);
 }
 
-static void comando_find(const char* linha, const char* comb_out, FILE* fp_qry, FILE* fp_log, ARVORE formas, ARVORE formas_marcadores, FORMA vet_sel[], bool rm){ 
+static void comando_find(const char* linha, const char* comb_out, FILE* fp_qry, FILE* fp_log, Arvore formas, Arvore formas_marcadores, Forma vet_sel[], bool rm){ 
     int k;
     char alg[8];
     char crit;
@@ -141,18 +141,18 @@ static void comando_find(const char* linha, const char* comb_out, FILE* fp_qry, 
     }
 }
 
-static void comando_mc(FORMA vet_sel[]){
+static void comando_mc(Forma vet_sel[]){
     for (int i = 0; i < n_selecionadas; i++){
         troca_cores_forma(vet_sel[i]);
     }
 }
 
-bool processa_qry(const char* path_qry, const char* path_log, const char* comb_out, ARVORE formas, ARVORE formas_marcadores){
+bool processa_qry(const char* path_qry, const char* path_log, const char* comb_out, Arvore formas, Arvore formas_marcadores){
     FILE* fp_qry = fopen(path_qry, "r");
     FILE* fp_log = fopen(path_log, "w");
     if(!fp_qry || !fp_log) return false;
     
-    FORMA vet_sel = malloc(200 * sizeof(FORMA));
+    Forma vet_sel = malloc(200 * sizeof(Forma));
     
     char linha[1024], comando[8];
 

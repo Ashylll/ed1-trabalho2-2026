@@ -6,9 +6,9 @@
 #include "forma.h"
 #include "arvore.h"
 
-void bubble_sort_animado(const char* comb_out, FORMA vetor[], int n, int k, FCOMPARA_FORMAS cmp) {
+void bubble_sort_animado(const char* comb_out, Forma vetor[], int n, int k, ComparaFormas cmp) {
     int i, j;
-    FORMA aux;
+    Forma aux;
     int cont_ordenados = 0;
     int numeracao_frame = 0;
     
@@ -33,51 +33,51 @@ void bubble_sort_animado(const char* comb_out, FORMA vetor[], int n, int k, FCOM
     }
 }
 
-int compara_default(FORMA f1, FORMA f2){
+int compara_default(Forma f1, Forma f2){
     double x1, y1, x2, y2;
-    getAncora_forma(f1, &x1, &y1);
-    getAncora_forma(f2, &x2, &y2);
+    get_ancora_forma(f1, &x1, &y1);
+    get_ancora_forma(f2, &x2, &y2);
 
     if (y1 != y2) return (y1 > y2) ? 1 : -1;
     if (x1 != x2) return (x1 > x2) ? 1 : -1;
 
-    double area1 = getArea_forma(f1);
-    double area2 = getArea_forma(f2);
+    double area1 = get_area_forma(f1);
+    double area2 = get_area_forma(f2);
     if (area1 != area2) return (area1 > area2) ? 1 : -1;
 
     return 0;
 }
 
-int compara_area(FORMA f1, FORMA f2){
-    double area1 = getArea_forma(f1);
-    double area2 = getArea_forma(f2);
+int compara_area(Forma f1, Forma f2){
+    double area1 = get_area_forma(f1);
+    double area2 = get_area_forma(f2);
 
     if (area1 != area2) return (area1 > area2) ? 1 : -1;
     
     return 0;
 }
 
-int compara_largura(FORMA f1, FORMA f2){
-    double largura1 = getLargura_forma(f1);
-    double largura2 = getLargura_forma(f2);
+int compara_largura(Forma f1, Forma f2){
+    double largura1 = get_largura_forma(f1);
+    double largura2 = get_largura_forma(f2);
 
     if (largura1 != largura2) return (largura1 > largura2) ? 1 : -1;
 
     return 0;
 }
 
-int compara_altura(FORMA f1, FORMA f2){
-    double altura1 = getAltura_forma(f1);
-    double altura2 = getAltura_forma(f2);
+int compara_altura(Forma f1, Forma f2){
+    double altura1 = get_altura_forma(f1);
+    double altura2 = get_altura_forma(f2);
 
     if (altura1 != altura2) return (altura1 > altura2) ? 1 : -1;
 
     return 0;
 }
 
-int compara_cor_preenchimento(FORMA f1, FORMA f2){
-    char* cor1 = getCORP_forma(f1);       
-    char* cor2 = getCORP_forma(f2);       
+int compara_cor_preenchimento(Forma f1, Forma f2){
+    char* cor1 = get_corp_forma(f1);       
+    char* cor2 = get_corp_forma(f2);       
 
     return strcmp(cor1, cor2);
 }
@@ -87,18 +87,18 @@ static inline bool ponto_no_retangulo(double x, double y, double xR, double yR, 
     return (xR - eps <= x && x <= xR + w + eps) && (yR - eps <= y && y <= yR + h + eps);
 }
 
-int dentro_selecao(FORMA f, FORMA retangulo_selecao){\
+int dentro_selecao(Forma f, Forma retangulo_selecao){\
     double xf, yf, hf, wf;
-    getAncora_forma(f, &xf, &yf);
-    hf = getAltura_forma(f);
-    wf = getLargura_forma(f);
+    get_ancora_forma(f, &xf, &yf);
+    hf = get_altura_forma(f);
+    wf = get_largura_forma(f);
 
     double xs, ys, hs, ws;
-    getAncora_forma(retangulo_selecao, &xs, &ys);
-    hs = getAltura_forma(retangulo_selecao);
-    ws = getLargura_forma(retangulo_selecao);
+    get_ancora_forma(retangulo_selecao, &xs, &ys);
+    hs = get_altura_forma(retangulo_selecao);
+    ws = get_largura_forma(retangulo_selecao);
 
-    switch (getTipo_forma(f)){
+    switch (get_tipo_forma(f)){
         case 'c':
             if (
             ponto_no_retangulo(xf + wf/2, yf, xs, ys, ws, hs) &&

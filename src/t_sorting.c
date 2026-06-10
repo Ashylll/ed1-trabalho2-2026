@@ -12,11 +12,11 @@
 #include <stdio.h>
 
 char* path_teste = "teste_leitura.geo";
-ARVORE arvore_teste;
-FORMA vet_sel;
+Arvore arvore_teste;
+Forma vet_sel;
 void setUp(void) {
     arvore_teste = cria_arvore(compara_default);
-    vet_sel = malloc(100 * sizeof(FORMA));
+    vet_sel = malloc(100 * sizeof(Forma));
     FILE* fp_geo = fopen(path_teste, "w");
     fprintf(fp_geo, "c 1 65.0 50.0 10.0 red blue\n");
     fprintf(fp_geo, "r 2 130.0 40.0 30.0 20.0 black yellow\n");
@@ -54,10 +54,10 @@ void tearDown(void) {
 }
 
 void teste_compara_formas(void){
-    RETANGULO r = cria_retangulo(1, 4.0, 0.0, 10.0, 10.0, "black", "white");
-    LINHA l = cria_linha(3, 6.0, 2.0, 6.0, 6.0, "green");
-    FORMA f1 = cria_forma('r', r);
-    FORMA f2 = cria_forma('l', l);
+    Retangulo r = cria_retangulo(1, 4.0, 0.0, 10.0, 10.0, "black", "white");
+    Linha l = cria_linha(3, 6.0, 2.0, 6.0, 6.0, "green");
+    Forma f1 = cria_forma('r', r);
+    Forma f2 = cria_forma('l', l);
 
     TEST_ASSERT_EQUAL_INT(-1, compara_default(f1, f2));
     TEST_ASSERT_EQUAL_INT(1, compara_area(f1, f2));
@@ -67,8 +67,8 @@ void teste_compara_formas(void){
     libera_forma(&f1); libera_forma(&f2);
 
 
-    CIRCULO c = cria_circulo(1, 4.2, -4.8, 4.0, "#AA1244", "#884466");
-    TEXTO t = cria_texto(1, 4.2, -4.8, "#AAAAAA", "#88CCAA", 'm', ":3");
+    Circulo c = cria_circulo(1, 4.2, -4.8, 4.0, "#AA1244", "#884466");
+    Texto t = cria_texto(1, 4.2, -4.8, "#AAAAAA", "#88CCAA", 'm', ":3");
     f1 = cria_forma('c', c);
     f2 = cria_forma('t', t);
 
@@ -87,12 +87,12 @@ void teste_dentro_selecao(void){
 
 void teste_bubble_sort_animado(void){
     char* path_svg = "t1-bs.svg";
-    FORMA ret_sel = cria_forma('r', cria_retangulo(-1, 0.0, 0.0, 200.0, 200.0, "red", "none"));
+    Forma ret_sel = cria_forma('r', cria_retangulo(-1, 0.0, 0.0, 200.0, 200.0, "red", "none"));
 
     int n = 0;
     formas_selecionadas_para_vetor(arvore_teste, ret_sel, vet_sel, &n);
     posiciona_formas(vet_sel, n, 100.0, 100.0, 40.0);
-    bubble_sort_animado(path_svg, arvore_teste, vet_sel, n, n, compara_area);
+    bubble_sort_animado(path_svg, vet_sel, n, n, compara_area);
 
     libera_forma(&ret_sel);
 }

@@ -23,7 +23,7 @@
 
 */
 
-typedef void* TEXTO;
+typedef void* Texto;
 #define FFAMILY_PADRAO "sans-serif"
 #define FWEIGHT_PADRAO "normal"
 #define FSIZE_PADRAO 12.0
@@ -38,12 +38,12 @@ typedef void* TEXTO;
 /// @param txto conteúdo do texto a ser criado
 /// @pre corb != NULL && corp != NULL && txt != NULL && (a == 'i' || a == 'm' || a == 'f')
 /// @return ponteiro para o texto; NULL se parâmetros inválidos ou falha de memória
-TEXTO cria_texto(int id, double x, double y, const char* corb, const char* corp, char a, const char* txto);
+Texto cria_texto(int id, double x, double y, const char* corb, const char* corp, char a, const char* txto);
 
 /// @brief libera a memória do texto 
 /// @param t ponteiro para o handle do texto
 /// @pre t != NULL
-void libera_texto(TEXTO *t);
+void libera_texto(Texto *t);
 
 /* === Operações get === */ 
 
@@ -51,49 +51,49 @@ void libera_texto(TEXTO *t);
 /// @param t texto
 /// @pre t != NULL
 /// @return identificador
-int getId_texto(TEXTO t);
+int get_id_texto(Texto t);
 
 /// @brief retorna a coordenada x do texto
 /// @param t texto
 /// @pre t != NULL
 /// @return coordenada x
-double getX_texto(TEXTO t);
+double get_x_texto(Texto t);
 
 /// @brief retorna a coordenada y do texto
 /// @param t texto
 /// @pre t != NULL
 /// @return coordenada y
-double getY_texto(TEXTO t);
+double get_y_texto(Texto t);
 
 /// @brief retorna a cor da borda do texto
 /// @param t texto
 /// @pre t != NULL
 /// @return ponteiro para string com a cor da borda (apenas leitura)
-char* getCORB_texto(TEXTO t);
+char* get_corb_texto(Texto t);
 
 /// @brief retorna a cor de preenchimento do texto
 /// @param t texto
 /// @pre t != NULL
 /// @return ponteiro para string com a cor de preenchimento (apenas leitura)
-char* getCORP_texto(TEXTO t);
+char* get_corp_texto(Texto t);
 
 /// @brief retorna a posição da âncora do texto
 /// @param t texto
 /// @pre t != NULL
 /// @return posição da âncora (char i, m, f)
-char getA_texto(TEXTO t);
+char get_posicao_ancora_texto(Texto t);
 
 /// @brief retorna o conteúdo do texto
 /// @param t texto
 /// @pre t != NULL
 /// @return ponteiro para string com txto (apenas leitura)
-char* getTXTO_texto(TEXTO t);
+char* get_palavra_texto(Texto t);
 
 /// @brief retorna a área do texto
 /// @param t texto
 /// @pre t != NULL
 /// @return área
-double getArea_texto(TEXTO t);
+double get_area_texto(Texto t);
 
 /* ===================== */
 
@@ -104,49 +104,49 @@ double getArea_texto(TEXTO t);
 /// @param id identificador
 /// @pre t != NULL
 /// @return true se a operação foi bem sucedida; false se t == NULL
-bool setId_texto(TEXTO t, int id);
+bool set_id_texto(Texto t, int id);
 
 /// @brief atribui uma coordenada x ao texto
 /// @param t texto
 /// @param x coordenada x
 /// @pre t != NULL
 /// @return true se a operação foi bem sucedida; false se t == NULL
-bool setX_texto(TEXTO t, double x);
+bool set_x_texto(Texto t, double x);
 
 /// @brief atribui uma coordenada y ao texto
 /// @param t texto
 /// @param y coordenada y
 /// @pre t != NULL
 /// @return true se a operação foi bem sucedida; false se t == NULL
-bool setY_texto(TEXTO t, double y);
+bool set_y_texto(Texto t, double y);
 
 /// @brief atribui uma cor de borda ao texto
 /// @param t texto
 /// @param corb cor de borda
 /// @pre t != NULL && corb != NULL
 /// @return true se a operação foi bem sucedida; false se t == NULL || corb == NULL
-bool setCORB_texto(TEXTO t, const char* corb);
+bool set_corb_texto(Texto t, const char* corb);
 
 /// @brief atribui uma cor de preenchimento ao texto
 /// @param t texto
 /// @param corp cor de preenchimento
 /// @pre t != NULL && corp != NULL
 /// @return true se a operação foi bem sucedida; false se t == NULL || corp == NULL
-bool setCORP_texto(TEXTO t, const char* corp);
+bool set_corp_texto(Texto t, const char* corp);
 
 /// @brief atribui uma posição à âncora do texto
 /// @param t texto
 /// @param a âncora do texto
 /// @pre t != NULL && (a == 'i' || a == 'm' || a == 'f')
 /// @return true se a operação foi bem sucedida; false se t == NULL || a inválido
-bool setA_texto(TEXTO t, char a);
+bool set_posicao_ancora_texto(Texto t, char a);
 
 /// @brief atribui um conteúdo ao texto
 /// @param t texto
 /// @param txto conteúdo do texto (string)
 /// @pre t != NULL && txto != NULL
 /// @return true se a operação foi bem sucedida; false se t == NULL || txto == NULL
-bool setTXTO_texto(TEXTO t, const char* txto);
+bool set_palavra_texto(Texto t, const char* txto);
 
 /* ===================== */
 
@@ -160,25 +160,25 @@ bool setTXTO_texto(TEXTO t, const char* txto);
 /// @param fSize tamanho do estilo
 /// @pre t != NULL && fFamily != NULL && fWeight != NULL && fSize > 0
 /// @return true se a operação foi bem sucedida; false se t == NULL || fFamily == NULL || fWeight == NULL || fSize <= 0
-bool muda_estilo(TEXTO t, const char* fFamily, const char* fWeight, double fSize);
+bool muda_estilo(Texto t, const char* fFamily, const char* fWeight, double fSize);
 
 /// @brief obtém a font-family atual
 /// @param t texto
 /// @pre t != NULL
 /// @return família da fonte do texto
-char* getFFamily_texto(TEXTO t);
+char* get_family_texto(Texto t);
 
 /// @brief obtém o font-weight atual
 /// @param t texto
 /// @pre t != NULL
 /// @return expessura da fonte do texto
-char* getFWeight_texto(TEXTO t);
+char* get_weight_texto(Texto t);
 
 /// @brief obtém o font-size atual (px)
 /// @param t texto
 /// @pre t != NULL
 /// @return tamanho da fonte do texto
-double getFSize_texto(TEXTO t);
+double get_size_texto(Texto t);
 
 /* ================================================= */
 

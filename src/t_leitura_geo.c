@@ -18,10 +18,10 @@ void teste_leitura_geo(void){
     fclose(fp_geo);
     
     fp_geo = fopen(path_teste, "r");
-    ARVORE arvore = cria_arvore(compara_default);
+    Arvore arvore = cria_arvore(compara_default);
     bool sucesso = leitura_geo(fp_geo, arvore);
     TEST_ASSERT_TRUE(sucesso);
-    TEST_ASSERT_EQUAL_INT(3, getTamanho_arvore(arvore));
+    TEST_ASSERT_EQUAL_INT(3, get_tamanho_arvore(arvore));
     fclose(fp_geo);
 
     libera_arvore(&arvore);

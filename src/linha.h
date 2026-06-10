@@ -19,7 +19,7 @@
 
 */
 
-typedef void* LINHA;
+typedef void* Linha;
 
 /// @brief cria uma linha com identificador e cor
 /// @param id identificador 'i'
@@ -30,18 +30,18 @@ typedef void* LINHA;
 /// @param cor cor da linha
 /// @pre cor != NULL && [(x1 == y1 && x1 == x2 && x1 == y2) != 1]
 /// @return retorna ponteiro para a linha
-LINHA cria_linha(int id, double x1, double y1, double x2, double y2, const char* cor);
+Linha cria_linha(int id, double x1, double y1, double x2, double y2, const char* cor);
 
 /// @brief calcula o comprimento da linha
 /// @param l linha
 /// @pre l != NULL
 /// @return comprimento da linha; -1 se l == NULL
-double getComprimento_linha(LINHA l);
+double get_comprimento_linha(Linha l);
 
 /// @brief libera a memória da linha
 /// @pre l != NULL
 /// @param l ponteiro para o handle da linha
-void libera_linha(LINHA *l);
+void libera_linha(Linha *l);
 
 /* === Operações get === */
 
@@ -49,43 +49,43 @@ void libera_linha(LINHA *l);
 /// @param l linha
 /// @pre l != NULL
 /// @return identificador 
-int getId_linha(LINHA l);
+int get_id_linha(Linha l);
 
 /// @brief retorna a coordenada x1 da linha
 /// @param l linha 
 /// @pre l != NULL
 /// @return coordenada x1 
-double getX1_linha(LINHA l);
+double get_x1_linha(Linha l);
 
 /// @brief retorna a coordenada y1 da linha
 /// @param l linha   
 /// @pre l != NULL
 /// @return coordenada y1 
-double getY1_linha(LINHA l);
+double get_y1_linha(Linha l);
 
 /// @brief retorna a coordenada x2 da linha
 /// @param l linha
 /// @pre l != NULL
 /// @return coordenada x2
-double getX2_linha(LINHA l);
+double get_x2_linha(Linha l);
 
 /// @brief retorna a coordenada y2 da linha
 /// @param l linha
 /// @pre l != NULL
 /// @return coordenada y2
-double getY2_linha(LINHA l);
+double get_y2_linha(Linha l);
 
 /// @brief retorna a cor da linha
 /// @param l linha
 /// @pre l != NULL
 /// @return ponteiro para string com a cor da linha (apenas leitura)
-char* getCOR_linha(LINHA l);
+char* get_cor_linha(Linha l);
 
 /// @brief retorna a área da linha
 /// @param l linha
 /// @pre l != NULL
 /// @return área
-double getArea_linha(LINHA l);
+double get_area_linha(Linha l);
 
 /* ===================== */
 
@@ -97,49 +97,49 @@ double getArea_linha(LINHA l);
 /// @param id identificador
 /// @pre l != NULL
 /// @return true se a operação foi bem sucedida; false se não
-bool setId_linha(LINHA l, int id);
+bool set_id_linha(Linha l, int id);
 
 /// @brief atribui uma coordenada x1 à linha
 /// @param l linha 
 /// @param x1 coordenada x1
 /// @pre l != NULL
 /// @return true se a operação foi bem sucedida; false se não
-bool setX1_linha(LINHA l, double x1);
+bool set_x1_linha(Linha l, double x1);
 
 /// @brief atribui ua coordenada y1 à linha
 /// @param l linha   
 /// @param y1 coordenada y1 
 /// @pre l != NULL
 /// @return true se a operação foi bem sucedida; false se não 
-bool setY1_linha(LINHA l, double y1);
+bool set_y1_linha(Linha l, double y1);
 
 /// @brief atribui uma coordenada x2 à linha
 /// @param l linha
 /// @param x2 coordenada x2
 /// @pre l != NULL
 /// @return true se a operação foi bem sucedida; false se não
-bool setX2_linha(LINHA l, double x2);
+bool set_x2_linha(Linha l, double x2);
 
 /// @brief atribui uma coordenada y2 à linha
 /// @param l linha
 /// @param y2 coordenada y2 
 /// @pre l != NULL
 /// @return true se a operação foi bem sucedida; false se não
-bool setY2_linha(LINHA l, double y2);
+bool set_y2_linha(Linha l, double y2);
 
 /// @brief atribui uma coordenada (x,y) à âncora da linha e o segundo ponto acompanha o mesmo deslocamento (+dx, +dy) 
 /// @param l linha
 /// @param x coordenada x da âncora
 /// @param y coordenada y da âncora
 /// @return true se a operação foi bem sucedidaç false se não
-bool setAncora_linha(LINHA l, double x, double y);
+bool set_ancora_linha(Linha l, double x, double y);
 
 /// @brief atribui uma cor à linha
 /// @param l linha
 /// @param cor cor
 /// @pre l != NULL && cor != NULL
 /// @return true se a operação foi bem sucedida; false se não
-bool setCOR_linha(LINHA l, const char* cor);
+bool set_cor(Linha l, const char* cor);
 
 /* ===================== */
 

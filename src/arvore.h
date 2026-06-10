@@ -10,44 +10,43 @@
 
 */
 
-typedef void *NO, *FORMA, *ARVORE;
-typedef int(*FCOMPARA_NOS)(NO n1, NO n2);
-
+typedef void *NO, *Forma, *Arvore;
+typedef int(*ComparaFormas)(NO n1, NO n2);
 
 /// @brief cria uma árvore
 /// @param cmp função de comparação de dois nós
 /// @pre cmp não deve ser NULL
 /// @return nó criado
-ARVORE cria_arvore(FCOMPARA_NOS cmp);
+Arvore cria_arvore(ComparaFormas cmp);
 
 /// @brief libera a memória de todos os nós da árvore
 /// @param a árvore contendo nó raiz
 /// @pre árvore não deve ser NULL
-void libera_arvore(ARVORE *a);
+void libera_arvore(Arvore *a);
 
 /// @brief insere um nó na árvore
 /// @param a árvore contendo nó raiz
 /// @param forma informação contida no nó
 /// @pre arvore e forma não devem ser NULL
-void insere_arvore(ARVORE a, FORMA forma);
+void insere_arvore(Arvore a, Forma forma);
 
 /// @brief remove um nó da árvore
 /// @param a árvore contendo nó raiz
 /// @param forma informação contida no nó
 /// @pre arvore e forma não devem ser NULL
 /// @return nó removido
-void remove_arvore(ARVORE a, FORMA forma);
+void remove_arvore(Arvore a, Forma forma);
 
 /// @brief retorna o tamanho da árvore
 /// @param a árvore
 /// @pre a != NULL
 /// @return quantidade de nós
-int getTamanho_arvore(ARVORE a);
+int get_tamanho_arvore(Arvore a);
 
 /// @brief escreve as formas contidas na árvore em um arquivo .svg
 /// @param fp arquivo .svg aberto em modo escrita
 /// @pre fp != NULL && a != NULL
 /// @param a árvore 
-void escreve_arvore_svg(FILE* fp, ARVORE a);
+void escreve_arvore_svg(FILE* fp, Arvore a);
 
-void formas_selecionadas_para_vetor(ARVORE a, FORMA retangulo_selecao, FORMA vet[], int *n);
+void formas_selecionadas_para_vetor(Arvore a, Forma retangulo_selecao, Forma vet[], int *n);

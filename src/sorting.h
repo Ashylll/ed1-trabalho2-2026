@@ -7,11 +7,11 @@
 
 */
 
-typedef void *FORMA, *ARVORE;
-typedef int(*FCOMPARA_FORMAS)(FORMA f1, FORMA f2);
+typedef void *Forma, *Arvore;
+typedef int(*ComparaFormas)(Forma f1, Forma f2);
 
 
-void bubble_sort_animado(const char* comb_out, FORMA vetor[], int n, int k, FCOMPARA_FORMAS cmp);
+void bubble_sort_animado(const char* comb_out, Forma vetor[], int n, int k, ComparaFormas cmp);
 
 
 /*
@@ -21,14 +21,14 @@ void bubble_sort_animado(const char* comb_out, FORMA vetor[], int n, int k, FCOM
     Critérios cor de preenchimento: compara os valores RGB da cor. Primeiro RED, depois GREEN para desempate e BLUE para segundo desempate  
 */
 
-int compara_default(FORMA f1, FORMA f2);
-int compara_area(FORMA f1, FORMA f2);
-int compara_largura(FORMA f1, FORMA f2);
-int compara_altura(FORMA f1, FORMA f2);
-int compara_cor_preenchimento(FORMA f1, FORMA f2);
+int compara_default(Forma f1, Forma f2);
+int compara_area(Forma f1, Forma f2);
+int compara_largura(Forma f1, Forma f2);
+int compara_altura(Forma f1, Forma f2);
+int compara_cor_preenchimento(Forma f1, Forma f2);
 
 /// @brief 
 /// @param f1 
 /// @param retangulo_selecao 
 /// @return 
-int dentro_selecao(FORMA f, FORMA retangulo_selecao);
+int dentro_selecao(Forma f, Forma retangulo_selecao);

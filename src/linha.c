@@ -5,17 +5,17 @@
 #include <stdbool.h>
 #include <math.h>
 
-typedef struct stLinha {
+typedef struct StLinha {
     int id;
     double x1, y1, x2, y2;
     char *cor;
-} stLinha;
+} StLinha;
 
-LINHA cria_linha(int id, double x1, double y1, double x2, double y2, const char* cor){
+Linha cria_linha(int id, double x1, double y1, double x2, double y2, const char* cor){
     if (!cor) return NULL;
     if (x1 == x2 && x1 == y1 && x1 == y2) return NULL;
 
-    stLinha *linha = malloc(sizeof(*linha));
+    StLinha *linha = malloc(sizeof(*linha));
     if (!linha) return NULL;
 
     linha->id = id;
@@ -34,9 +34,9 @@ LINHA cria_linha(int id, double x1, double y1, double x2, double y2, const char*
     return linha;
 }
 
-double getComprimento_linha(LINHA l){
+double get_comprimento_linha(Linha l){
     if (!l) return -1;
-    stLinha *linha = (stLinha*)l;
+    StLinha *linha = (StLinha*)l;
 
     double deltaX = linha->x2 - linha->x1;
     double deltaY = linha->y2 - linha->y1;
@@ -46,9 +46,9 @@ double getComprimento_linha(LINHA l){
     return comprimento;
 }
 
-void libera_linha(LINHA *l){
+void libera_linha(Linha *l){
     if (!l || !*l) return;
-    stLinha *linha = (stLinha*)*l;
+    StLinha *linha = (StLinha*)*l;
     
     free(linha->cor);
     free(linha);
@@ -58,99 +58,99 @@ void libera_linha(LINHA *l){
 
 // Funções get
 
-int getId_linha(LINHA l){
-    stLinha *linha = (stLinha*)l;
+int get_id_linha(Linha l){
+    StLinha *linha = (StLinha*)l;
 
     return linha->id;
 }
 
-double getX1_linha(LINHA l){
-    stLinha *linha = (stLinha*)l;
+double get_x1_linha(Linha l){
+    StLinha *linha = (StLinha*)l;
 
     return linha->x1;
 }
 
-double getY1_linha(LINHA l){
-    stLinha *linha = (stLinha*)l;
+double get_y1_linha(Linha l){
+    StLinha *linha = (StLinha*)l;
 
     return linha->y1;
 }
 
-double getX2_linha(LINHA l){
-    stLinha *linha = (stLinha*)l;
+double get_x2_linha(Linha l){
+    StLinha *linha = (StLinha*)l;
 
     return linha->x2;
 }
 
-double getY2_linha(LINHA l){
-    stLinha *linha = (stLinha*)l;
+double get_y2_linha(Linha l){
+    StLinha *linha = (StLinha*)l;
 
     return linha->y2;
 }
 
-char* getCOR_linha(LINHA l){
-    stLinha *linha = (stLinha*)l;
+char* get_cor_linha(Linha l){
+    StLinha *linha = (StLinha*)l;
 
     return linha->cor;
 }
 
-double getArea_linha(LINHA l){
-    double comprimento = getComprimento_linha(l);
+double get_area_linha(Linha l){
+    double comprimento = get_comprimento_linha(l);
 
     return 1.5 * comprimento;
 }
 
 // Funções set
 
-bool setId_linha(LINHA l, int id){
+bool set_id_linha(Linha l, int id){
     if (!l) return false;
 
-    stLinha *linha = (stLinha*)l; 
+    StLinha *linha = (StLinha*)l; 
     linha->id = id;
 
     return true;
 }
 
-bool setX1_linha(LINHA l, double x1){
+bool set_x1_linha(Linha l, double x1){
     if (!l) return false;
 
-    stLinha *linha = (stLinha*)l; 
+    StLinha *linha = (StLinha*)l; 
     linha->x1 = x1;
     
     return true;
 }
 
-bool setY1_linha(LINHA l, double y1){
+bool set_y1_linha(Linha l, double y1){
     if (!l) return false;
 
-    stLinha *linha = (stLinha*)l; 
+    StLinha *linha = (StLinha*)l; 
     linha->y1 = y1;
 
     return true;
 }
 
-bool setX2_linha(LINHA l, double x2){
+bool set_x2_linha(Linha l, double x2){
     if (!l) return false;
 
-    stLinha *linha = (stLinha*)l; 
+    StLinha *linha = (StLinha*)l; 
     linha->x2 = x2;
 
     return true;
 }
 
-bool setY2_linha(LINHA l, double y2){
+bool set_y2_linha(Linha l, double y2){
     if (!l) return false;
 
-    stLinha *linha = (stLinha*)l; 
+    StLinha *linha = (StLinha*)l; 
     linha->y2 = y2;
 
     return true;
 }
 
-bool setAncora_linha(LINHA l, double x, double y){
+bool set_ancora_linha(Linha l, double x, double y){
     if (!l) return false;
 
-    stLinha *linha = (stLinha*)l;
+    StLinha *linha = (StLinha*)l;
 
     double dx = x - linha->x1;
     double dy = y - linha->y1;
@@ -163,9 +163,9 @@ bool setAncora_linha(LINHA l, double x, double y){
     linha->y2 = linha->y2 + dy;
 }
 
-bool setCOR_linha(LINHA l, const char* cor){
+bool set_cor(Linha l, const char* cor){
     if (!l || !cor) return false;
-    stLinha *linha = (stLinha*)l;
+    StLinha *linha = (StLinha*)l;
 
     if (linha->cor && strcmp(linha->cor, cor) == 0) return true;
 

@@ -13,36 +13,36 @@ void setUp(void) {}
 void tearDown(void) {}
 
 void teste_cria_libera_forma(void){
-    CIRCULO c = cria_circulo(0, 2.2, 4.4, 2, "pink", "pink");
-    FORMA f = cria_forma('a', c);
+    Circulo c = cria_circulo(0, 2.2, 4.4, 2, "pink", "pink");
+    Forma f = cria_forma('a', c);
     TEST_ASSERT_NULL(f);
     libera_forma(&f);
 
     f = cria_forma('c', c);
     TEST_ASSERT_NOT_NULL(f);
-    TEST_ASSERT_EQUAL_CHAR('c', getTipo_forma(f));
-    TEST_ASSERT_EQUAL_PTR(c, getHandle_forma(f));
+    TEST_ASSERT_EQUAL_CHAR('c', get_tipo_forma(f));
+    TEST_ASSERT_EQUAL_PTR(c, get_handle_forma(f));
     libera_forma(&f);
 
-    RETANGULO r = cria_retangulo(1, 2.2, 4.4, 2.2, 2.2, "pink", "pink");
+    Retangulo r = cria_retangulo(1, 2.2, 4.4, 2.2, 2.2, "pink", "pink");
     f = cria_forma('r', r);
     TEST_ASSERT_NOT_NULL(f);
-    TEST_ASSERT_EQUAL_CHAR('r', getTipo_forma(f));
-    TEST_ASSERT_EQUAL_PTR(r, getHandle_forma(f));
+    TEST_ASSERT_EQUAL_CHAR('r', get_tipo_forma(f));
+    TEST_ASSERT_EQUAL_PTR(r, get_handle_forma(f));
     libera_forma(&f);
 
-    LINHA l = cria_linha(2, 2.0, 2.0, 4.0, 4.0, "pink");
+    Linha l = cria_linha(2, 2.0, 2.0, 4.0, 4.0, "pink");
     f = cria_forma('l', l);
     TEST_ASSERT_NOT_NULL(f);
-    TEST_ASSERT_EQUAL_CHAR('l', getTipo_forma(f));
-    TEST_ASSERT_EQUAL_PTR(l, getHandle_forma(f));
+    TEST_ASSERT_EQUAL_CHAR('l', get_tipo_forma(f));
+    TEST_ASSERT_EQUAL_PTR(l, get_handle_forma(f));
     libera_forma(&f);
 
-    TEXTO t = cria_texto(3, 4.2, 4.4, "pink", "pink", 'm', "rosa");
+    Texto t = cria_texto(3, 4.2, 4.4, "pink", "pink", 'm', "rosa");
     f = cria_forma('t', t);
     TEST_ASSERT_NOT_NULL(f);
-    TEST_ASSERT_EQUAL_CHAR('t', getTipo_forma(f));
-    TEST_ASSERT_EQUAL_PTR(t, getHandle_forma(f));
+    TEST_ASSERT_EQUAL_CHAR('t', get_tipo_forma(f));
+    TEST_ASSERT_EQUAL_PTR(t, get_handle_forma(f));
 
     libera_forma(&f);
     TEST_ASSERT_NULL(f);
@@ -53,14 +53,14 @@ void teste_escreve_forma_svg(void){
     char* path_out_teste = "teste_escrita.svg";
     FILE* fp_svg = fopen(path_out_teste, "w");
     
-    TEXTO t = cria_texto(3, 4.2, 4.4, "pink", "pink", 'm', "rosa");
-    RETANGULO r = cria_retangulo(1, 2.2, 4.4, 2.2, 2.2, "pink", "pink");
-    LINHA l = cria_linha(2, 2.0, 2.0, 4.0, 4.0, "pink");
-    CIRCULO c = cria_circulo(0, 2.2, 4.4, 2, "pink", "pink");
-    FORMA f1 = cria_forma('t', t);
-    FORMA f2 = cria_forma('r', r);
-    FORMA f3 = cria_forma('l', l);
-    FORMA f4 = cria_forma('c', c);
+    Texto t = cria_texto(3, 4.2, 4.4, "pink", "pink", 'm', "rosa");
+    Retangulo r = cria_retangulo(1, 2.2, 4.4, 2.2, 2.2, "pink", "pink");
+    Linha l = cria_linha(2, 2.0, 2.0, 4.0, 4.0, "pink");
+    Circulo c = cria_circulo(0, 2.2, 4.4, 2, "pink", "pink");
+    Forma f1 = cria_forma('t', t);
+    Forma f2 = cria_forma('r', r);
+    Forma f3 = cria_forma('l', l);
+    Forma f4 = cria_forma('c', c);
     escreve_forma_svg(fp_svg, f1);
     escreve_forma_svg(fp_svg, f2);
     escreve_forma_svg(fp_svg, f3);
@@ -122,52 +122,52 @@ void teste_posiciona_forma(void){
 }
 
 void teste_getters_forma(void){
-    LINHA l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
-    FORMA f = cria_forma('l', l);
+    Linha l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
+    Forma f = cria_forma('l', l);
     
-    TEST_ASSERT_EQUAL_INT(-2, getId_forma(f)); // id
-    TEST_ASSERT_EQUAL_CHAR('l', getTipo_forma(f)); // tipo
-    TEST_ASSERT_EQUAL_PTR(l, getHandle_forma(f)); // handle
+    TEST_ASSERT_EQUAL_INT(-2, get_id_forma(f)); // id
+    TEST_ASSERT_EQUAL_CHAR('l', get_tipo_forma(f)); // tipo
+    TEST_ASSERT_EQUAL_PTR(l, get_handle_forma(f)); // handle
     
     // âncora
     double x, y;
-    getAncora_forma(f, &x, &y);
+    get_ancora_forma(f, &x, &y);
     
     TEST_ASSERT_EQUAL_DOUBLE(2.0, x);
     TEST_ASSERT_EQUAL_DOUBLE(8.0, y);
 
     double x2, y2;
-    x2 = getX_forma(f);
-    y2 = getY_forma(f);
+    x2 = get_x_forma(f);
+    y2 = get_y_forma(f);
     TEST_ASSERT_EQUAL_DOUBLE(2.0, x);
     TEST_ASSERT_EQUAL_DOUBLE(8.0, y);
 
     
     // área
-    double area_linha = getArea_linha(l);
+    double area_linha = get_area_linha(l);
     
-    double area_forma = getArea_forma(f);
+    double area_forma = get_area_forma(f);
     TEST_ASSERT_EQUAL_DOUBLE(area_linha, area_forma);
 
     libera_forma(&f);
-    CIRCULO c = cria_circulo(1, 2.2, 4.4, 0.8, "yellow", "pink"); 
-    double area_circulo = getArea_circulo(c);
+    Circulo c = cria_circulo(1, 2.2, 4.4, 0.8, "yellow", "pink"); 
+    double area_circulo = get_area_circulo(c);
     f = cria_forma('c', c);
-    area_forma = getArea_forma(f);
+    area_forma = get_area_forma(f);
     TEST_ASSERT_EQUAL_DOUBLE(area_circulo, area_forma);
 
     // corb
-    char* cor_teste = getCORB_forma(f);
+    char* cor_teste = get_corb_forma(f);
     TEST_ASSERT_EQUAL_STRING("yellow", cor_teste);
     // corp
-    cor_teste = getCORP_forma(f);
+    cor_teste = get_corp_forma(f);
     TEST_ASSERT_EQUAL_STRING("pink", cor_teste);
 
     // altura
-    double altura_teste = getAltura_forma(f);
+    double altura_teste = get_altura_forma(f);
     TEST_ASSERT_EQUAL_DOUBLE(1.6, altura_teste);    
     // largura
-    double largura_teste = getLargura_forma(f);
+    double largura_teste = get_largura_forma(f);
     TEST_ASSERT_EQUAL_DOUBLE(1.6, altura_teste);    
 
     libera_forma(&f);
@@ -177,68 +177,68 @@ void teste_getters_forma(void){
 
 void teste_setters_forma(void){
     // âncora
-    LINHA l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
-    FORMA f = cria_forma('l', l);
+    Linha l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
+    Forma f = cria_forma('l', l);
 
-    TEST_ASSERT_FALSE(setAncora_forma(NULL, 10.2, 10.4));
-    TEST_ASSERT_TRUE(setAncora_forma(f, 10.2, 10.4));
+    TEST_ASSERT_FALSE(set_ancora_forma(NULL, 10.2, 10.4));
+    TEST_ASSERT_TRUE(set_ancora_forma(f, 10.2, 10.4));
 
     double x, y;
-    getAncora_forma(f, &x, &y);
+    get_ancora_forma(f, &x, &y);
 
     TEST_ASSERT_EQUAL_DOUBLE(10.2, x);
     TEST_ASSERT_EQUAL_DOUBLE(10.4, y);
-    TEST_ASSERT_EQUAL_DOUBLE(10.2 - 2 + 4, getX2_linha(l));
-    TEST_ASSERT_EQUAL_DOUBLE(10.4 - 8 + 6, getY2_linha(l));
+    TEST_ASSERT_EQUAL_DOUBLE(10.2 - 2 + 4, get_x2_linha(l));
+    TEST_ASSERT_EQUAL_DOUBLE(10.4 - 8 + 6, get_y2_linha(l));
     libera_forma(&f);
 
     // corb
-    CIRCULO c = cria_circulo(2, 2.2, 2.2, 2.2, "pink", "pink");
+    Circulo c = cria_circulo(2, 2.2, 2.2, 2.2, "pink", "pink");
     f = cria_forma('c', c);
     
-    setCORB_forma(f, "yellow");
+    set_corb_forma(f, "yellow");
     
-    TEST_ASSERT_EQUAL_STRING("yellow", getCORB_circulo(c));
+    TEST_ASSERT_EQUAL_STRING("yellow", get_corb_circulo(c));
     libera_forma(&f);
     
     l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
     f = cria_forma('l', l);
     
-    setCORB_forma(f, "purple");
+    set_corb_forma(f, "purple");
     
-    TEST_ASSERT_EQUAL_STRING("purple", getCOR_linha(l));
+    TEST_ASSERT_EQUAL_STRING("purple", get_cor_linha(l));
     libera_forma(&f);
 
     // corp
     c = cria_circulo(2, 2.2, 2.2, 2.2, "pink", "pink");
     f = cria_forma('c', c);
     
-    setCORP_forma(f, "yellow");
+    set_corp_forma(f, "yellow");
     
-    TEST_ASSERT_EQUAL_STRING("yellow", getCORP_circulo(c));
+    TEST_ASSERT_EQUAL_STRING("yellow", get_corp_circulo(c));
     libera_forma(&f);
     
     l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
     f = cria_forma('l', l);
     
-    setCORP_forma(f, "purple");
+    set_corp_forma(f, "purple");
     
-    TEST_ASSERT_EQUAL_STRING("pink", getCOR_linha(l));
+    TEST_ASSERT_EQUAL_STRING("pink", get_cor_linha(l));
     
     libera_forma(&f);
 }
 
 void teste_desloca_forma(void){
-    LINHA l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
-    FORMA f = cria_forma('l', l);
+    Linha l = cria_linha(-2, 2.0, 8.0, 4.0, 6.0, "pink");
+    Forma f = cria_forma('l', l);
 
     TEST_ASSERT_FALSE(desloca_forma(NULL, 2, -4));
     TEST_ASSERT_TRUE(desloca_forma(f, 2, -4));
 
-    TEST_ASSERT_EQUAL_DOUBLE(2 + 2, getX1_linha(l));
-    TEST_ASSERT_EQUAL_DOUBLE(8 - 4, getY1_linha(l));
-    TEST_ASSERT_EQUAL_DOUBLE(4 + 2, getX2_linha(l));
-    TEST_ASSERT_EQUAL_DOUBLE(6 - 4, getY2_linha(l));
+    TEST_ASSERT_EQUAL_DOUBLE(2 + 2, get_x1_linha(l));
+    TEST_ASSERT_EQUAL_DOUBLE(8 - 4, get_y1_linha(l));
+    TEST_ASSERT_EQUAL_DOUBLE(4 + 2, get_x2_linha(l));
+    TEST_ASSERT_EQUAL_DOUBLE(6 - 4, get_y2_linha(l));
 
     libera_forma(&f);
 }

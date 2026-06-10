@@ -11,7 +11,7 @@
     Escreve as figuras iniciais (.geo) e finais (após .qry, caso haja) do programa nos arquivos do sistema
 
 */
-typedef void *ARVORE, *FORMA;
+typedef void *Arvore, *Forma;
 
 /// @brief escreve o cabeçalho do .svg
 /// @param fp arquivo .svg aberto em modo escrita
@@ -23,10 +23,10 @@ void svg_begin(FILE *fp);
 /// @pre fp != NULL
 void svg_end(FILE *fp);
 
-void gera_svg_inicial(const char* path_geo_svg, ARVORE formas);
+void gera_svg_inicial(const char* path_geo_svg, Arvore formas);
 
-void gera_svg_final(const char* path_comb_svg, ARVORE formas, ARVORE formas_marcadores);
+void gera_svg_final(const char* path_comb_svg, Arvore formas, Arvore formas_marcadores);
 
-void escreve_forma_deslocada_svg(FILE* fp_svg, FORMA f, double x, double y);
-void posiciona_formas(FORMA vet[], int n, double x, double y_teto, double dw);
-void escreve_frame(const char* comb_out, int numeracao, double x, double y, double dw, FORMA vet_selecionads[], double n_selecionadas);
+void escreve_forma_deslocada_svg(FILE* fp_svg, Forma f, double x, double y);
+void posiciona_formas(Forma vet[], int n, double x, double y_teto, double dw);
+void escreve_frame(const char* comb_out, int numeracao, double x, double y, double dw, Forma vet_selecionads[], double n_selecionadas);

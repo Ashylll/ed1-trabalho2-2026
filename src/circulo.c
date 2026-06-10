@@ -5,16 +5,16 @@
 #include <stdbool.h>
 #include <assert.h>
 
-typedef struct stCirculo{
+typedef struct StCirculo{
     int id;
     double x, y, r;
     char *corb, *corp;
-} stCirculo;
+} StCirculo;
 
-CIRCULO cria_circulo(int id, double x, double y, double r, const char *corb, const char *corp){
+Circulo cria_circulo(int id, double x, double y, double r, const char *corb, const char *corp){
     if(!corb || !corp || r <= 0) return NULL;
 
-    stCirculo *circulo = malloc(sizeof(*circulo));
+    StCirculo *circulo = malloc(sizeof(*circulo));
     if (!circulo) return NULL;
 
     circulo->id = id;
@@ -40,18 +40,18 @@ CIRCULO cria_circulo(int id, double x, double y, double r, const char *corb, con
     return circulo;
 }
 
-double getArea_circulo(CIRCULO c){
+double get_area_circulo(Circulo c){
     assert (c != NULL);
-    stCirculo *circulo = (stCirculo*)c;
+    StCirculo *circulo = (StCirculo*)c;
 
     double area = PI * circulo->r * circulo->r;
     
     return area;
 }
 
-void libera_circulo(CIRCULO *c){
+void libera_circulo(Circulo *c){
     if (!c || !*c) return;
-    stCirculo *circulo = (stCirculo*) *c;
+    StCirculo *circulo = (StCirculo*) *c;
 
     free(circulo->corb);
     free(circulo->corp);
@@ -60,83 +60,83 @@ void libera_circulo(CIRCULO *c){
     *c = NULL;
 }
 
-int getId_circulo(CIRCULO c){;
-    stCirculo *circulo = (stCirculo*)c;
+int get_id_circulo(Circulo c){;
+    StCirculo *circulo = (StCirculo*)c;
 
     return circulo->id;
 }
 
-double getX_circulo(CIRCULO c){
-    stCirculo *circulo = (stCirculo*)c;
+double get_x_circulo(Circulo c){
+    StCirculo *circulo = (StCirculo*)c;
 
     return circulo->x;
 }
 
-double getY_circulo(CIRCULO c){
-    stCirculo *circulo = (stCirculo*)c;
+double get_y_circulo(Circulo c){
+    StCirculo *circulo = (StCirculo*)c;
 
     return circulo->y;
 }
 
-double getR_circulo(CIRCULO c){
-    stCirculo *circulo = (stCirculo*)c;
+double get_raio_circulo(Circulo c){
+    StCirculo *circulo = (StCirculo*)c;
 
     return circulo->r;
 }
 
-char* getCORB_circulo(CIRCULO c){
+char* get_corb_circulo(Circulo c){
     if(!c) return NULL;
-    stCirculo *circulo = (stCirculo*)c;
+    StCirculo *circulo = (StCirculo*)c;
 
     return circulo->corb;
 }
 
-char* getCORP_circulo(CIRCULO c){
+char* get_corp_circulo(Circulo c){
     if(!c) return NULL;
-    stCirculo *circulo = (stCirculo*)c;
+    StCirculo *circulo = (StCirculo*)c;
 
     return circulo->corp;
 }
 
-bool setId_circulo(CIRCULO c, int id){
+bool set_id_circulo(Circulo c, int id){
     if (!c) return false;
 
-    stCirculo *circulo = (stCirculo*)c; 
+    StCirculo *circulo = (StCirculo*)c; 
     circulo->id = id;
     return true;
 }
 
-bool setX_circulo(CIRCULO c, double x){
+bool set_x_circulo(Circulo c, double x){
     if (!c) return false;
 
-   stCirculo *circulo = (stCirculo*)c; 
+   StCirculo *circulo = (StCirculo*)c; 
     circulo->x = x;
 
     return true;
 }
 
-bool setY_circulo(CIRCULO c, double y){
+bool set_y_circulo(Circulo c, double y){
     if (!c) return false;
 
-    stCirculo *circulo = (stCirculo*)c; 
+    StCirculo *circulo = (StCirculo*)c; 
     circulo->y = y;
 
     return true;
 }
 
-bool setR_circulo(CIRCULO c, double r){
+bool set_raio_circulo(Circulo c, double r){
     if (!c || r <= 0) return false;
 
-    stCirculo *circulo = (stCirculo*)c; 
+    StCirculo *circulo = (StCirculo*)c; 
     circulo->r = r;
 
     return true;
 }
 
-bool setCORB_circulo(CIRCULO c, const char* corb){
+bool set_corb_circulo(Circulo c, const char* corb){
     if (!c || !corb) return false;
 
-    stCirculo *circulo = (stCirculo*)c; 
+    StCirculo *circulo = (StCirculo*)c; 
 
     if (circulo->corb && strcmp(circulo->corb, corb) == 0) return true;
     
@@ -150,10 +150,10 @@ bool setCORB_circulo(CIRCULO c, const char* corb){
     return true;
 }
 
-bool setCORP_circulo(CIRCULO c, const char* corp){
+bool set_corp_circulo(Circulo c, const char* corp){
     if (!c || !corp) return false;
 
-    stCirculo *circulo = (stCirculo*)c; 
+    StCirculo *circulo = (StCirculo*)c; 
     
     if (circulo->corp && strcmp(circulo->corp, corp) == 0) return true;
     
