@@ -141,13 +141,8 @@ void teste_clona_forma(void){
 }
 
 void teste_troca_cores_forma(void){
-    printf("\nf1\ncorb: %s corp: %s\n", get_corb_forma(f1), get_corp_forma(f1));
-        troca_cores_forma(f1);
-        printf("corb: %s corp: %s\n", get_corb_forma(f1), get_corp_forma(f1));
-
-    printf("\nf2\ncorb: %s corp: %s\n", get_corb_forma(f2), get_corp_forma(f2));
+    troca_cores_forma(f1);
     troca_cores_forma(f2);
-    printf("corb: %s corp: %s\n", get_corb_forma(f2), get_corp_forma(f2));
 
     TEST_ASSERT_EQUAL_STRING("yellow", get_corb_forma(f1));
     TEST_ASSERT_EQUAL_STRING("pink", get_corp_forma(f1));
@@ -212,9 +207,10 @@ void teste_get_correcao_ancora(void){
     TEST_ASSERT_EQUAL_DOUBLE(0.0, dx);
     TEST_ASSERT_EQUAL_DOUBLE(0.0, dy);
 
-    set_y_forma(f3, 8.0);
-    get_correcao_ancora(f3, &dx, &dy);
+    Forma fl = cria_forma('l', cria_linha(2, 2.0, 6.0, 4.0, 4.0, "pink"));
+    get_correcao_ancora(fl, &dx, &dy);
     TEST_ASSERT_EQUAL_DOUBLE(2.0, dy);
+    libera_forma(&fl);
 
     get_correcao_ancora(f4, &dx, &dy);
     TEST_ASSERT_EQUAL_DOUBLE(2.0, dx);

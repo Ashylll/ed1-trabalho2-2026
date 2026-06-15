@@ -310,8 +310,6 @@ void get_correcao_ancora(Forma f, double *dx, double *dy) {
             double y1 = get_y1_linha(l);
             double y2 = get_y2_linha(l);
             double min_y = (y1 < y2) ? y1 : y2; 
-
-            *dx = 0;
             *dy = y1 - min_y; 
             break;
         }
