@@ -40,9 +40,9 @@ Forma clona_forma(Forma f);
 /// @param f forma
 void troca_cores_forma(Forma f);
 
-void get_correcao_ancora(Forma f, double *dx, double *dy);
 char* traduz_tipo_forma(const char tipo, bool maiusculo);
 void reporta_forma(FILE* fp_txt, Forma f, char criterio_ordenacao);
+void get_correcao_ancora(Forma f, double *dx, double *dy);
 
 
 /* === Operações get === */

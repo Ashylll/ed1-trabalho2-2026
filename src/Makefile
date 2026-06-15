@@ -63,7 +63,7 @@ teste_sorting: sorting.o retangulo.o circulo.o texto.o linha.o forma.o svg.o arv
 teste_leitura_geo: leitura_geo.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o unity.o t_leitura_geo.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
-teste_processa_qry: processa_qry.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o unity.o t_processa_qry.o
+teste_processa_qry: processa_qry.o leitura_geo.o svg.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o unity.o t_processa_qry.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
 
