@@ -11,7 +11,7 @@ typedef struct No {
 
 typedef struct StArvore {
     No *raiz;
-    ComparaFormas cmp;
+    compara_formas_t cmp;
 } StArvore;
 
 static No* cria_no(Forma forma){
@@ -26,7 +26,7 @@ static No* cria_no(Forma forma){
     return no;
 }
 
-Arvore cria_arvore(ComparaFormas cmp){
+Arvore cria_arvore(compara_formas_t cmp){
     if (!cmp) return NULL;
     StArvore *arvore = malloc(sizeof(StArvore));
     if (arvore){
@@ -55,7 +55,7 @@ void libera_arvore(Arvore *a){
     *a = NULL;
 }
 
-static No* insere_no(No* no, Forma forma, ComparaFormas cmp){
+static No* insere_no(No* no, Forma forma, compara_formas_t cmp){
     if (!no){
         return cria_no(forma);
     }
@@ -86,7 +86,7 @@ static No* encontra_maior(No* raiz){
     return raiz;
 }
 
-static No* remove_no(No* no, Forma forma, ComparaFormas cmp){
+static No* remove_no(No* no, Forma forma, compara_formas_t cmp){
     if (!no){
         return no;
     }

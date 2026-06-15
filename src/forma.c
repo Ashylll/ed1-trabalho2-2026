@@ -146,10 +146,11 @@ double get_largura_x_forma(Forma f){
         case 'r':
             return get_w_retangulo(handle);
 
-        case 'l':
+        case 'l':{
             double x1 = get_x1_linha(handle);
             double x2 = get_x2_linha(handle);
             return x2 - x1;
+        }
 
         case 't':
             return strlen(get_palavra_texto(handle));
@@ -215,9 +216,11 @@ Forma clona_forma(Forma f){
 
 void troca_cores_forma(Forma f){
     if (!f) return;
+    char* corb = get_corb_forma(f);
+    char* corp = get_corp_forma(f);
 
-    set_corb_forma(f, get_corp_forma(f));
-    set_corp_forma(f, get_corb_forma(f));
+    set_corb_forma(f, corp);
+    set_corp_forma(f, corb);
 }
 
 char* traduz_tipo_forma(const char tipo, bool maiusculo) {
@@ -285,8 +288,8 @@ void reporta_forma(FILE* fp_txt, Forma f, const char criterio_ordenacao){
 }
 
 void get_correcao_ancora(Forma f, double *dx, double *dy) {
-    *dx = 0;
-    *dy = 0;
+    *dx = 0.0;
+    *dy = 0.0;
 
     switch (get_tipo_forma(f)) {
         case 'c': { 

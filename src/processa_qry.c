@@ -89,7 +89,7 @@ static void remove_formas_maiores(Arvore formas, Forma vet_sel[], int k){
 }
 
 static void find(FILE* fp_log, int k, char* alg, char crit, double x, double y, double dw, const char* comb_out, Arvore formas, Arvore formas_marcadores, Forma vet_sel[], bool rm){
-    ComparaFormas criterio_ordenacao;
+    compara_formas_t criterio_ordenacao;
     
     switch (crit){
         case 'd': 

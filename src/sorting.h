@@ -8,10 +8,10 @@
 */
 
 typedef void *Forma, *Arvore;
-typedef int(*ComparaFormas)(Forma f1, Forma f2);
+typedef int(*compara_formas_t)(Forma f1, Forma f2);
 
 
-void bubble_sort_animado(const char* comb_out, Forma vetor[], int n, int k, ComparaFormas cmp);
+void bubble_sort_animado(const char* comb_out, Forma vetor[], int n, int k, compara_formas_t cmp);
 
 
 /*

@@ -6,7 +6,7 @@
 #include "forma.h"
 #include "arvore.h"
 
-void bubble_sort_animado(const char* comb_out, Forma vetor[], int n, int k, ComparaFormas cmp) {
+void bubble_sort_animado(const char* comb_out, Forma vetor[], int n, int k, compara_formas_t cmp) {
     int i, j;
     Forma aux;
     int cont_ordenados = 0;

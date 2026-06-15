@@ -11,13 +11,13 @@
 */
 
 typedef void *NO, *Forma, *Arvore;
-typedef int(*ComparaFormas)(NO n1, NO n2);
+typedef int(*compara_formas_t)(NO n1, NO n2);
 
 /// @brief cria uma árvore
 /// @param cmp função de comparação de dois nós
 /// @pre cmp não deve ser NULL
 /// @return nó criado
-Arvore cria_arvore(ComparaFormas cmp);
+Arvore cria_arvore(compara_formas_t cmp);
 
 /// @brief libera a memória de todos os nós da árvore
 /// @param a árvore contendo nó raiz
