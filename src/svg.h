@@ -3,6 +3,8 @@
 #endif 
 
 #include <stdbool.h>
+#include <stdio.h>
+
 
 /*
     svg.h
@@ -28,5 +30,4 @@ void gera_svg_inicial(const char* path_geo_svg, Arvore formas);
 void gera_svg_final(const char* path_comb_svg, Arvore formas, Arvore formas_marcadores);
 
 void escreve_forma_deslocada_svg(FILE* fp_svg, Forma f, double x, double y);
-void posiciona_formas(Forma vet[], int n, double x, double y_teto, double dw);
 void escreve_frame(const char* comb_out, int numeracao, double x, double y, double dw, Forma vet_selecionads[], double n_selecionadas);

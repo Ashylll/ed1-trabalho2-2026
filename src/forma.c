@@ -318,20 +318,6 @@ void get_correcao_ancora(Forma f, double *dx, double *dy) {
     }
 }
 
-void posiciona_formas(Forma vet[], int n, double x_inicial, double y_teto, double dw) {
-    double x_atual = x_inicial;
-    double dx, dy;
-
-    for (int i = 0; i < n; i++) {
-        get_correcao_ancora(vet[i], &dx, &dy);
-        
-        set_x_forma(vet[i], x_atual + dx);
-        set_y_forma(vet[i], y_teto + dy);
-        
-        x_atual += get_largura_x_forma(vet[i]) + dw;
-    }
-}
-
 int get_id_forma(Forma f){
     StForma *forma = (StForma*)f;
 

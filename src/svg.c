@@ -53,7 +53,6 @@ void escreve_forma_deslocada_svg(FILE *fp_svg, Forma f, double x, double y){
 
     switch (tipo){
         case 'c': { 
-            double y = get_y_circulo(handle);
             double r = get_raio_circulo(handle);
             const char *corb = get_corb_circulo(handle);
             const char *corp = get_corp_circulo(handle);
@@ -67,7 +66,6 @@ void escreve_forma_deslocada_svg(FILE *fp_svg, Forma f, double x, double y){
         }
 
         case 'r': { 
-            double y = get_y_retangulo(handle);
             double w = get_w_retangulo(handle);
             double h = get_h_retangulo(handle);
             const char *corb = get_corb_retangulo(handle);
@@ -89,28 +87,25 @@ void escreve_forma_deslocada_svg(FILE *fp_svg, Forma f, double x, double y){
         }
 
         case 'l': {
-            double y1 = get_y1_linha(handle);
-            double y2 = get_y2_linha(handle);
-            double dy = y;
-            dy += (y1 > y2)? y1 - y2: y2 - y1;
-            
-            double x1 = get_x1_linha(handle);
-            double x2 = get_x2_linha(handle);
-            double dx = x;
-            dx = x2 - x1;
-            
+            Linha l = get_handle_forma(f);
+            double y1 = get_y1_linha(l);
+            double y2 = get_y2_linha(l);
+
+            double dy = y + y2 - y1;
+
+            double dx = x + get_largura_x_forma(f);
+
             const char *cor = get_cor_linha(handle);
 
             double opacidade = 0.8;
  
             fprintf(fp_svg,
-            "<line style=\"stroke:%s;stroke-width:2.0;stroke-opacity:%.1f\" x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" />\n", cor, opacidade, x, y1, dx, dy);
+            "<line style=\"stroke:%s;stroke-width:2.0;stroke-opacity:%.1f\" x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" />\n", cor, opacidade, x, y, dx, dy);
 
             break;
         }
 
         case 't': {
-            double y = get_y_texto(handle);
             const char *corb = get_corb_texto(handle);  
             const char *corp = get_corp_texto(handle);   
             const char *txto = get_palavra_texto(handle);   
@@ -165,15 +160,22 @@ static FILE* cria_file_frame(int numeracao_frame,   const char* comb_out){
 
 void escreve_frame(const char* comb_out, int numeracao, double x, double y, double dw, Forma vet_selecionadas[], double n_selecionadas){
     double dx = 0;
+    double cx, cy;
     FILE* fp_svg = cria_file_frame(numeracao, comb_out);
+
+    svg_begin(fp_svg);
 
     for (int i = 0; i < n_selecionadas; i++){
         Forma f = vet_selecionadas[i];
         double l = get_largura_x_forma(f);
         
-        get_correcao_ancora(f, &x, &y);
-        escreve_forma_deslocada_svg(fp_svg, f, x + dx, y);
+        get_correcao_ancora(f, &cx, &cy);
+           printf("\ndx: %.2lf dy: %.2lf \n", cx, cy);
+
+        escreve_forma_deslocada_svg(fp_svg, f, x + dx + cx, y + cy);
 
         dx += l + dw;
     }
+    
+    svg_end(fp_svg);
 }

@@ -24,7 +24,7 @@ void bubble_sort_animado(const char* comb_out, Forma vetor[], int n, int k, comp
                 vetor[j] = vetor[j - 1];
                 vetor[j - 1] = aux;
                 
-                escreve_frame(comb_out, numeracao_frame, 100, 100, 10, vetor, n);                
+                escreve_frame(comb_out, numeracao_frame, 100.0, 100.0, 10.0, vetor, n);                
                 numeracao_frame += 1;
             }
         }
