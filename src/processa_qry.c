@@ -19,9 +19,8 @@ static void clona_move_forma(Arvore formas, Forma vet_sel[], double dx, double d
     }
 }
 
-
 static void cm(double x, double y, double w, double h, double dx, double dy, Arvore formas, Arvore formas_marcadores, Forma vet_sel[]){
-    Forma retangulo_sel = cria_forma('r', cria_retangulo(-1, x, y, w, h, "red", "none"));
+    Forma retangulo_sel = cria_forma('r', cria_retangulo(ID_RETANGULO_SEL, x, y, w, h, "red", "none"));
     insere_arvore(formas_marcadores, retangulo_sel);
     
     n_selecionadas = 0;
@@ -44,7 +43,7 @@ static void comando_cm(const char* linha, FILE* fp_qry, FILE* fp_log, Arvore for
 }
 
 static void sel(double x, double y, double w, double h, Arvore formas, Arvore formas_marcadores, Forma vet_sel[]){
-    Forma retangulo_sel = cria_forma('r', cria_retangulo(-1, x, y, w, h, "red", "none"));
+    Forma retangulo_sel = cria_forma('r', cria_retangulo(ID_RETANGULO_SEL, x, y, w, h, "red", "none"));
     insere_arvore(formas_marcadores, retangulo_sel);
     
     n_selecionadas = 0;
@@ -75,7 +74,7 @@ static void cria_quadrados_marcadores(Forma vet_sel[], Arvore formas_marcadores,
         double x, y;
 
         get_ancora_forma(vet_sel[i], &x, &y);
-        Forma quadrado_ancora = cria_forma('r', cria_retangulo(-2, x, y, 10, 10, "red", "none"));
+        Forma quadrado_ancora = cria_forma('r', cria_retangulo(ID_QUADRADO_MARCA, x, y, LADO_QUADRADO_MARCA, LADO_QUADRADO_MARCA, "red", "none"));
 
         insere_arvore(formas_marcadores, quadrado_ancora);
     }
@@ -84,7 +83,33 @@ static void cria_quadrados_marcadores(Forma vet_sel[], Arvore formas_marcadores,
 static void remove_formas_maiores(Arvore formas, Forma vet_sel[], int k){
     for (int i = k; i < n_selecionadas; i++){
         remove_arvore(formas, vet_sel[i]);
+        libera_forma(vet_sel[i]);
         vet_sel[i] = NULL;
+    }
+}
+
+static void atualiza_posicao_formas(Arvore formas, Forma vet_sel[], double x, double y, double dw){
+    double dx = 0;
+    double cx, cy;
+
+    for (int i = 0; i < n_selecionadas; i++){
+        Forma f = vet_sel[i];
+        double l = get_largura_x_forma(f);
+
+        get_correcao_ancora(f, &cx, &cy);
+        set_x_forma(vet_sel[i], x + dx + cx);
+        set_y_forma(vet_sel[i], y + cy);
+
+        dx += l + dw;
+    }
+}
+
+static void remove_insere_arvore(Arvore formas, Forma vet_sel[]){
+    for (int i = 0; i < n_selecionadas; i++){
+        remove_arvore(formas, vet_sel[i]);
+    }
+    for (int i = 0; i < n_selecionadas; i++){
+        insere_arvore(formas, vet_sel[i]);
     }
 }
 
@@ -113,8 +138,11 @@ static void find(FILE* fp_log, int k, char* alg, char crit, double x, double y, 
     else if (strcmp(alg, "qs") == 0) quick_sort_animado();
     else if (strcmp(alg, "ms") == 0) merge_sort_animado();
     */
-    cria_quadrados_marcadores(vet_sel, formas_marcadores, k);
-    
+   
+   atualiza_posicao_formas(formas, vet_sel, x, y, dw);
+   remove_insere_arvore(formas, vet_sel);
+   cria_quadrados_marcadores(vet_sel, formas_marcadores, k);
+
     if (rm) remove_formas_maiores(formas, vet_sel, k);
 }
 

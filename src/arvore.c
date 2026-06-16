@@ -95,13 +95,11 @@ static No* remove_no(No* no, Forma forma, compara_formas_t cmp){
     case 1: no-> dir = remove_no(no->dir, forma, cmp); break;
     default:
         if (!no->esq && !no->dir){ // folha
-            libera_forma(&no->forma);
             free(no);
             return NULL;
         }
         else if (no->esq || no->dir){ // um filho
             No* aux = no->esq ? no->esq : no->dir;
-            libera_forma(&no->forma);   
             free(no);
             return aux; 
         }

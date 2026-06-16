@@ -73,15 +73,25 @@ void escreve_forma_svg(FILE *fp, Forma f){
             const char *corp = get_corp_retangulo(handle);
 
             double opacidade = 0.6;
+            
+            switch (get_id_retangulo(handle)){
+                case ID_RETANGULO_SEL:
+                    fprintf(fp,
+                    "<rect style=\"fill:%s;fill-opacity:%.1f;stroke:%s;stroke-dasharray:5;stroke-width:1.0\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" />\n"
+                    , corp, opacidade, corb, x, y, w, h); break;
 
-            if (get_id_retangulo(handle) == -1){
-                fprintf(fp,
-            "<rect style=\"fill:%s;fill-opacity:%.1f;stroke:%s;stroke-dasharray:5;stroke-width:1.0\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" />\n"
-            , corp, opacidade, corb, x, y, w, h);
-            } else {
-                fprintf(fp,
-            "<rect style=\"fill:%s;fill-opacity:%.1f;stroke:%s;stroke-width:1.0\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" />\n"
-            , corp, opacidade, corb, x, y, w, h);
+                case ID_QUADRADO_MARCA:
+                    double y_centro = y - h/2;
+                    double x_centro = x - w/2;
+
+                    fprintf(fp,
+                    "<rect style=\"fill:%s;fill-opacity:%.1f;stroke:%s;stroke-width:1.0\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" />\n"
+                    , corp, opacidade, corb, x_centro, y_centro, w, h); break;
+
+                default:
+                    fprintf(fp,
+                    "<rect style=\"fill:%s;fill-opacity:%.1f;stroke:%s;stroke-width:1.0\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" />\n"
+                    , corp, opacidade, corb, x, y, w, h);
             }
 
             break;
