@@ -227,7 +227,8 @@ bool processa_qry(const char *path_qry, const char *path_log, const char *comb_o
 	if (!fp_qry || !fp_log)
 		return false;
 
-	vet_sel = malloc(200 * sizeof(Forma));
+	int tamanho_arvore = get_tamanho_arvore(formas);
+	vet_sel = malloc(tamanho_arvore * sizeof(Forma));
 
 	char linha[1024], comando[8];
 
