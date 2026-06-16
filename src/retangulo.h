@@ -22,8 +22,12 @@
 typedef void* Retangulo;
 
 #define ID_RETANGULO_SEL -1
+#define CORB_RETANGULO_SEL "red"
+#define CORP_RETANGULO_SEL "none"
 #define ID_QUADRADO_MARCA -2
-#define LADO_QUADRADO_MARCA 5
+#define LADO_QUADRADO_MARCA 5.0
+#define CORB_QUADRADO_MARCA "red"
+#define CORP_QUADRADO_MARCA "none"
 
 /// @brief cria um retângulo com identificador, cor de borda e de preenchimento e coordenadas âncora
 /// @param id identificador numérico do retângulo
