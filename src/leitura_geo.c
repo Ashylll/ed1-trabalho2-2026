@@ -12,9 +12,9 @@
 #include <string.h>
 
 // estilo do texto
-static char family[32] = "sans-serif";
-static char weight[32] = "normal";
-static double size = 12.0; 
+static char family[32] = FFAMILY_PADRAO;
+static char weight[32] = FWEIGHT_PADRAO;
+static double size = FSIZE_PADRAO; 
 
 /* Comandos .geo */
 

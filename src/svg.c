@@ -118,13 +118,13 @@ void escreve_forma_deslocada_svg(FILE *fp_svg, Forma f, double x, double y){
                 case 'm': ancora = "middle"; break;
                 case 'f': ancora = "end"; break;
             }
-            int size = get_size_texto(handle);
+            double size = get_size_texto(handle);
 
             double opacidade = 1.0;
 
             fprintf(fp_svg,
-                "<text style=\"text-anchor:%s;alignment-baseline:central;fill:%s;fill-opacity:%.1f;stroke:%s;stroke-width:0.7;"
-                "font-family:%s;font-weight:%s;font-size:%dpx;line-height:0%%\" "
+                "<text style=\"text-anchor:%s;alignment-baseline:hanging;fill:%s;fill-opacity:%.1f;stroke:%s;stroke-width:0.7;"
+                "font-family:%s;font-weight:%s;font-size:%lfpx;line-height:0%%\" "
                 "x=\"%.2f\" y=\"%.2f\">%s</text>\n", ancora, corp, opacidade, corb, family, weight, size, x, y, txto);
                 
                 break;
@@ -169,8 +169,9 @@ void escreve_frame(const char* comb_out, int numeracao, double x, double y, doub
         Forma f = vet_selecionadas[i];
         double l = get_largura_x_forma(f);
         
+        if (get_tipo_forma(f) == 't') printf("\ntexto largura: %.2lf\n", l);
+
         get_correcao_ancora(f, &cx, &cy);
-           printf("\ndx: %.2lf dy: %.2lf \n", cx, cy);
 
         escreve_forma_deslocada_svg(fp_svg, f, x + dx + cx, y + cy);
 

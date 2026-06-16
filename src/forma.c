@@ -153,7 +153,9 @@ double get_largura_x_forma(Forma f){
         }
 
         case 't':
-            return strlen(get_palavra_texto(handle));
+            double palavra = strlen(get_palavra_texto(handle));
+            double size = get_size_texto(handle);
+            return palavra * size * 0.49;
             
         default: return -1;
     }
