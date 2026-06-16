@@ -168,8 +168,6 @@ void escreve_frame(const char* comb_out, int numeracao, double x, double y, doub
     for (int i = 0; i < n_selecionadas; i++){
         Forma f = vet_selecionadas[i];
         double l = get_largura_x_forma(f);
-        
-        if (get_tipo_forma(f) == 't') printf("\ntexto largura: %.2lf\n", l);
 
         get_correcao_ancora(f, &cx, &cy);
 

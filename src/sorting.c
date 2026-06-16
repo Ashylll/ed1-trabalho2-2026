@@ -6,26 +6,29 @@
 #include "forma.h"
 #include "arvore.h"
 
+#define X_INICIAL 100.0
+#define Y_INICIAL 100.0
+#define DW 10.0
+
 void bubble_sort_animado(const char* comb_out, Forma vetor[], int n, int k, compara_formas_t cmp) {
     int i, j;
     Forma aux;
     int cont_ordenados = 0;
     int numeracao_frame = 0;
     
-    escreve_frame(comb_out, numeracao_frame, 100, 100, 10, vetor, n); // frame inicial antes da ordenação
-
+    escreve_frame(comb_out, numeracao_frame, X_INICIAL, Y_INICIAL, DW, vetor, n); // frame inicial antes da ordenação
+    
     for (i = 0; i < n - 1; i++) {
         if (cont_ordenados == k) return;
 
         for (j = n - 1; j > i; j--) {
-
             if (cmp(vetor[j], vetor[j - 1]) < 0) {
                 aux = vetor[j];
                 vetor[j] = vetor[j - 1];
                 vetor[j - 1] = aux;
                 
-                escreve_frame(comb_out, numeracao_frame, 100.0, 100.0, 10.0, vetor, n);                
                 numeracao_frame += 1;
+                escreve_frame(comb_out, numeracao_frame, X_INICIAL, Y_INICIAL, DW, vetor, n);                
             }
         }
   
