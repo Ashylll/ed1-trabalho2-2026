@@ -2,8 +2,8 @@
 #define ARVORE_h
 #endif
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /*
     arvore.h
@@ -11,7 +11,7 @@
 */
 
 typedef void *NO, *Forma, *Arvore;
-typedef int(*compara_formas_t)(NO n1, NO n2);
+typedef int (*compara_formas_t)(NO n1, NO n2);
 
 /// @brief cria uma árvore
 /// @param cmp função de comparação de dois nós
@@ -46,7 +46,8 @@ int get_tamanho_arvore(Arvore a);
 /// @brief escreve as formas contidas na árvore em um arquivo .svg
 /// @param fp arquivo .svg aberto em modo escrita
 /// @pre fp != NULL && a != NULL
-/// @param a árvore 
-void escreve_arvore_svg(FILE* fp, Arvore a);
+/// @param a árvore
+void escreve_arvore_svg(FILE *fp, Arvore a);
 
-void formas_selecionadas_para_vetor(Arvore a, Forma retangulo_selecao, Forma vet[], int *n);
+void formas_selecionadas_para_vetor(Arvore a, Forma retangulo_selecao,
+                                    Forma vet[], int *n);

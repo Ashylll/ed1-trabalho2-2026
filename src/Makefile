@@ -54,17 +54,17 @@ teste_forma: forma.o circulo.o retangulo.o linha.o texto.o unity.o t_forma.o
 teste_arvore: arvore.o circulo.o retangulo.o linha.o texto.o forma.o sorting.o leitura_geo.o unity.o t_arvore.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
-teste_svg: svg.o unity.o t_svg.o
+teste_svg: svg.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o unity.o t_svg.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
 teste_sorting: sorting.o retangulo.o circulo.o texto.o linha.o forma.o svg.o arvore.o leitura_geo.o unity.o t_sorting.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS) 	
 
-teste_leitura_geo: leitura_geo.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o unity.o t_leitura_geo.o
+teste_leitura_geo: leitura_geo.o svg.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o unity.o t_leitura_geo.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
 teste_processa_qry: processa_qry.o leitura_geo.o svg.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o unity.o t_processa_qry.o
-	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
+	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $^ $(LIBS)
 
 
 .PHONY: clean run memcheck tstall
