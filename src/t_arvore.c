@@ -9,8 +9,13 @@
 #include <string.h>
 
 Arvore arvore_teste;
-void setUp(void) { arvore_teste = cria_arvore(compara_default); }
-void tearDown(void) { libera_arvore(&arvore_teste); }
+void setUp(void) { 
+  arvore_teste = cria_arvore(compara_default); 
+}
+
+void tearDown(void) {
+  libera_arvore(&arvore_teste);
+}
 
 void teste_cria_libera_arvore(void) {
   Arvore arvore = cria_arvore(NULL);
@@ -48,6 +53,9 @@ void teste_insere_remove_tamanho_arvore(void) {
   TEST_ASSERT_EQUAL_INT(1, get_tamanho_arvore(arvore_teste));
   remove_arvore(arvore_teste, f3);
   TEST_ASSERT_EQUAL_INT(0, get_tamanho_arvore(arvore_teste));
+  libera_forma(&f1);
+  libera_forma(&f2);
+  libera_forma(&f3);
 }
 
 void teste_escreve_arvore_svg(void) {
@@ -114,6 +122,7 @@ void teste_formas_selecionadas_para_vetor(void) {
   formas_selecionadas_para_vetor(arvore_teste, ret_sel, vetor, &n);
 
   TEST_ASSERT_EQUAL_INT(2, n);
+  libera_forma(&ret_sel);
 }
 
 int main(void) {

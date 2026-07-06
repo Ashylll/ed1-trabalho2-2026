@@ -51,7 +51,7 @@ teste_texto: texto.o unity.o t_texto.o
 teste_forma: forma.o circulo.o retangulo.o linha.o texto.o unity.o t_forma.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
-teste_arvore: arvore.o circulo.o retangulo.o linha.o texto.o forma.o sorting.o leitura_geo.o unity.o t_arvore.o
+teste_arvore: arvore.o svg.o circulo.o retangulo.o linha.o texto.o forma.o sorting.o leitura_geo.o unity.o t_arvore.o
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
 teste_svg: svg.o circulo.o retangulo.o linha.o texto.o forma.o arvore.o sorting.o unity.o t_svg.o
