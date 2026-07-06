@@ -14,9 +14,6 @@ char *path_txt = "teste.txt";
 char *path_svg = "geo-teste.svg";
 Arvore formas, formas_marcadores;
 void setUp(void) {
-  fp_txt = fopen(path_txt, "w");
-  fp_comb = fopen(path_svg, "w");
-
   formas = cria_arvore(compara_default);
   formas_marcadores = cria_arvore(compara_default);
 
@@ -34,14 +31,14 @@ void setUp(void) {
   fclose(fp_geo);
 
   leitura_geo(path_geo, formas);
-  fclose(fp_txt);
-  fclose(fp_comb);
 }
 
 void tearDown(void) {
 
   remove(path_txt);
   remove(path_svg);
+  remove(path_geo);
+  remove(path_qry);
   libera_arvore(&formas);
   libera_arvore(&formas_marcadores);
 }

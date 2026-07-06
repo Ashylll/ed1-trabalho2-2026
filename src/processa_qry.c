@@ -13,9 +13,9 @@ static int n_selecionadas = 0;
 static void clona_move_forma(Arvore formas, double dx, double dy) {
   for (int i = 0; i < n_selecionadas; i++) {
     Forma clone = clona_forma(formas_selecionadas[i]);
-    insere_arvore(formas, clone);
-
     desloca_forma(clone, dx, dy);
+    
+    insere_arvore(formas, clone);
     formas_selecionadas[i] = clone;
   }
 }
@@ -123,15 +123,6 @@ static void atualiza_posicao_formas(Arvore formas, double x, double y,
   }
 }
 
-static void remove_insere_arvore(Arvore formas) {
-  for (int i = 0; i < n_selecionadas; i++) {
-    remove_arvore(formas, formas_selecionadas[i]);
-  }
-  for (int i = 0; i < n_selecionadas; i++) {
-    insere_arvore(formas, formas_selecionadas[i]);
-  }
-}
-
 static void find(FILE *fp_log, int k, char *alg, char crit, double x, double y,
                  double dw, const char *comb_out, Arvore formas,
                  Arvore formas_marcadores, bool rm) {
@@ -173,8 +164,16 @@ static void find(FILE *fp_log, int k, char *alg, char crit, double x, double y,
   else if (strcmp(alg, "ms") == 0) merge_sort_animado();
   */
 
+  for (int i = 0; i < n_selecionadas; i++) {
+    remove_arvore(formas, formas_selecionadas[i]);
+  }
+
   atualiza_posicao_formas(formas, x, y, dw);
-  remove_insere_arvore(formas);
+
+  for (int i = 0; i < n_selecionadas; i++) {
+    insere_arvore(formas, formas_selecionadas[i]);
+  }
+
   cria_quadrados_marcadores(formas_marcadores, k);
 
   if (rm)
