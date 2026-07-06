@@ -106,7 +106,7 @@ static No *remove_no(No *no, Forma forma, compara_formas_t cmp) {
     if (!no->esq && !no->dir) { // folha
       free(no);
       return NULL;
-    } else if (no->esq || no->dir) { // um filho
+    } else if (!no->esq || !no->dir) { // um filho
       No *aux = no->esq ? no->esq : no->dir;
       free(no);
       return aux;
