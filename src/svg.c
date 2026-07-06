@@ -200,4 +200,5 @@ void escreve_frame(const char *comb_out, int numeracao, double x, double y,
   }
 
   svg_end(fp_svg);
+  fclose(fp_svg);
 }
