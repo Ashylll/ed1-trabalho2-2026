@@ -104,10 +104,12 @@ static void remove_formas_maiores(Arvore formas, int k) {
     libera_forma(&formas_selecionadas[i]);
     formas_selecionadas[i] = NULL;
   }
+
+  if (k < n_selecionadas)
+    n_selecionadas = k;
 }
 
-static void atualiza_posicao_formas(Arvore formas, double x, double y,
-                                    double dw) {
+static void atualiza_posicao_formas(Arvore formas, double x, double y, double dw) {
   double dx = 0;
   double cx, cy;
 
