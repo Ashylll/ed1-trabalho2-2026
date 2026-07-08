@@ -101,7 +101,7 @@ static void cria_quadrados_marcadores(Arvore formas_marcadores, int k) {
 static void remove_formas_maiores(Arvore formas, int k) {
   for (int i = k; i < n_selecionadas; i++) {
     remove_arvore(formas, formas_selecionadas[i]);
-    libera_forma(formas_selecionadas[i]);
+    libera_forma(&formas_selecionadas[i]);
     formas_selecionadas[i] = NULL;
   }
 }
@@ -177,7 +177,7 @@ static void find(FILE *fp_log, int k, char *alg, char crit, double x, double y,
   cria_quadrados_marcadores(formas_marcadores, k);
 
   if (rm)
-    remove_formas_maiores(formas_selecionadas, k);
+    remove_formas_maiores(formas, k);
 }
 
 static void comando_find(const char *linha, const char *comb_out, FILE *fp_qry,
@@ -187,13 +187,11 @@ static void comando_find(const char *linha, const char *comb_out, FILE *fp_qry,
   char alg[8];
   char crit;
   double x, y, dw;
-  if (sscanf(linha, "%*s %d %s %c %lf %lf %lf", &k, alg, &crit, &x, &y, &dw) !=
-      6)
+  if (sscanf(linha, "%*s %d %s %c %lf %lf %lf", &k, alg, &crit, &x, &y, &dw) != 6)
     return;
 
   if (rm)
-    fprintf(fp_log, "[*] findrm %d %s %c %lf %lf %lf\n", k, alg, crit, x, y,
-            dw);
+    fprintf(fp_log, "[*] findrm %d %s %c %lf %lf %lf\n", k, alg, crit, x, y, dw);
   else
     fprintf(fp_log, "[*] find %d %s %c %lf %lf %lf\n", k, alg, crit, x, y, dw);
 

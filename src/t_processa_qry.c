@@ -48,7 +48,7 @@ void teste_comandos_sel_cm_mc(void) {}
 void teste_comandos_find_findrm(void) {
   fp_qry = fopen(path_qry, "w");
   fprintf(fp_qry, "sel 0.0 0.0 400.0 380.0\n");
-  fprintf(fp_qry, "find 3 bs a 200.0 200.0 40.0\n");
+  fprintf(fp_qry, "findrm 3 bs a 200.0 200.0 40.0\n");
   fclose(fp_qry);
 
   bool sucesso = false;
