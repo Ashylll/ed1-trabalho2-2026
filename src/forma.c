@@ -225,8 +225,14 @@ Forma clona_forma(Forma f) {
     double x = get_x_circulo(handle);
     double y = get_y_circulo(handle);
     double r = get_raio_circulo(handle);
-    const char *corb = get_corb_circulo(handle);
-    const char *corp = get_corp_circulo(handle);
+    const char *corb_original = get_corb_circulo(handle);
+    const char *corp_original = get_corp_circulo(handle);
+
+    char *corb = malloc(strlen(corb_original) + 1);
+    strcpy(corb, corb_original);
+
+    char *corp = malloc(strlen(corp_original) + 1);
+    strcpy(corp, corp_original);
 
     return cria_forma('c', cria_circulo(id_clone, x, y, r, corb, corp));
   }
@@ -236,8 +242,14 @@ Forma clona_forma(Forma f) {
     double y = get_y_retangulo(handle);
     double w = get_w_retangulo(handle);
     double h = get_h_retangulo(handle);
-    const char *corb = get_corb_retangulo(handle);
-    const char *corp = get_corp_retangulo(handle);
+    const char *corb_original = get_corb_retangulo(handle);
+    const char *corp_original = get_corp_retangulo(handle);
+
+    char *corb = malloc(strlen(corb_original) + 1);
+    strcpy(corb, corb_original);
+
+    char *corp = malloc(strlen(corp_original) + 1);
+    strcpy(corp, corp_original);
 
     return cria_forma('r', cria_retangulo(id_clone, x, y, w, h, corb, corp));
   }
@@ -247,7 +259,10 @@ Forma clona_forma(Forma f) {
     double y1 = get_y1_linha(handle);
     double x2 = get_x2_linha(handle);
     double y2 = get_y2_linha(handle);
-    const char *cor = get_cor_linha(handle);
+    const char *cor_original = get_cor_linha(handle);
+
+    char *cor = malloc(strlen(cor_original) + 1);
+    strcpy(cor, cor_original);
 
     return cria_forma('l', cria_linha(id_clone, x1, y1, x2, y2, cor));
   }
@@ -255,10 +270,16 @@ Forma clona_forma(Forma f) {
   case 't': {
     double x = get_x_texto(handle);
     double y = get_y_texto(handle);
-    const char *corb = get_corb_texto(handle);
-    const char *corp = get_corp_texto(handle);
+    const char *corb_original = get_corb_texto(handle);
+    const char *corp_original = get_corp_texto(handle);
     char a = get_posicao_ancora_texto(handle);
     const char *txt = get_palavra_texto(handle);
+
+    char *corb = malloc(strlen(corb_original) + 1);
+    strcpy(corb, corb_original);
+
+    char *corp = malloc(strlen(corp_original) + 1);
+    strcpy(corp, corp_original);
 
     return cria_forma('t', cria_texto(id_clone, x, y, corb, corp, a, txt));
   }
