@@ -83,10 +83,10 @@ static bool comando_l(const char *linha, Arvore a) {
 static bool comando_t(const char *linha, Arvore a) {
   int i;
   double x, y;
-  char corb[32], corp[32], ancora, txto[512];
+  char corb[32], corp[32], ancora[32], txto[512];
 
-  if (sscanf(linha, "%*s %d %lf %lf %31s %31s %c %[^\n]", &i, &x, &y, corb,
-             corp, &ancora, txto) < 7)
+  if (sscanf(linha, "%*s %d %lf %lf %31s %31s %s %[^\n]", &i, &x, &y, corb,
+             corp, ancora, txto) < 7)
     return false;
 
   Texto t = cria_texto(i, x, y, corb, corp, ancora, txto);

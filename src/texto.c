@@ -13,14 +13,14 @@ typedef struct StEstilo {
 typedef struct StTexto {
   int id;
   double x, y;
-  char *corb, *corp, a, *txto;
+  char *corb, *corp, *a, *txto;
 
   StEstilo estilo;
 } StTexto;
 
 Texto cria_texto(int id, double x, double y, const char *corb, const char *corp,
-                 char a, const char *txto) {
-  if (!corb || !corp || !txto || a != 'i' && a != 'm' && a != 'f')
+                 const char *a, const char *txto) {
+  if (!corb || !corp || !a || !txto)
     return NULL;
 
   StTexto *texto = malloc(sizeof(*texto));
@@ -30,7 +30,6 @@ Texto cria_texto(int id, double x, double y, const char *corb, const char *corp,
   texto->id = id;
   texto->x = x;
   texto->y = y;
-  texto->a = a;
 
   texto->estilo.fFamily = malloc(strlen(FFAMILY_PADRAO) + 1);
   if (!texto->estilo.fFamily) {
@@ -68,10 +67,22 @@ Texto cria_texto(int id, double x, double y, const char *corb, const char *corp,
   }
   strcpy(texto->corp, corp);
 
+  texto->a = malloc(strlen(a) + 1);
+  if (!texto->a) {
+    free(texto->corb);
+    free(texto->corp);
+    free(texto->estilo.fFamily);
+    free(texto->estilo.fWeight);
+    free(texto);
+    return NULL;
+  }
+  strcpy(texto->a, a);
+
   texto->txto = malloc(strlen(txto) + 1);
   if (!texto->txto) {
     free(texto->corp);
     free(texto->corb);
+    free(texto->a);
     free(texto->estilo.fFamily);
     free(texto->estilo.fWeight);
     free(texto);
@@ -132,7 +143,9 @@ char *get_corp_texto(Texto t) {
   return texto->corp;
 }
 
-char get_posicao_ancora_texto(Texto t) {
+char *get_posicao_ancora_texto(Texto t) {
+  if (!t)
+    return NULL;
   StTexto *texto = (StTexto *)t;
 
   return texto->a;
@@ -223,14 +236,22 @@ bool set_corp_texto(Texto t, const char *corp) {
   return true;
 }
 
-bool set_posicao_ancora_texto(Texto t, char a) {
-  if (!t)
-    return false;
-  if (a != 'i' && a != 'm' && a != 'f')
+bool set_posicao_ancora_texto(Texto t, char *a) {
+  if (!t || !a)
     return false;
 
   StTexto *texto = (StTexto *)t;
-  texto->a = a;
+
+  if (texto->a && strcmp(texto->a, a) == 0)
+    return true;
+
+  char *novo = malloc(strlen(a) + 1);
+  if (!novo)
+    return false;
+
+  strcpy(novo, a);
+  free(texto->a);
+  texto->a = novo;
 
   return true;
 }

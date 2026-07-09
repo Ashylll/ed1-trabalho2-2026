@@ -123,19 +123,8 @@ void escreve_forma_deslocada_svg(FILE *fp_svg, Forma f, double x, double y) {
     const char *txto = get_palavra_texto(handle);
     const char *family = get_family_texto(handle);
     const char *weight = get_weight_texto(handle);
-    const char a = get_posicao_ancora_texto(handle);
-    const char *ancora;
-    switch (a) {
-    case 'i':
-      ancora = "start";
-      break;
-    case 'm':
-      ancora = "middle";
-      break;
-    case 'f':
-      ancora = "end";
-      break;
-    }
+    const char *ancora = get_posicao_ancora_texto(handle);
+
     double size = get_size_texto(handle);
 
     double opacidade = 1.0;

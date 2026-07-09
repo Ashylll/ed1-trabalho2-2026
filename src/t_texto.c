@@ -11,7 +11,7 @@ double x = 10.4;
 double y = 8.26;
 char *corb = "pink";
 char *corp = "yellow";
-char a = 'm';
+char *a = "m";
 char *txto = "Oii";
 
 void teste_cria_libera_texto(void) {
@@ -92,23 +92,23 @@ void teste_getters_texto(void) {
   TEST_ASSERT_EQUAL_STRING("black", corp_teste);
 
   // âncora
-  char a_teste = get_posicao_ancora_texto(t);
-  TEST_ASSERT_EQUAL_CHAR(a, a_teste);
+  char *a_teste = get_posicao_ancora_texto(t);
+  TEST_ASSERT_EQUAL_STRING(a, a_teste);
   libera_texto(&t);
 
   t = cria_texto(id, x, y, corb, corp, 'i', txto);
   a_teste = get_posicao_ancora_texto(t);
-  TEST_ASSERT_EQUAL_CHAR('i', a_teste);
+  TEST_ASSERT_EQUAL_STRING("i", a_teste);
   libera_texto(&t);
 
   t = cria_texto(id, x, y, corb, corp, 'm', txto);
   a_teste = get_posicao_ancora_texto(t);
-  TEST_ASSERT_EQUAL_CHAR('m', a_teste);
+  TEST_ASSERT_EQUAL_STRING("m", a_teste);
   libera_texto(&t);
 
   t = cria_texto(id, x, y, corb, corp, 'f', txto);
   a_teste = get_posicao_ancora_texto(t);
-  TEST_ASSERT_EQUAL_CHAR('f', a_teste);
+  TEST_ASSERT_EQUAL_STRING("f", a_teste);
 
   // txto
   char *txto_teste = get_palavra_texto(t);
@@ -206,20 +206,20 @@ void teste_setters_texto(void) {
   TEST_ASSERT_EQUAL_STRING("gray", get_corp_texto(t));
 
   // âncora
-  TEST_ASSERT_FALSE(set_posicao_ancora_texto(NULL, 'i'));
-  TEST_ASSERT_EQUAL_CHAR(a, get_posicao_ancora_texto(t));
+  TEST_ASSERT_FALSE(set_posicao_ancora_texto(NULL, "i"));
+  TEST_ASSERT_EQUAL_STRING(a, get_posicao_ancora_texto(t));
 
-  TEST_ASSERT_FALSE(set_posicao_ancora_texto(t, 'h'));
-  TEST_ASSERT_EQUAL_CHAR(a, get_posicao_ancora_texto(t));
+  TEST_ASSERT_FALSE(set_posicao_ancora_texto(t, "h"));
+  TEST_ASSERT_EQUAL_STRING(a, get_posicao_ancora_texto(t));
 
-  TEST_ASSERT_TRUE(set_posicao_ancora_texto(t, 'i'));
-  TEST_ASSERT_EQUAL_CHAR('i', get_posicao_ancora_texto(t));
+  TEST_ASSERT_TRUE(set_posicao_ancora_texto(t, "i"));
+  TEST_ASSERT_EQUAL_STRING("i", get_posicao_ancora_texto(t));
 
-  TEST_ASSERT_TRUE(set_posicao_ancora_texto(t, 'm'));
-  TEST_ASSERT_EQUAL_CHAR('m', get_posicao_ancora_texto(t));
+  TEST_ASSERT_TRUE(set_posicao_ancora_texto(t, "m"));
+  TEST_ASSERT_EQUAL_STRING("m", get_posicao_ancora_texto(t));
 
-  TEST_ASSERT_TRUE(set_posicao_ancora_texto(t, 'f'));
-  TEST_ASSERT_EQUAL_CHAR('f', get_posicao_ancora_texto(t));
+  TEST_ASSERT_TRUE(set_posicao_ancora_texto(t, "f"));
+  TEST_ASSERT_EQUAL_STRING("f", get_posicao_ancora_texto(t));
 
   // txto
   TEST_ASSERT_FALSE(set_palavra_texto(NULL, "Tchau"));

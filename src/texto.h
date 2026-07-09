@@ -45,7 +45,7 @@ typedef void *Texto;
 /// @return ponteiro para o texto; NULL se parâmetros inválidos ou falha de
 /// memória
 Texto cria_texto(int id, double x, double y, const char *corb, const char *corp,
-                 char a, const char *txto);
+                 const char *a, const char *txto);
 
 /// @brief libera a memória do texto
 /// @param t ponteiro para o handle do texto
@@ -87,8 +87,8 @@ char *get_corp_texto(Texto t);
 /// @brief retorna a posição da âncora do texto
 /// @param t texto
 /// @pre t != NULL
-/// @return posição da âncora (char i, m, f)
-char get_posicao_ancora_texto(Texto t);
+/// @return posição da âncora
+char *get_posicao_ancora_texto(Texto t);
 
 /// @brief retorna o conteúdo do texto
 /// @param t texto
@@ -146,10 +146,10 @@ bool set_corp_texto(Texto t, const char *corp);
 /// @brief atribui uma posição à âncora do texto
 /// @param t texto
 /// @param a âncora do texto
-/// @pre t != NULL && (a == 'i' || a == 'm' || a == 'f')
+/// @pre t != NULL && a != NULL
 /// @return true se a operação foi bem sucedida; false se t == NULL || a
 /// inválido
-bool set_posicao_ancora_texto(Texto t, char a);
+bool set_posicao_ancora_texto(Texto t, char *a);
 
 /// @brief atribui um conteúdo ao texto
 /// @param t texto

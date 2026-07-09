@@ -149,19 +149,8 @@ void escreve_forma_svg(FILE *fp, Forma f) {
     const char *txto = get_palavra_texto(handle);
     const char *family = get_family_texto(handle);
     const char *weight = get_weight_texto(handle);
-    const char a = get_posicao_ancora_texto(handle);
-    const char *ancora;
-    switch (a) {
-    case 'i':
-      ancora = "start";
-      break;
-    case 'm':
-      ancora = "middle";
-      break;
-    case 'f':
-      ancora = "end";
-      break;
-    }
+    const char *ancora = get_posicao_ancora_texto(handle);
+
     int size = get_size_texto(handle);
 
     double opacidade = 1.0;
@@ -173,7 +162,6 @@ void escreve_forma_svg(FILE *fp, Forma f) {
             "font-family:%s;font-weight:%s;font-size:%dpx;line-height:0%%\" "
             "x=\"%.2f\" y=\"%.2f\">%s</text>\n",
             ancora, corp, opacidade, corb, family, weight, size, x, y, txto);
-
     break;
   }
 
@@ -257,7 +245,7 @@ Forma clona_forma(Forma f) {
     double y = get_y_texto(handle);
     const char *corb = get_corb_texto(handle);
     const char *corp = get_corp_texto(handle);
-    char a = get_posicao_ancora_texto(handle);
+    char *a = get_posicao_ancora_texto(handle);
     const char *txt = get_palavra_texto(handle);
 
     return cria_forma('t', cria_texto(id_clone, x, y, corb, corp, a, txt));
@@ -366,10 +354,10 @@ void get_correcao_ancora(Forma f, double *dx, double *dy) {
     break;
   }
   case 't': {
-    char ancora = get_posicao_ancora_texto(get_handle_forma(f));
-    if (ancora == 'm')
+    char *ancora = get_posicao_ancora_texto(get_handle_forma(f));
+    if (strcmp(ancora, "middle") == 0)
       *dx = get_largura_x_forma(f) / 2.0;
-    else if (ancora == 'f')
+    else if (strcmp(ancora, "end") == 0)
       *dx = get_largura_x_forma(f);
     break;
   }
