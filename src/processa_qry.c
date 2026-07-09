@@ -108,6 +108,10 @@ static void atualiza_posicao_formas(Arvore formas, double x, double y, double dw
   double cx, cy;
 
   for (int i = 0; i < n_selecionadas; i++) {
+    remove_arvore(formas, formas_selecionadas[i]);
+  }
+
+  for (int i = 0; i < n_selecionadas; i++) {
     Forma f = formas_selecionadas[i];
     double l = get_largura_x_forma(f);
 
@@ -116,6 +120,10 @@ static void atualiza_posicao_formas(Arvore formas, double x, double y, double dw
     set_y_forma(formas_selecionadas[i], y + cy);
 
     dx += l + dw;
+  }
+
+  for (int i = 0; i < n_selecionadas; i++) {
+    insere_arvore(formas, formas_selecionadas[i]);
   }
 }
 
@@ -126,9 +134,11 @@ static void find(FILE *fp_log, int k, char *alg, char crit, double x, double y,
 
   switch (crit) {
   case 'd':
+    atualiza_posicao_formas(formas, x, y, dw);
     cria_quadrados_marcadores(formas_marcadores, k);
     if (rm)
       remove_formas_maiores(formas, k);
+    
     fprintf(fp_log, "Critério \"default\". Formas já ordenadas\n");
     return;
 
@@ -156,15 +166,7 @@ static void find(FILE *fp_log, int k, char *alg, char crit, double x, double y,
   else if (strcmp(alg, "qs") == 0) quick_sort_animado(comb_out, formas_selecionadas, n_selecionadas, criterio_ordenacao);
   else if (strcmp(alg, "ms") == 0) merge_sort_animado(comb_out, formas_selecionadas, n_selecionadas, criterio_ordenacao);
 
-  for (int i = 0; i < n_selecionadas; i++) {
-    remove_arvore(formas, formas_selecionadas[i]);
-  }
-
   atualiza_posicao_formas(formas, x, y, dw);
-
-  for (int i = 0; i < n_selecionadas; i++) {
-    insere_arvore(formas, formas_selecionadas[i]);
-  }
 
   cria_quadrados_marcadores(formas_marcadores, k);
 
