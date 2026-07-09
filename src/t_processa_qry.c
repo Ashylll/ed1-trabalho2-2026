@@ -1,3 +1,5 @@
+#include "forma.h"
+#include "circulo.h"
 #include "arvore.h"
 #include "leitura_geo.h"
 #include "processa_qry.h"
@@ -9,7 +11,7 @@ FILE *fp_qry;
 FILE *fp_txt;
 FILE *fp_comb;
 char *path_geo = "teste.geo";
-char *path_qry = "teste.qry";
+char *path_qry;
 char *path_txt = "teste.txt";
 char *path_svg = "geo-teste.svg";
 Arvore formas, formas_marcadores;
@@ -41,25 +43,83 @@ void tearDown(void) {
   remove(path_qry);
   libera_arvore(&formas);
   libera_arvore(&formas_marcadores);
+
 }
 
-void teste_comandos_sel_cm_mc(void) {}
-
-void teste_comandos_find_findrm(void) {
+void teste_comando_sel(void) {
+  path_qry = "teste-sel.qry";
   fp_qry = fopen(path_qry, "w");
-  fprintf(fp_qry, "sel 0.0 0.0 400.0 380.0\n");
-  fprintf(fp_qry, "findrm 3 bs a 200.0 200.0 40.0\n");
+  fprintf(fp_qry, "sel 0.0 0.0 500.0 500.0\n"); 
   fclose(fp_qry);
 
-  bool sucesso = false;
-  sucesso =
-      processa_qry(path_qry, path_txt, path_svg, formas, formas_marcadores);
+  bool sucesso = processa_qry(path_qry, path_txt, path_svg, formas, formas_marcadores);
   TEST_ASSERT_TRUE(sucesso);
+  
+  TEST_ASSERT_TRUE(get_tamanho_arvore(formas_marcadores) > 0);
+}
+
+void teste_comando_cm(void) {
+  path_qry = "teste-cm.qry";
+  int tam_antes = get_tamanho_arvore(formas);
+
+  fp_qry = fopen(path_qry, "w");
+  fprintf(fp_qry, "cm 10.0 10.0 200.0 200.0 300.0 300.0\n");
+  fclose(fp_qry);
+
+  bool sucesso = processa_qry(path_qry, path_txt, path_svg, formas, formas_marcadores);
+  TEST_ASSERT_TRUE(sucesso);
+
+  int tam_depois = get_tamanho_arvore(formas);
+  TEST_ASSERT_TRUE(tam_depois > tam_antes);
+}
+
+void teste_comando_mc(void) {
+  Arvore mc = cria_arvore(compara_default);
+  Forma c = cria_forma('c', cria_circulo(2, 20.0, 20.0, 4.0, "yellow", "pink"));
+  insere_arvore(mc, c);
+
+  path_qry = "teste-mc.qry";
+  fp_qry = fopen(path_qry, "w");
+  fprintf(fp_qry, "sel 10.0 10.0 200.0 200.0\n");
+  fprintf(fp_qry, "mc white white\n");
+  fclose(fp_qry);
+
+  bool sucesso = processa_qry(path_qry, path_txt, path_svg, mc, formas_marcadores);
+  TEST_ASSERT_TRUE(sucesso);
+  
+  TEST_ASSERT_EQUAL_STRING("white", get_corb_forma(c));
+  TEST_ASSERT_EQUAL_STRING("white", get_corp_forma(c));
+
+  libera_arvore(&mc);
+}
+
+
+void teste_comandos_find_findrm(void) {
+  path_qry = "teste-find-findrm.qry";
+  fp_qry = fopen(path_qry, "w");
+  
+  fprintf(fp_qry, "sel 0.0 0.0 500.0 500.0\n");
+  fprintf(fp_qry, "find 3 bs a 100.0 100.0 10.0\n");
+  fprintf(fp_qry, "findrm 2 qs a 200.0 200.0 10.0\n");
+  fclose(fp_qry);
+
+  int tam_antes = get_tamanho_arvore(formas);
+  
+  bool sucesso = processa_qry(path_qry, path_txt, path_svg, formas, formas_marcadores);
+  
+  TEST_ASSERT_TRUE(sucesso);
+  
+  int tam_depois = get_tamanho_arvore(formas);
+  TEST_ASSERT_TRUE(tam_depois < tam_antes);
+
+  system("rm *.svg");
 }
 
 int main(void) {
   UNITY_BEGIN();
-  RUN_TEST(teste_comandos_sel_cm_mc);
+  RUN_TEST(teste_comando_sel);
+  RUN_TEST(teste_comando_cm);
+  RUN_TEST(teste_comando_mc);
   RUN_TEST(teste_comandos_find_findrm);
   return UNITY_END();
 }

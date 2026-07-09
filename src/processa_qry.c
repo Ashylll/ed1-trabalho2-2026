@@ -10,7 +10,7 @@
 static Forma *formas_selecionadas = NULL;
 static int n_selecionadas = 0;
 
-static void clona_move_forma(Arvore formas, double dx, double dy) {
+static void clona_move_formas(Arvore formas, double dx, double dy) {
   for (int i = 0; i < n_selecionadas; i++) {
     Forma clone = clona_forma(formas_selecionadas[i]);
     desloca_forma(clone, dx, dy);
@@ -27,22 +27,16 @@ static void cm(double x, double y, double w, double h, double dx, double dy,
   insere_arvore(formas_marcadores, retangulo_sel);
 
   n_selecionadas = 0;
-  formas_selecionadas_para_vetor(formas, retangulo_sel, formas_selecionadas,
-                                 &n_selecionadas);
-
-  clona_move_forma(formas, dx, dy);
-
-  for (int i = 0; i < n_selecionadas; i++) {
-    insere_arvore(formas, formas_selecionadas[i]);
-  }
+  formas_selecionadas_para_vetor(formas, retangulo_sel, formas_selecionadas, &n_selecionadas);
+  
+  clona_move_formas(formas, dx, dy);
 }
 
 static void comando_cm(const char *linha, FILE *fp_qry, FILE *fp_log,
                        Arvore formas, Arvore formas_marcadores) {
   double x, y, w, h, dx, dy;
-
-  if (sscanf(linha, "%*s %lf %lf %lf %lf %lf %lf", &x, &y, &w, &h, &dx, &dy) !=
-      6)
+                        
+  if (sscanf(linha, "%*s %lf %lf %lf %lf %lf %lf", &x, &y, &w, &h, &dx, &dy) != 6)
     return;
   fprintf(fp_log, "[*] cm %lf %lf %lf %lf %lf %lf\n", x, y, w, h, dx, dy);
 
@@ -155,16 +149,12 @@ static void find(FILE *fp_log, int k, char *alg, char crit, double x, double y,
     break;
   }
 
-  if (strcmp(alg, "bs") == 0)
-    bubble_sort_animado(comb_out, formas_selecionadas, n_selecionadas, k,
-                        criterio_ordenacao);
-  /*
-  else if (strcmp(alg, "ss") == 0) selection_sort_animado();
-  else if (strcmp(alg, "is") == 0) insertion_sort_animado();
-  else if (strcmp(alg, "shs") == 0) shell_sort_animado();
-  else if (strcmp(alg, "qs") == 0) quick_sort_animado();
-  else if (strcmp(alg, "ms") == 0) merge_sort_animado();
-  */
+  if (strcmp(alg, "bs") == 0) bubble_sort_animado(comb_out, formas_selecionadas, n_selecionadas, k, criterio_ordenacao);
+  else if (strcmp(alg, "ss") == 0) selection_sort_animado(comb_out, formas_selecionadas, n_selecionadas, k, criterio_ordenacao);
+  else if (strcmp(alg, "is") == 0) insertion_sort_animado(comb_out, formas, n_selecionadas, k, criterio_ordenacao);
+  else if (strcmp(alg, "shs") == 0) shell_sort_animado(comb_out, formas, n_selecionadas, criterio_ordenacao);
+  else if (strcmp(alg, "qs") == 0) quick_sort_animado(comb_out, formas_selecionadas, n_selecionadas, criterio_ordenacao);
+  else if (strcmp(alg, "ms") == 0) merge_sort_animado(comb_out, formas_selecionadas, n_selecionadas, criterio_ordenacao);
 
   for (int i = 0; i < n_selecionadas; i++) {
     remove_arvore(formas, formas_selecionadas[i]);
@@ -210,9 +200,17 @@ static void comando_find(const char *linha, const char *comb_out, FILE *fp_qry,
   }
 }
 
-static void comando_mc() {
+static void comando_mc(const char *linha, FILE *fp_log) {
+  char corb[32], corp[32];
+
+  if (sscanf(linha, "%*s %s %s", corb, corp) != 2)
+    return;
+  
+  fprintf(fp_log, "[*] mc %s %s\n", corb, corp);
+
   for (int i = 0; i < n_selecionadas; i++) {
-    troca_cores_forma(formas_selecionadas[i]);
+    set_corb_forma(formas_selecionadas[i], corb);
+    set_corp_forma(formas_selecionadas[i], corp);
   }
 }
 
@@ -238,22 +236,26 @@ bool processa_qry(const char *path_qry, const char *path_log,
 
     if (strcmp(comando, "sel") == 0) {
       comando_sel(linha, fp_qry, fp_log, formas, formas_marcadores);
-    } else if (strcmp(comando, "find") == 0) {
-      comando_find(linha, comb_out, fp_qry, fp_log, formas, formas_marcadores,
-                   false);
-    } else if (strcmp(comando, "cm") == 0) {
-      comando_sel(linha, fp_qry, fp_log, formas, formas_marcadores);
-    } else if (strcmp(comando, "findrm") == 0) {
-      comando_find(linha, comb_out, fp_qry, fp_log, formas, formas_marcadores,
-                   true);
-    } else if (strcmp(comando, "mc") == 0) {
-      comando_mc();
-    } else {
+    } 
+    else if (strcmp(comando, "find") == 0) {
+      comando_find(linha, comb_out, fp_qry, fp_log, formas, formas_marcadores, false);
+    }
+    else if (strcmp(comando, "cm") == 0){
+      comando_cm(linha, fp_qry, fp_log, formas, formas_marcadores);
+    }
+    else if (strcmp(comando, "findrm") == 0) {
+      comando_find(linha, comb_out, fp_qry, fp_log, formas, formas_marcadores, true);
+    }
+    else if (strcmp(comando, "mc") == 0) {
+      comando_mc(linha, fp_log);
+    }
+    else {
       return false;
     }
   }
 
   free(formas_selecionadas);
+  formas_selecionadas = NULL;
   fclose(fp_qry);
   fclose(fp_log);
   return true;
