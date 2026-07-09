@@ -1,6 +1,5 @@
 #ifndef SORTING_H
 #define SORTING_H
-#endif
 
 #include <stdbool.h>
 
@@ -85,3 +84,5 @@ int compara_cor_preenchimento(Forma f1, Forma f2);
 /// @pre f != NULL && retangulo_selecao != NULL
 /// @return true se estiver dentro; false se estiver fora
 bool dentro_selecao(Forma f, Forma retangulo_selecao);
+
+#endif

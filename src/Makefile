@@ -80,6 +80,3 @@ memtest:
 	
 memcheck: $(PROJ_NAME)
 	$(VG) ./$(PROJ_NAME)
-
-teste1: $(PROJ_NAME)
-	$(VG) ./$(PROJ_NAME) -e ../entrada_teste -f t1.geo -o ../saida_teste -q t1/bs.qry

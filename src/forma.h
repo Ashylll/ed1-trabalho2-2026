@@ -1,6 +1,5 @@
 #ifndef FORMA_H
 #define FORMA_H
-#endif
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -176,3 +175,5 @@ void set_corp_forma(Forma f, char *corp);
 /// @param dy deslocamento no eixo y
 /// @return true se a operação foi bem sucedida; false se f == NULL
 bool desloca_forma(Forma f, double dx, double dy);
+
+#endif

@@ -1,6 +1,5 @@
 #ifndef SVG_H
 #define SVG_H
-#endif
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -54,3 +53,5 @@ void escreve_forma_deslocada_svg(FILE *fp_svg, Forma f, double x, double y);
 /// @pre numeração deve pertencer ao intervalo [0, 999999]
 void escreve_frame(const char *comb_out, int numeracao, double x, double y,
                    double dw, Forma vet_selecionads[], double n_selecionadas);
+
+#endif

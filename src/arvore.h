@@ -1,6 +1,5 @@
 #ifndef ARVORE_H
-#define ARVORE_h
-#endif
+#define ARVORE_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,3 +62,5 @@ void escreve_arvore_svg(FILE *fp, Arvore a);
 /// @pre formas != NULL && retangulo_selecao != NULL && vet != NULL && n != NULL
 void formas_selecionadas_para_vetor(Arvore formas, Forma retangulo_selecao,
                                     Forma vet[], int *n);
+
+#endif

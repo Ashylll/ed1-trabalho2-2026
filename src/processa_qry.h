@@ -1,6 +1,5 @@
 #ifndef PROCESSA_QRY
 #define PROCESSA_QRY
-#endif
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -28,3 +27,5 @@ typedef void *Arvore;
 bool processa_qry(const char *path_qry, const char *path_log,
                   const char *comb_out, Arvore formas,
                   Arvore formas_marcadores);
+                  
+#endif

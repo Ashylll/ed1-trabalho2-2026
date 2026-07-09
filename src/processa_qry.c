@@ -151,8 +151,8 @@ static void find(FILE *fp_log, int k, char *alg, char crit, double x, double y,
 
   if (strcmp(alg, "bs") == 0) bubble_sort_animado(comb_out, formas_selecionadas, n_selecionadas, k, criterio_ordenacao);
   else if (strcmp(alg, "ss") == 0) selection_sort_animado(comb_out, formas_selecionadas, n_selecionadas, k, criterio_ordenacao);
-  else if (strcmp(alg, "is") == 0) insertion_sort_animado(comb_out, formas, n_selecionadas, k, criterio_ordenacao);
-  else if (strcmp(alg, "shs") == 0) shell_sort_animado(comb_out, formas, n_selecionadas, criterio_ordenacao);
+  else if (strcmp(alg, "is") == 0) insertion_sort_animado(comb_out, formas_selecionadas, n_selecionadas, k, criterio_ordenacao);
+  else if (strcmp(alg, "shs") == 0) shell_sort_animado(comb_out, formas_selecionadas, n_selecionadas, criterio_ordenacao);
   else if (strcmp(alg, "qs") == 0) quick_sort_animado(comb_out, formas_selecionadas, n_selecionadas, criterio_ordenacao);
   else if (strcmp(alg, "ms") == 0) merge_sort_animado(comb_out, formas_selecionadas, n_selecionadas, criterio_ordenacao);
 
