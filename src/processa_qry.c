@@ -203,6 +203,10 @@ static void comando_find(const char *linha, const char *comb_out, FILE *fp_qry,
     return;
   }
 
+  if (k > n_selecionadas) {
+    k = n_selecionadas;
+  }
+  
   find(fp_log, k, alg, crit, x, y, dw, comb_out, formas, formas_marcadores, rm);
 }
 
