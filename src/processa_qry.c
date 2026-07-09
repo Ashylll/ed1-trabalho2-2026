@@ -134,12 +134,16 @@ static void find(FILE *fp_log, int k, char *alg, char crit, double x, double y,
 
   switch (crit) {
   case 'd':
-    atualiza_posicao_formas(formas, x, y, dw);            
-    cria_quadrados_marcadores(formas_marcadores, k);
+
     if (rm)
-      remove_formas_maiores(formas, k);
+    remove_formas_maiores(formas, k);
     
     fprintf(fp_log, "Critério \"default\". Formas já ordenadas\n");
+    for (int i = 0; i < n_selecionadas; i++) {
+      reporta_forma(fp_log, formas_selecionadas[i], crit);
+    }
+    atualiza_posicao_formas(formas, x, y, dw);            
+    cria_quadrados_marcadores(formas_marcadores, k);
     return;
 
   case 'a':
@@ -165,6 +169,11 @@ static void find(FILE *fp_log, int k, char *alg, char crit, double x, double y,
   else if (strcmp(alg, "shs") == 0) shell_sort_animado(comb_out, formas_selecionadas, n_selecionadas, criterio_ordenacao);
   else if (strcmp(alg, "qs") == 0) quick_sort_animado(comb_out, formas_selecionadas, n_selecionadas, criterio_ordenacao);
   else if (strcmp(alg, "ms") == 0) merge_sort_animado(comb_out, formas_selecionadas, n_selecionadas, criterio_ordenacao);
+
+  fprintf(fp_log, "Formas selecionadas segundo o critério:\n");
+  for (int i = 0; i < n_selecionadas; i++) {
+    reporta_forma(fp_log, formas_selecionadas[i], crit);
+  }
 
   atualiza_posicao_formas(formas, x, y, dw);
 
@@ -195,11 +204,6 @@ static void comando_find(const char *linha, const char *comb_out, FILE *fp_qry,
   }
 
   find(fp_log, k, alg, crit, x, y, dw, comb_out, formas, formas_marcadores, rm);
-
-  fprintf(fp_log, "Formas selecionadas segundo o critério:\n");
-  for (int i = 0; i < n_selecionadas; i++) {
-    reporta_forma(fp_log, formas_selecionadas[i], crit);
-  }
 }
 
 static void comando_mc(const char *linha, FILE *fp_log) {

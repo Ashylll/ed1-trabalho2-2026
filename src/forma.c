@@ -321,7 +321,7 @@ void reporta_forma(FILE *fp_txt, Forma f, const char criterio_ordenacao) {
       fprintf(fp_txt, "== Linha ==\nId: %d\nCor: %s\n", get_id_forma(f),
               get_corp_forma(f));
     } else {
-      fprintf(fp_txt, "== %s ==\nId: %d\nCor de preenchimento: %.s\n", tipo,
+      fprintf(fp_txt, "== %s ==\nId: %d\nCor de preenchimento: %s\n", tipo,
               get_id_forma(f), get_corp_forma(f));
     }
 
@@ -593,12 +593,16 @@ void set_x_forma(Forma f, double x) {
   switch (forma->tipo) {
   case 'c':
     set_x_circulo(handle, x);
+    break;
   case 'r':
     set_x_retangulo(handle, x);
+    break;
   case 't':
     set_x_texto(handle, x);
+    break;
   case 'l':
     set_ancora_linha(handle, x, get_y1_linha(handle));
+    break;
 
   default:
     return;
@@ -614,12 +618,16 @@ void set_y_forma(Forma f, double y) {
   switch (forma->tipo) {
   case 'c':
     set_y_circulo(handle, y);
+    break;
   case 'r':
     set_y_retangulo(handle, y);
+    break;
   case 't':
     set_y_texto(handle, y);
+    break;
   case 'l':
     set_ancora_linha(handle, get_x1_linha(handle), y);
+    break;
 
   default:
     return;

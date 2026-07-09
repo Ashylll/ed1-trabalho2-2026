@@ -235,6 +235,7 @@ int compara_default(Forma f1, Forma f2) {
 
   if (y1 != y2)
     return (y1 > y2) ? 1 : -1;
+
   if (x1 != x2)
     return (x1 > x2) ? 1 : -1;
 
@@ -280,8 +281,11 @@ int compara_cor_preenchimento(Forma f1, Forma f2) {
   char *cor1 = get_corp_forma(f1);
   char *cor2 = get_corp_forma(f2);
 
-  
-  return strcmp(cor1, cor2);
+  int r = 0;
+  if (strcmp(cor1, cor2) > 0) r = 1; 
+  else  if (strcmp(cor1, cor2) < 0) r = - 1; 
+
+  return r;
 }
 
 static inline bool ponto_no_retangulo(double x, double y, double xR, double yR,
