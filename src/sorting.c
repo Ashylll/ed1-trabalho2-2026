@@ -312,22 +312,10 @@ bool dentro_selecao(Forma f, Forma retangulo_selecao) {
       return false;
 
   case 'r':
-    if (ponto_no_retangulo(xf, yf, xs, ys, ws, hs) &&
-        ponto_no_retangulo(xf + wf, yf + hf, xs, ys, ws, hs))
-      return true;
-    else
-      return false;
-
   case 'l':
-    if (ponto_no_retangulo(xf, yf, xs, ys, ws, hs) &&
-        ponto_no_retangulo(xf + wf, yf + wf, xs, ys, ws, hs))
-      return true;
-    else
-      return false;
-
   case 't':
     if (ponto_no_retangulo(xf, yf, xs, ys, ws, hs) &&
-        ponto_no_retangulo(xf + wf, yf + wf, xs, ys, ws, hs))
+        ponto_no_retangulo(xf + wf, yf + hf, xs, ys, ws, hs))
       return true;
     else
       return false;
