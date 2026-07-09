@@ -273,13 +273,16 @@ Forma clona_forma(Forma f) {
     const char *corb_original = get_corb_texto(handle);
     const char *corp_original = get_corp_texto(handle);
     char a = get_posicao_ancora_texto(handle);
-    const char *txt = get_palavra_texto(handle);
+    const char *txt_original = get_palavra_texto(handle);
 
     char *corb = malloc(strlen(corb_original) + 1);
     strcpy(corb, corb_original);
 
     char *corp = malloc(strlen(corp_original) + 1);
     strcpy(corp, corp_original);
+
+    char *txt = malloc(strlen(txt_original) + 1);
+    strcpy(txt, txt_original);
 
     return cria_forma('t', cria_texto(id_clone, x, y, corb, corp, a, txt));
   }
