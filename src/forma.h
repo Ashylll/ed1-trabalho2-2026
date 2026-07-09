@@ -8,7 +8,7 @@
 /*
    forma.h
    Forma é um contâiner (wrapper) que carrega um ponteiro para uma figura e o
-   seu tipo.
+   seu tipo
 
 */
 
@@ -41,8 +41,23 @@ Forma clona_forma(Forma f);
 /// @param f forma
 void troca_cores_forma(Forma f);
 
+/// @brief retorna o tipo da forma em extenso
+/// @param tipo tipo
+/// @param maiusculo se a primeira letra é maiúscula ou não 
+/// @return tipo traduzido
 char *traduz_tipo_forma(const char tipo, bool maiusculo);
+
+/// @brief reporta os dados relevantes para ordenação da forma em um arquivo .txt
+/// @param fp_txt arquivo .txt
+/// @param f forma
+/// @param criterio_ordenacao critério de ordenação ('d': default, 'a': área, 'w': largura, 'h': altura, 'c': cor) 
 void reporta_forma(FILE *fp_txt, Forma f, char criterio_ordenacao);
+
+/// @brief corrige a posição da âncora da forma para considerar o extremo da figura como âncora
+/// @param f forma
+/// @param dx variável receptora do deslocamento x
+/// @param dy variável receptora do deslocamento y
+/// @pre f != NULL
 void get_correcao_ancora(Forma f, double *dx, double *dy);
 
 /* === Operações get === */
@@ -89,12 +104,16 @@ double get_y_forma(Forma f);
 /// @return área
 double get_area_forma(Forma f);
 
-/// @brief retorna a largura da forma
+/// @brief retorna a largura da forma (texto: 1.0 * número de caracteres)
 /// @param f forma
 /// @pre f != NULL
 /// @return largura
 double get_largura_forma(Forma f);
 
+/// @brief retorna a largura real no eixo x da forma
+/// @param f forma
+/// @pre f != NULL
+/// @return largura
 double get_largura_x_forma(Forma f);
 
 /// @brief retorna a altura da forma
