@@ -134,7 +134,7 @@ static void find(FILE *fp_log, int k, char *alg, char crit, double x, double y,
 
   switch (crit) {
   case 'd':
-    atualiza_posicao_formas(formas, x, y, dw);
+    atualiza_posicao_formas(formas, x, y, dw);            
     cria_quadrados_marcadores(formas_marcadores, k);
     if (rm)
       remove_formas_maiores(formas, k);

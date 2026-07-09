@@ -64,7 +64,7 @@ void teste_escreve_arvore_svg(void) {
   fprintf(fp_geo, "c 10 50.0 50.0 20.0 blue red\n");
   fprintf(fp_geo, "r 20 10.0 10.0 100.0 200.0 green yellow\n");
   fprintf(fp_geo, "ts sans-serif bold 14.0\n");
-  fprintf(fp_geo, "t 30 0.0 0.0 black black i Texto de Teste\n");
+  fprintf(fp_geo, "t 30 0.0 0.0 black black middle Texto de Teste\n");
   fclose(fp_geo);
   leitura_geo(path_in, arvore_teste);
 

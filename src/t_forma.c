@@ -14,9 +14,7 @@ FILE *fp_svg;
 FILE *fp_txt;
 
 void setUp(void) {
-  fp_svg = fopen(path_svg_teste, "w");
-  fp_txt = fopen(path_txt_teste, "w");
-  f1 = cria_forma('t', cria_texto(3, 4.2, 4.4, "pink", "yellow", 'm', "rosa"));
+  f1 = cria_forma('t', cria_texto(3, 4.2, 4.4, "pink", "yellow", "middle", "rosa"));
   f2 = cria_forma('r', cria_retangulo(1, 2.2, 4.4, 2.2, 2.2, "purple", "pink"));
   f3 = cria_forma('l', cria_linha(2, 2.0, 2.0, 4.0, 4.0, "pink"));
   f4 = cria_forma('c', cria_circulo(0, 2.2, 4.4, 2, "pink", "pink"));
@@ -27,8 +25,6 @@ void tearDown(void) {
   libera_forma(&f3);
   libera_forma(&f4);
 
-  fclose(fp_svg);
-  fclose(fp_txt);
   remove(path_svg_teste);
   remove(path_txt_teste);
 }
@@ -59,7 +55,7 @@ void teste_cria_libera_forma(void) {
   TEST_ASSERT_EQUAL_PTR(l, get_handle_forma(f));
   libera_forma(&f);
 
-  Texto t = cria_texto(3, 4.2, 4.4, "pink", "pink", 'm', "rosa");
+  Texto t = cria_texto(3, 4.2, 4.4, "pink", "pink", "middle", "rosa");
   f = cria_forma('t', t);
   TEST_ASSERT_NOT_NULL(f);
   TEST_ASSERT_EQUAL_CHAR('t', get_tipo_forma(f));
@@ -70,6 +66,7 @@ void teste_cria_libera_forma(void) {
 }
 
 void teste_escreve_forma_svg(void) {
+  fp_svg = fopen(path_svg_teste, "w");
   escreve_forma_svg(fp_svg, f1);
   escreve_forma_svg(fp_svg, f2);
   escreve_forma_svg(fp_svg, f3);
@@ -139,17 +136,6 @@ void teste_clona_forma(void) {
   libera_forma(&f2_clone);
 }
 
-void teste_troca_cores_forma(void) {
-  troca_cores_forma(f1);
-  troca_cores_forma(f2);
-
-  TEST_ASSERT_EQUAL_STRING("yellow", get_corb_forma(f1));
-  TEST_ASSERT_EQUAL_STRING("pink", get_corp_forma(f1));
-
-  TEST_ASSERT_EQUAL_STRING("pink", get_corb_forma(f2));
-  TEST_ASSERT_EQUAL_STRING("purple", get_corp_forma(f2));
-}
-
 void teste_traduz_tipo_forma(void) {
   TEST_ASSERT_EQUAL_STRING("Texto", traduz_tipo_forma('t', true));
   TEST_ASSERT_EQUAL_STRING("texto", traduz_tipo_forma('t', false));
@@ -162,16 +148,16 @@ void teste_traduz_tipo_forma(void) {
 }
 
 void teste_reporta_forma(void) {
+  fp_txt = fopen(path_txt_teste, "w");
   reporta_forma(fp_txt, f1, 'd');
   reporta_forma(fp_txt, f2, 'a');
   reporta_forma(fp_txt, f3, 'c');
   reporta_forma(fp_txt, f4, 'h');
-
   fclose(fp_txt);
 
   FILE *checa = fopen(path_txt_teste, "r");
   TEST_ASSERT_NOT_NULL(checa);
-
+  
   char linha[256];
   bool tem_texto = false;
   bool tem_retangulo = false;
@@ -188,6 +174,7 @@ void teste_reporta_forma(void) {
       tem_circulo = true;
   }
 
+  fclose(checa);
   TEST_ASSERT_TRUE(tem_texto);
   TEST_ASSERT_TRUE(tem_retangulo);
   TEST_ASSERT_TRUE(tem_linha);
@@ -197,7 +184,7 @@ void teste_reporta_forma(void) {
 void teste_get_correcao_ancora(void) {
   double dx, dy;
   get_correcao_ancora(f1, &dx, &dy);
-  TEST_ASSERT_EQUAL_DOUBLE(get_largura_forma(f1) / 2, dx);
+  TEST_ASSERT_EQUAL_DOUBLE(get_largura_x_forma(f1) / 2, dx);
   TEST_ASSERT_EQUAL_DOUBLE(0.0, dy);
 
   get_correcao_ancora(f2, &dx, &dy);
@@ -342,7 +329,6 @@ int main(void) {
   RUN_TEST(teste_cria_libera_forma);
   RUN_TEST(teste_escreve_forma_svg);
   RUN_TEST(teste_clona_forma);
-  RUN_TEST(teste_troca_cores_forma);
   RUN_TEST(teste_traduz_tipo_forma);
   RUN_TEST(teste_reporta_forma);
   RUN_TEST(teste_get_correcao_ancora);

@@ -35,11 +35,6 @@ void escreve_forma_svg(FILE *fp, Forma f);
 /// @return clone criado
 Forma clona_forma(Forma f);
 
-/// @brief troca as cores de borda e de preenchimento da forma
-/// @pre f != NULL
-/// @param f forma
-void troca_cores_forma(Forma f);
-
 /// @brief retorna o tipo da forma em extenso
 /// @param tipo tipo
 /// @param maiusculo se a primeira letra é maiúscula ou não 

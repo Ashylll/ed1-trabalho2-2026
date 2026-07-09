@@ -280,6 +280,7 @@ int compara_cor_preenchimento(Forma f1, Forma f2) {
   char *cor1 = get_corp_forma(f1);
   char *cor2 = get_corp_forma(f2);
 
+  
   return strcmp(cor1, cor2);
 }
 

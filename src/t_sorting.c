@@ -30,16 +30,16 @@ void setUp(void) {
   fprintf(fp_geo, "c 1 65.0 50.0 10.0 red blue\n");
   fprintf(fp_geo, "r 2 130.0 40.0 30.0 20.0 black yellow\n");
   fprintf(fp_geo, "l 3 100.0 40.0 120.0 100.0 green\n");
-  fprintf(fp_geo, "t 4 10.0 100.0 red blue i maionese\n");
+  fprintf(fp_geo, "t 4 10.0 100.0 red blue start maionese\n");
   fprintf(fp_geo, "c 1 30.0 50.0 10.0 red blue\n");
 
   fprintf(fp_geo, "r 2 90.0 40.0 30.0 20.0 black yellow\n");
   fprintf(fp_geo, "l 3 150.0 40.0 150.0 80.0 green\n");
-  fprintf(fp_geo, "t 4 210.0 40.0 red blue i maionese\n");
+  fprintf(fp_geo, "t 4 210.0 40.0 red blue start maionese\n");
   fprintf(fp_geo, "c 5 270.0 65.0 25.0 purple orange\n");
   fprintf(fp_geo, "r 6 330.0 40.0 40.0 50.0 white gray\n");
   fprintf(fp_geo, "l 7 390.0 40.0 410.0 90.0 pink\n");
-  fprintf(fp_geo, "t 8 450.0 40.0 black white i ketchup\n");
+  fprintf(fp_geo, "t 8 450.0 40.0 black white start ketchup\n");
 
   fclose(fp_geo);
   leitura_geo(path_teste, arvore_teste);
@@ -63,12 +63,12 @@ void teste_compara_formas(void) {
   TEST_ASSERT_EQUAL_INT(1, compara_area(f1, f2));
   TEST_ASSERT_EQUAL_INT(1, compara_largura(f1, f2));
   TEST_ASSERT_EQUAL_INT(-1, compara_altura(f2, f1));
-  TEST_ASSERT_EQUAL_INT(1, compara_cor_preenchimento(f1, f2));
+  TEST_ASSERT_TRUE(compara_cor_preenchimento(f1, f2) > 0);
   libera_forma(&f1);
   libera_forma(&f2);
 
   Circulo c = cria_circulo(1, 4.2, -4.8, 4.0, "#AA1244", "#884466");
-  Texto t = cria_texto(1, 4.2, -4.8, "#AAAAAA", "#88CCAA", 'm', ":3");
+  Texto t = cria_texto(1, 4.2, -4.8, "#AAAAAA", "#88CCAA", "middle", ":3");
   f1 = cria_forma('c', c);
   f2 = cria_forma('t', t);
 
@@ -76,7 +76,7 @@ void teste_compara_formas(void) {
   TEST_ASSERT_EQUAL_INT(-1, compara_area(f2, f1));
   TEST_ASSERT_EQUAL_INT(1, compara_largura(f1, f2));
   TEST_ASSERT_EQUAL_INT(1, compara_altura(f2, f1));
-  TEST_ASSERT_EQUAL_INT(-1, compara_cor_preenchimento(f1, f2));
+  TEST_ASSERT_TRUE(compara_cor_preenchimento(f1, f2) < 0);
 
   libera_forma(&f1);
   libera_forma(&f2);

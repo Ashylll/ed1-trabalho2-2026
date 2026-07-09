@@ -256,16 +256,6 @@ Forma clona_forma(Forma f) {
   }
 }
 
-void troca_cores_forma(Forma f) {
-  if (!f)
-    return;
-  char *corb = get_corb_forma(f);
-  char *corp = get_corp_forma(f);
-
-  set_corb_forma(f, corp);
-  set_corp_forma(f, corb);
-}
-
 char *traduz_tipo_forma(const char tipo, bool maiusculo) {
   if (maiusculo) {
     switch (tipo) {

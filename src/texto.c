@@ -102,6 +102,7 @@ void libera_texto(Texto *t) {
   free(texto->estilo.fWeight);
   free(texto->corb);
   free(texto->corp);
+  free(texto->a);
   free(texto->txto);
 
   free(texto);
