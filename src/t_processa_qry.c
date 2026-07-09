@@ -55,12 +55,13 @@ void teste_comando_sel(void) {
   bool sucesso = processa_qry(path_qry, path_txt, path_svg, formas, formas_marcadores);
   TEST_ASSERT_TRUE(sucesso);
   
-  TEST_ASSERT_TRUE(get_tamanho_arvore(formas_marcadores) > 0);
+  TEST_ASSERT_EQUAL_INT(1, get_tamanho_arvore(formas_marcadores));
 }
 
 void teste_comando_cm(void) {
   path_qry = "teste-cm.qry";
   int tam_antes = get_tamanho_arvore(formas);
+  TEST_ASSERT_EQUAL_INT(10, tam_antes);
 
   fp_qry = fopen(path_qry, "w");
   fprintf(fp_qry, "cm 10.0 10.0 200.0 200.0 300.0 300.0\n");
@@ -70,7 +71,7 @@ void teste_comando_cm(void) {
   TEST_ASSERT_TRUE(sucesso);
 
   int tam_depois = get_tamanho_arvore(formas);
-  TEST_ASSERT_TRUE(tam_depois > tam_antes);
+  TEST_ASSERT_EQUAL_INT(15, tam_depois);
 }
 
 void teste_comando_mc(void) {
